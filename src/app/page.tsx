@@ -47,8 +47,8 @@ export default function Home() {
           </div>
         </div>
       </div> */}
-      <StorySection />
       <AboutSection />
+      <StorySection />
       <ValuePropSection />
       <HowItWorksSection />
       <ClientShowcaseSection />

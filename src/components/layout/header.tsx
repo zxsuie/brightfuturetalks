@@ -1,8 +1,9 @@
+
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/ui/logo";
@@ -20,7 +21,8 @@ export function Header() {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      // Show island navbar after scrolling down a bit
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -30,40 +32,52 @@ export function Header() {
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
-        isScrolled
-          ? "border-b border-border/40 bg-background/95 backdrop-blur-sm"
-          : "bg-background"
+        "flex justify-center"
       )}
     >
-      <div className="container flex h-16 items-center">
+      <div className={cn("container flex h-16 items-center", isScrolled ? "hidden" : "flex")}>
         <div className="mr-auto flex items-center">
           <Link href="/">
             <Logo />
           </Link>
         </div>
-
-        <nav className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="ml-auto hidden items-center gap-2 md:flex">
-          <Button variant="outline" asChild>
-            <Link href="#contact">Contact Sales</Link>
-          </Button>
-          <Button asChild>
+      </div>
+      
+      {/* Island Navbar */}
+      <div
+        className={cn(
+          "fixed top-4 transition-all duration-300 ease-in-out",
+          "transform-gpu",
+          isScrolled ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0",
+          "hidden md:block" // Hide on mobile where we use the sheet menu
+        )}
+      >
+        <div className="flex items-center gap-8 bg-background/80 backdrop-blur-sm shadow-lg border rounded-full px-8 py-3">
+          <Link href="/">
+            <Logo />
+          </Link>
+          <nav className="flex items-center gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <Button size="sm" asChild>
             <Link href="#pricing">Get Started</Link>
           </Button>
         </div>
-
-        <div className="md:hidden ml-4">
+      </div>
+      
+      {/* Mobile Header and Menu */}
+      <div className="container md:hidden flex h-16 items-center justify-between">
+          <Link href="/">
+            <Logo />
+          </Link>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -99,7 +113,8 @@ export function Header() {
             </SheetContent>
           </Sheet>
         </div>
-      </div>
     </header>
   );
 }
+
+    

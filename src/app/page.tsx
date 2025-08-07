@@ -29,7 +29,7 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection />
       <MarqueeSection />
-      <div className="bg-background py-8 sm:py-12">
+      {/* <div className="bg-background py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-center text-lg font-semibold leading-8 text-muted-foreground">
             Helping MSMEs grow and scale their sales operations
@@ -46,7 +46,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
       <StorySection />
       <AboutSection />
       <ValuePropSection />

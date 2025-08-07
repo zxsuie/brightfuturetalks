@@ -12,7 +12,7 @@ import { Check, MoveRight } from "lucide-react";
 import Link from "next/link";
 
 const includedFeatures = [
-  "Dedicated Sales Team",
+  "Dedicated Elite Sales Team",
   "Lead Generation & Qualification",
   "Multi-Channel Outreach",
   "Sales Presentations & Demos",

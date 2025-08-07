@@ -13,6 +13,7 @@ import {
   Award,
   Users,
 } from 'lucide-react';
+import { MarqueeSection } from '@/components/sections/marquee-section';
 
 const clientLogos = [
   { name: 'QuantumLeap', icon: <Rocket /> },
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection />
+      <MarqueeSection />
       <div className="bg-background py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-center text-lg font-semibold leading-8 text-muted-foreground">

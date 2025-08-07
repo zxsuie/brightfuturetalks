@@ -119,8 +119,11 @@ export default {
           '0%': {
             boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)',
           },
-          '100%': {
+          '70%': {
             boxShadow: '0 0 0 12px hsl(var(--primary) / 0)',
+          },
+          '100%': {
+            boxShadow: '0 0 0 0 hsl(var(--primary) / 0)',
           },
         },
       },
@@ -132,7 +135,7 @@ export default {
         'marquee-normal': 'marquee-normal 30s linear infinite',
         'marquee-reverse': 'marquee-reverse 30s linear infinite',
         'pulse-red': 'pulse-red 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'pulse-badge': 'pulse-badge 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-badge': 'pulse-badge 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

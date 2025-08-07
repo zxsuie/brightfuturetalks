@@ -3,11 +3,13 @@ import { Logo } from "@/components/ui/logo";
 import { Github, Twitter, Linkedin, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AnimatedHeroBackground } from "@/components/ui/animated-hero-background";
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t" id="contact">
-      <div className="container py-12 md:py-24">
+    <footer className="relative bg-background border-t overflow-hidden" id="contact">
+      <AnimatedHeroBackground />
+      <div className="container relative z-10 py-12 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16">
           <div className="md:col-span-5 flex flex-col items-start gap-4">
             <Logo />

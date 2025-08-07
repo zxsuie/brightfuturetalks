@@ -50,7 +50,7 @@ export function ValuePropSection() {
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="text-center p-4 border-transparent shadow-[-5px_-5px_10px_#ffffff,5px_5px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_#ffffff,2px_2px_5px_rgba(0,0,0,0.05)] transition-shadow duration-300">
+            <Card key={index} className="text-center p-4 border border-transparent shadow-[-5px_-5px_10px_#ffffff,5px_5px_10px_rgba(0,0,0,0.05)] hover:shadow-primary/20 hover:shadow-lg hover:border-primary hover:-translate-y-2 transition-all duration-300">
               <CardHeader className="items-center">
                 <div className="bg-primary/10 p-3 rounded-full">
                   {feature.icon}

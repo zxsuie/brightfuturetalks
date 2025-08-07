@@ -12,7 +12,7 @@ export function HeroSection() {
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
            <Link href="#pricing" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
                 <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center">
-                    <span className="mr-2">🚀</span> Now accepting new partners.
+                    Now accepting 3 NEW partners!
                 </Badge>
           </Link>
 

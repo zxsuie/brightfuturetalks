@@ -117,7 +117,7 @@ export default {
         },
         'pulse-badge': {
           '0%': {
-            boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)',
+            boxShadow: '0 0 0 0 hsl(var(--primary) / 0.25)',
           },
           '70%': {
             boxShadow: '0 0 0 12px hsl(var(--primary) / 0)',
@@ -135,7 +135,7 @@ export default {
         'marquee-normal': 'marquee-normal 30s linear infinite',
         'marquee-reverse': 'marquee-reverse 30s linear infinite',
         'pulse-red': 'pulse-red 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'pulse-badge': 'pulse-badge 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-badge': 'pulse-badge 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

@@ -117,10 +117,13 @@ export default {
         },
         'pulse-badge': {
           '0%': {
-            boxShadow: '0 0 0 0 hsl(var(--primary) / 0.4)',
+            boxShadow: '0 0 0 0 hsl(var(--primary) / 0.25)',
+          },
+          '70%': {
+            boxShadow: '0 0 0 12px hsl(var(--primary) / 0)',
           },
           '100%': {
-            boxShadow: '0 0 0 12px hsl(var(--primary) / 0)',
+            boxShadow: '0 0 0 0 hsl(var(--primary) / 0)',
           },
         },
       },

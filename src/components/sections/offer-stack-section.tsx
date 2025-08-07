@@ -8,48 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Check, MoveRight } from "lucide-react";
+import Link from "next/link";
 
-const offers = [
-  {
-    title: "Starter",
-    price: "$2,500",
-    description: "For businesses ready to build a consistent lead flow.",
-    features: [
-      "Lead Generation",
-      "Prospect Outreach (Email)",
-      "CRM Setup & Management",
-      "Weekly Reporting",
-    ],
-    isPopular: false,
-  },
-  {
-    title: "Growth",
-    price: "$5,000",
-    description: "For businesses ready to scale their sales operations.",
-    features: [
-      "Everything in Starter",
-      "Multi-channel Outreach",
-      "Sales Presentations & Demos",
-      "Appointment Setting",
-      "Monthly Strategy Calls",
-    ],
-    isPopular: true,
-  },
-  {
-    title: "Full-Scale",
-    price: "Custom",
-    description: "Your complete, outsourced sales department.",
-    features: [
-      "Everything in Growth",
-      "Full Sales Cycle Management",
-      "Closing & Negotiation",
-      "Post-Sale Handoff & Upsell",
-      "Dedicated Account Director",
-    ],
-    isPopular: false,
-  },
+const includedFeatures = [
+  "Dedicated Sales Team",
+  "Lead Generation & Qualification",
+  "Multi-Channel Outreach",
+  "Sales Presentations & Demos",
+  "CRM Management",
+  "Weekly Performance Reports",
 ];
 
 export function OfferStackSection() {
@@ -58,55 +26,45 @@ export function OfferStackSection() {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Invest in Your Growth
+            Simple, Transparent Pricing
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Choose the path that aligns with your goals. Simple, transparent pricing for transformative results.
+            Invest in a complete sales system that grows with your business. No hidden fees, just predictable results.
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {offers.map((offer) => (
-            <Card
-              key={offer.title}
-              className={`flex flex-col shadow-[-5px_-5px_10px_#ffffff,5px_5px_10px_rgba(0,0,0,0.05)] transition-all duration-300 ${
-                offer.isPopular ? "border-primary border-2 -translate-y-4" : ""
-              }`}
-            >
-              <CardHeader className="relative">
-                {offer.isPopular && (
-                  <Badge className="absolute top-0 right-6 translate-y-[-50%]">Most Popular</Badge>
-                )}
-                <CardTitle className="font-headline text-2xl">{offer.title}</CardTitle>
-                <CardDescription>{offer.description}</CardDescription>
+        <div className="mt-16 flex justify-center">
+            <Card className="w-full max-w-2xl shadow-[-5px_-5px_10px_#ffffff,5px_5px_10px_rgba(0,0,0,0.05)] border-primary border-2">
+              <CardHeader className="text-center">
+                <CardDescription>Starts At</CardDescription>
+                <CardTitle className="font-headline text-6xl tracking-tight">
+                  ₱25,000<span className="text-lg font-medium text-muted-foreground tracking-normal">/month</span>
+                </CardTitle>
               </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-6">
-                  <span className="text-5xl font-extrabold font-headline">{offer.price}</span>
-                  {offer.price !== "Custom" && (
-                    <span className="text-muted-foreground">/month</span>
-                  )}
-                </div>
-                <ul className="space-y-3">
-                  {offer.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <Check className="w-5 h-5 text-primary" />
+              <CardContent className="px-8">
+                <p className="text-center text-muted-foreground mb-6">Our packages are tailored to your specific needs. This foundational plan includes:</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                  {includedFeatures.map((feature) => (
+                    <li key={feature} className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-primary flex-shrink-0" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button
-                  className="w-full"
-                  variant={offer.isPopular ? "default" : "outline"}
-                >
-                  {offer.price === "Custom" ? "Contact Us" : "Choose Plan"}
+                <Button className="w-full" size="lg" asChild>
+                  <Link href="#contact">
+                    Get Your Custom Quote
+                    <MoveRight className="ml-2"/>
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
-          ))}
         </div>
+        <p className="text-center mt-8 text-sm text-muted-foreground">
+            Have different needs? We offer custom solutions. <Link href="#contact" className="underline hover:text-primary">Contact us</Link> for a personalized plan.
+        </p>
       </div>
     </AnimatedSection>
   );

@@ -40,7 +40,7 @@ export function ClientShowcaseSection() {
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {teamMembers.map((item, index) => (
-            <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <Card key={index} className="overflow-hidden shadow-lg border border-transparent hover:border-primary hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
               <Image
                 src={item.photo}
                 alt={`Photo of ${item.name}`}

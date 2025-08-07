@@ -10,7 +10,7 @@ export function StorySection() {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current || !textRef.current) return;
-      const { top, height } = containerRef.current.getBoundingClientRect();
+      const { top } = containerRef.current.getBoundingClientRect();
       const scrollY = window.innerHeight;
 
       // Start effect when top of container is in the lower half of the viewport
@@ -20,7 +20,7 @@ export function StorySection() {
       
       const progress = Math.max(0, Math.min(1, (start - top) / (start - end)));
       
-      textRef.current.style.setProperty('--text-progress', `${progress * 100}%`);
+      textRef.current.style.setProperty('--text-progress', `${progress}`);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -37,16 +37,19 @@ export function StorySection() {
             ref={textRef}
             className={cn(
               "font-headline text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]",
-              "text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground",
-              "bg-[length:100%_100%] bg-no-repeat"
+              "[--text-progress:0]"
             )}
-            style={{
-              backgroundSize: 'var(--text-progress, 0%) 100%',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              backgroundImage: 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)))',
-              color: 'hsl(var(--muted-foreground))'
-            } as React.CSSProperties}
+            style={
+              {
+                color: 'hsl(var(--muted-foreground))',
+                '--primary-hsl': 'hsl(var(--primary))',
+                '--muted-foreground-hsl': 'hsl(var(--muted-foreground))',
+                'backgroundClip': 'text',
+                'WebkitBackgroundClip': 'text',
+                'backgroundImage': 'linear-gradient(to right, var(--primary-hsl) calc(var(--text-progress) * 100%), var(--muted-foreground-hsl) calc(var(--text-progress) * 100%))',
+                'color': 'transparent',
+              } as React.CSSProperties
+            }
           >
             Sales shouldn’t be your burden; it should be your system. We envision a world where sales is no longer a source of stress or pressure—but a powerful source of clarity, growth, and connection.
           </p>

@@ -11,7 +11,7 @@ export function HeroSection() {
       <div className="container relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
            <Link href="#testimonials" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
-                <Badge variant="outline" className="py-2 px-4 text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg">
+                <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center">
                     <span className="mr-2">🎉</span> Focus on your business, we'll handle the sales.
                 </Badge>
           </Link>

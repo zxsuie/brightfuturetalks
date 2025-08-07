@@ -10,7 +10,7 @@ const marqueePhrases = [
 ];
 
 const MarqueeItem = ({ text }: { text: string }) => (
-  <span className="mx-5 font-headline text-2xl md:text-4xl font-bold tracking-tight text-foreground/80 [text-shadow:0_0_8px_hsl(var(--primary)/0.3)]">
+  <span className="mx-10 font-headline text-2xl md:text-4xl font-bold tracking-tight text-foreground/80 [text-shadow:0_0_8px_hsl(var(--primary)/0.3)]">
     {text}
   </span>
 );

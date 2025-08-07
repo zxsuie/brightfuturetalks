@@ -25,6 +25,7 @@ export function Header() {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Set initial state
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -35,20 +36,12 @@ export function Header() {
         "flex justify-center"
       )}
     >
-      <div className={cn("container flex h-16 items-center", isScrolled ? "hidden" : "flex")}>
-        <div className="mr-auto flex items-center">
-          <Link href="/">
-            <Logo />
-          </Link>
-        </div>
-      </div>
-      
-      {/* Island Navbar */}
+      {/* Island Navbar for Desktop */}
       <div
         className={cn(
           "fixed top-4 transition-all duration-300 ease-in-out",
           "transform-gpu",
-          isScrolled ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0",
+          isScrolled ? "translate-y-0 opacity-100" : "translate-y-0 opacity-100", // Always visible now
           "hidden md:block" // Hide on mobile where we use the sheet menu
         )}
       >
@@ -116,5 +109,3 @@ export function Header() {
     </header>
   );
 }
-
-    

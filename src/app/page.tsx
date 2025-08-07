@@ -30,8 +30,8 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection />
       <MarqueeSection phrases={marqueePhrases1} direction="normal" />
-      <StorySection />
       <AboutSection />
+      <StorySection />
       <ValuePropSection />
       <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <HowItWorksSection />

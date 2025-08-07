@@ -105,14 +105,23 @@ export default {
           from: { transform: 'translateX(-100%)' },
           to: { transform: 'translateX(0)' },
         },
+        'pulse-red': {
+          '0%, 100%': {
+              boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)',
+          },
+          '50%': {
+              boxShadow: '0 0 0 6px hsl(var(--primary) / 0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
         'blur-in': 'blur-in 0.7s ease-out forwards',
-        'marquee-normal': 'marquee-normal 80s linear infinite',
-        'marquee-reverse': 'marquee-reverse 80s linear infinite',
+        'marquee-normal': 'marquee-normal 40s linear infinite',
+        'marquee-reverse': 'marquee-reverse 40s linear infinite',
+        'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

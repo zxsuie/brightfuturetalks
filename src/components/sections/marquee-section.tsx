@@ -1,14 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AnimatedSection } from "@/components/ui/animated-section";
 
-const marqueePhrases = [
-  "Plug In. Close Sales. Scale Smarter.",
-  "Revenue Engine, Ready To Go.",
-  "You Handle Ops. We Handle Sales.",
-  "From Cold to Closed – We Got You.",
-  "MSMEs Deserve Better Sales Systems.",
-];
-
 const MarqueeItem = ({ text }: { text: string }) => (
   <span className="mx-10 font-headline text-2xl md:text-4xl font-bold tracking-tight text-foreground/80 [text-shadow:0_0_8px_hsl(var(--primary)/0.3)]">
     {text}
@@ -25,16 +17,22 @@ const DiamondSeparator = () => (
     </svg>
 );
 
+interface MarqueeProps {
+  phrases: string[];
+  direction?: 'normal' | 'reverse';
+  className?: string;
+}
 
-export function MarqueeSection() {
-  const marqueeContent = [...marqueePhrases, ...marqueePhrases];
+export function MarqueeSection({ phrases, direction = 'normal', className }: MarqueeProps) {
+  const marqueeContent = [...phrases, ...phrases];
+  const animationClass = direction === 'normal' ? 'animate-marquee-normal' : 'animate-marquee-reverse';
 
   return (
-    <AnimatedSection className="bg-background py-6 md:py-12 border-y">
+    <AnimatedSection className={cn("bg-background py-6 md:py-12 border-y", className)}>
       <div className="relative w-full overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background to-transparent z-10"></div>
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background to-transparent z-10"></div>
-        <div className="group flex animate-marquee-normal hover:[animation-play-state:paused] whitespace-nowrap">
+        <div className={cn("group flex whitespace-nowrap hover:[animation-play-state:paused]", animationClass)}>
             {marqueeContent.map((phrase, index) => (
                 <div key={index} className="flex items-center">
                     <MarqueeItem text={phrase} />
@@ -54,5 +52,3 @@ export function MarqueeSection() {
     </AnimatedSection>
   );
 }
-
-    

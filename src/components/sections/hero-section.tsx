@@ -12,8 +12,8 @@ export function HeroSection() {
       <div className="container relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
            <Link href="#pricing" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
-                <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2">
-                    <Rocket className="h-3 w-3 text-primary animate-pulse-red" />
+                <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2 animate-pulse-badge">
+                    <Rocket className="h-3 w-3 text-primary" />
                     <span>
                       Now accepting 3 <span className="text-primary font-bold">NEW</span> partners!
                     </span>

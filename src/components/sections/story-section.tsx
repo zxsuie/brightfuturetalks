@@ -48,7 +48,7 @@ export function StorySection() {
               color: 'hsl(var(--muted-foreground))'
             } as React.CSSProperties}
           >
-            From nervous whispers to standing ovations. We believe every great idea deserves to be heard, and every speaker has the potential for greatness. Our mission is to unlock that potential.
+            Sales shouldn’t be your burden; it should be your system. We envision a world where sales is no longer a source of stress or pressure—but a powerful source of clarity, growth, and connection.
           </p>
         </div>
       </div>

@@ -11,7 +11,7 @@ export function Footer() {
           <div className="flex flex-col gap-4 items-center md:items-start">
             <Logo />
             <p className="text-muted-foreground text-center md:text-left">
-              Elevating voices, inspiring change.
+              Sales shouldn’t be your burden; it should be your system.
             </p>
           </div>
           <div className="flex gap-2">

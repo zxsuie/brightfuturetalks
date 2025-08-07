@@ -1,21 +1,21 @@
 import { AnimatedSection } from "@/components/ui/animated-section";
-import { Scan, MessageCircle, Presentation } from "lucide-react";
+import { Scan, MessageCircle, Rocket } from "lucide-react";
 
 const steps = [
   {
     icon: <Scan className="w-10 h-10 text-primary" strokeWidth={1.5} />,
-    name: "Discovery & Analysis",
-    description: "We start with a comprehensive assessment of your current speaking style, strengths, and areas for growth. This includes an analysis of past recordings and a deep-dive interview.",
+    name: "Strategy & Setup",
+    description: "We dive deep into your business, market, and goals to build a custom sales playbook and set up your CRM for success.",
   },
   {
     icon: <MessageCircle className="w-10 h-10 text-primary" strokeWidth={1.5} />,
-    name: "Personalized Coaching",
-    description: "Based on the initial analysis, we develop a custom coaching plan with one-on-one sessions, targeted exercises, and real-time feedback to refine your skills.",
+    name: "Execution & Outreach",
+    description: "Our team executes the plan, handling lead generation, outreach, and nurturing conversations to build a pipeline of qualified opportunities.",
   },
   {
-    icon: <Presentation className="w-10 h-10 text-primary" strokeWidth={1.5} />,
-    name: "Performance & Polish",
-    description: "We pressure-test your new skills with mock presentations and Q&A sessions, ensuring you're fully prepared and confident for any high-stakes speaking engagement.",
+    icon: <Rocket className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+    name: "Closing & Scaling",
+    description: "We close deals on your behalf, providing detailed reporting and insights so we can continuously optimize and scale your revenue.",
   },
 ];
 
@@ -28,7 +28,7 @@ export function HowItWorksSection() {
             Our Proven Process
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            A clear path from uncertainty to unshakable confidence. Our three-step process is designed for maximum impact and lasting results.
+            A clear path from zero pipeline to consistent revenue. Our three-step process is designed for maximum impact and predictable growth.
           </p>
         </div>
 

@@ -13,39 +13,40 @@ import { Badge } from "@/components/ui/badge";
 
 const offers = [
   {
-    title: "Keynote Polish",
-    price: "$1,500",
-    description: "For perfecting a single, high-stakes presentation.",
+    title: "Starter",
+    price: "$2,500",
+    description: "For businesses ready to build a consistent lead flow.",
     features: [
-      "2-hour diagnostic session",
-      "3 one-on-one coaching sessions",
-      "Speech writing & editing support",
-      "Full dress rehearsal",
+      "Lead Generation",
+      "Prospect Outreach (Email)",
+      "CRM Setup & Management",
+      "Weekly Reporting",
     ],
     isPopular: false,
   },
   {
-    title: "Executive Presence",
-    price: "$4,500",
-    description: "A 3-month program for comprehensive communication mastery.",
+    title: "Growth",
+    price: "$5,000",
+    description: "For businesses ready to scale their sales operations.",
     features: [
-      "Everything in Keynote Polish",
-      "12 weekly coaching sessions",
-      "Media & on-camera training",
-      "Leadership communication strategy",
-      "Unlimited email support",
+      "Everything in Starter",
+      "Multi-channel Outreach",
+      "Sales Presentations & Demos",
+      "Appointment Setting",
+      "Monthly Strategy Calls",
     ],
     isPopular: true,
   },
   {
-    title: "Corporate Training",
+    title: "Full-Scale",
     price: "Custom",
-    description: "Empower your entire team with elite communication skills.",
+    description: "Your complete, outsourced sales department.",
     features: [
-      "Custom curriculum for your team",
-      "Group workshops & breakout sessions",
-      "Individual 'hot seat' coaching",
-      "Post-training resource library",
+      "Everything in Growth",
+      "Full Sales Cycle Management",
+      "Closing & Negotiation",
+      "Post-Sale Handoff & Upsell",
+      "Dedicated Account Director",
     ],
     isPopular: false,
   },
@@ -57,7 +58,7 @@ export function OfferStackSection() {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Invest in Your Voice
+            Invest in Your Growth
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
             Choose the path that aligns with your goals. Simple, transparent pricing for transformative results.
@@ -83,7 +84,7 @@ export function OfferStackSection() {
                 <div className="mb-6">
                   <span className="text-5xl font-extrabold font-headline">{offer.price}</span>
                   {offer.price !== "Custom" && (
-                    <span className="text-muted-foreground">/engagement</span>
+                    <span className="text-muted-foreground">/month</span>
                   )}
                 </div>
                 <ul className="space-y-3">

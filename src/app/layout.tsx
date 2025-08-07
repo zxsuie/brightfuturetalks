@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/footer';
 
 export const metadata: Metadata = {
   title: 'Bright Future Talks',
-  description: 'Public speaking and communication coaching.',
+  description: 'Sales-as-a-Service for MSME business owners.',
 };
 
 export default function RootLayout({

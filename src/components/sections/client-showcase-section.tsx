@@ -6,22 +6,22 @@ import { PlayCircle, Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah Chen",
-    title: "CEO, Stellar Solutions",
+    name: "Alex Johnson",
+    title: "Founder, Innovate Co.",
     avatar: "https://placehold.co/100x100.png",
     videoThumbnail: "https://placehold.co/600x400.png",
-    testimonial: "The coaching was a game-changer. My keynote at the annual tech summit received a standing ovation. Invaluable!",
-    stats: { before: "25% engagement", after: "90% engagement" },
-    aiHint: "professional woman"
+    testimonial: "Partnering with Bright Future Talks was the best decision for our growth. Our sales have tripled, and I can finally focus on product.",
+    stats: { before: "10 leads/month", after: "75+ leads/month" },
+    aiHint: "startup founder"
   },
   {
-    name: "David Lee",
-    title: "Product Lead, Nexus Corp",
+    name: "Maria Garcia",
+    title: "Owner, Creative Solutions",
     avatar: "https://placehold.co/100x100.png",
     videoThumbnail: "https://placehold.co/600x400.png",
-    testimonial: "I went from dreading presentations to looking forward to them. My team is more engaged, and our product demos have never been better.",
-    stats: { before: "5 min avg. view", after: "25 min avg. view" },
-    aiHint: "man tech"
+    testimonial: "I used to hate selling. Now, it's a system that runs without me. Revenue is up 200% and I'm no longer stressed about making payroll.",
+    stats: { before: "5% close rate", after: "25% close rate" },
+    aiHint: "creative director"
   },
 ];
 

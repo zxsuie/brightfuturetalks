@@ -12,22 +12,21 @@ export function HeroSection() {
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
            <Link href="#testimonials">
             <Badge variant="outline" className="py-2 px-4 rounded-full text-sm hover:bg-accent transition-colors">
-                <span className="mr-2">🎉</span> Over 200+ success stories
+                <span className="mr-2">🎉</span> Focus on your business, we'll handle the sales.
             </Badge>
           </Link>
 
           <h1 className="font-headline text-5xl font-extrabold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
-            Unleash Your Voice
+            Sales, Systematized.
           </h1>
           <p className="max-w-2xl text-muted-foreground md:text-xl">
-            Master the art of communication with personalized coaching. We help you
-            captivate any audience with confidence and clarity.
+            Stop worrying about sales. We provide a complete, outsourced sales team to help you grow your business and build lasting customer relationships.
           </p>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-4 animate-fade-in-up [animation-delay:0.2s]">
           <Button size="lg" asChild>
             <Link href="#pricing">
-              Start Your Journey
+              Get Your Sales System
               <MoveRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

@@ -20,28 +20,25 @@ export function AboutSection() {
           <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src="https://placehold.co/800x1000.png"
-              alt="Founder portrait"
+              alt="Team collaborating on sales strategy"
               fill
               className="object-cover"
-              data-ai-hint="portrait professional"
+              data-ai-hint="team business meeting"
               style={{ transform: `translateY(${offsetY * 0.1}px)` }}
             />
           </div>
           <div className="text-center lg:text-left">
             <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Meet Our Founder
+              Our Mission: Your Growth
             </h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              With over 15 years of experience on international stages, our founder, Jane Doe, has coached CEOs, TEDx speakers, and emerging leaders to deliver their most impactful presentations.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-muted-foreground">
-              Her passion for authentic communication and dynamic storytelling is the foundation of Bright Future Talks.
+              To empower businesses to grow their revenue through smart, heart-led, and data-driven sales strategies that not only boost profits but also build meaningful relationships, elevate customer experiences, and create long-term value for all.
             </p>
             <div className="mt-8">
                 <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground">
-                    "The right words, delivered with confidence, can change the world. My goal is to help you find both."
+                    "When strategy meets sincerity, everyone wins—from the boardroom to the buyer. We are your partners in creating that win-win."
                 </blockquote>
-                <p className="mt-2 font-semibold text-foreground">- Jane Doe</p>
+                <p className="mt-2 font-semibold text-foreground">- The Bright Future Talks Team</p>
             </div>
           </div>
         </div>

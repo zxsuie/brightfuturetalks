@@ -1,37 +1,37 @@
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Award, BrainCircuit, Heart, Mic, Video, Users } from "lucide-react";
+import { Target, Search, Phone, Presentation, Handshake, Users } from "lucide-react";
 
 const features = [
   {
-    icon: <Mic strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "Vocal Power",
-    description: "Develop a commanding and versatile voice that engages and persuades.",
+    icon: <Search strokeWidth={1.5} className="w-8 h-8 text-primary" />,
+    title: "Lead Generation",
+    description: "We find and qualify high-quality leads that fit your ideal customer profile.",
   },
   {
-    icon: <Heart strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "Authentic Storytelling",
-    description: "Connect with your audience on an emotional level through powerful narratives.",
+    icon: <Phone strokeWidth={1.5} className="w-8 h-8 text-primary" />,
+    title: "Prospect Outreach",
+    description: "Engaging potential customers through calls, emails, and social media.",
   },
   {
-    icon: <Award strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "Stage Presence",
-    description: "Master body language and stage movement to project confidence and charisma.",
+    icon: <Presentation strokeWidth={1.5} className="w-8 h-8 text-primary" />,
+    title: "Sales Demos",
+    description: "Presenting your product's value with compelling and persuasive demonstrations.",
   },
   {
-    icon: <Video strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "On-Camera Excellence",
-    description: "Excel in virtual presentations, webinars, and media appearances.",
-  },
-  {
-    icon: <BrainCircuit strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "Mindset Mastery",
-    description: "Overcome stage fright and performance anxiety with proven techniques.",
+    icon: <Handshake strokeWidth={1.5} className="w-8 h-8 text-primary" />,
+    title: "Closing Sales",
+    description: "Our expert closers turn qualified leads into loyal, paying customers.",
   },
   {
     icon: <Users strokeWidth={1.5} className="w-8 h-8 text-primary" />,
-    title: "Audience Analysis",
-    description: "Learn to read your audience and adapt your message for maximum impact.",
+    title: "CRM Management",
+    description: "Keeping your sales pipeline organized and your data clean for smart insights.",
+  },
+  {
+    icon: <Target strokeWidth={1.5} className="w-8 h-8 text-primary" />,
+    title: "Upselling & Handoff",
+    description: "Maximizing customer value and ensuring a smooth transition to your team.",
   },
 ];
 
@@ -41,10 +41,10 @@ export function ValuePropSection() {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Transform Your Communication
+            Your Complete Sales Engine
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            We provide a holistic approach to public speaking, focusing on every facet of what makes a presenter truly exceptional.
+            We cover every step of the sales process, so you can focus on what you do best: running your business.
           </p>
         </div>
 

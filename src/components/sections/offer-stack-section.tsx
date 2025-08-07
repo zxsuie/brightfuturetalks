@@ -38,7 +38,7 @@ export function OfferStackSection() {
               <CardHeader className="text-center">
                 <CardDescription>Starts At</CardDescription>
                 <CardTitle className="font-headline text-6xl tracking-tight">
-                  ₱25,000<span className="text-lg font-medium text-muted-foreground tracking-normal">/month</span>
+                  $500<span className="text-lg font-medium text-muted-foreground tracking-normal">/month</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-8">

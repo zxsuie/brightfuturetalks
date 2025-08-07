@@ -98,8 +98,8 @@ export default {
           },
         },
         'marquee-normal': {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
         },
       },
       animation: {
@@ -107,7 +107,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
         'blur-in': 'blur-in 0.7s ease-out forwards',
-        'marquee-normal': 'marquee-normal 40s linear infinite',
+        'marquee-normal': 'marquee-normal 120s linear infinite',
       },
     },
   },

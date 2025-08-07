@@ -5,14 +5,7 @@ import { ValuePropSection } from '@/components/sections/value-prop-section';
 import { ClientShowcaseSection } from '@/components/sections/client-showcase-section';
 import { HowItWorksSection } from '@/components/sections/how-it-works-section';
 import { OfferStackSection } from '@/components/sections/offer-stack-section';
-import {
-  Briefcase,
-  Rocket,
-  MessageSquare,
-  TrendingUp,
-  Award,
-  Users,
-} from 'lucide-react';
+import { FaqSection } from '@/components/sections/faq-section';
 import { MarqueeSection } from '@/components/sections/marquee-section';
 
 const marqueePhrases1 = [
@@ -37,13 +30,14 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection />
       <MarqueeSection phrases={marqueePhrases1} direction="normal" />
-      <AboutSection />
       <StorySection />
+      <AboutSection />
       <ValuePropSection />
       <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <HowItWorksSection />
       <ClientShowcaseSection />
       <OfferStackSection />
+      <FaqSection />
     </div>
   );
 }

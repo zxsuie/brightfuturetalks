@@ -106,11 +106,21 @@ export default {
           to: { transform: 'translateX(0)' },
         },
         'pulse-red': {
-          '0%, 100%': {
-              boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)',
+           '0%, 100%': {
+              transform: 'scale(1)',
+              filter: 'brightness(100%)',
           },
           '50%': {
-              boxShadow: '0 0 0 6px hsl(var(--primary) / 0)',
+            transform: 'scale(1.1)',
+            filter: 'brightness(150%)',
+          },
+        },
+        'pulse-badge': {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 hsl(var(--primary) / 0.5)',
+          },
+          '50%': {
+            boxShadow: '0 0 0 10px hsl(var(--primary) / 0)',
           },
         },
       },
@@ -121,7 +131,8 @@ export default {
         'blur-in': 'blur-in 0.7s ease-out forwards',
         'marquee-normal': 'marquee-normal 40s linear infinite',
         'marquee-reverse': 'marquee-reverse 40s linear infinite',
-        'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-red': 'pulse-red 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-badge': 'pulse-badge 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

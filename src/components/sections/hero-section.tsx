@@ -3,6 +3,7 @@ import { AnimatedHeroBackground } from "@/components/ui/animated-hero-background
 import Link from "next/link";
 import { MoveRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export function HeroSection() {
   return (
@@ -11,7 +12,7 @@ export function HeroSection() {
       <div className="container relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
            <Link href="#pricing" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
-                <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2">
+                <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2 animate-pulse-badge">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-pulse-red absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>

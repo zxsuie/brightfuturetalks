@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -47,7 +46,9 @@ export function Header() {
       >
         <div className="flex items-center gap-8 bg-background/80 backdrop-blur-sm shadow-lg border rounded-full px-8 py-3">
           <Link href="/">
-            <Logo />
+            <span className="text-lg font-headline font-bold">
+              Bright Future Talks
+            </span>
           </Link>
           <nav className="flex items-center gap-6">
             {navLinks.map((link) => (
@@ -69,7 +70,9 @@ export function Header() {
       {/* Mobile Header and Menu */}
       <div className="container md:hidden flex h-16 items-center justify-between">
           <Link href="/">
-            <Logo />
+             <span className="text-lg font-headline font-bold">
+              Bright Future Talks
+            </span>
           </Link>
           <Sheet>
             <SheetTrigger asChild>
@@ -81,7 +84,9 @@ export function Header() {
             <SheetContent side="right" className="w-[80%]">
               <div className="flex flex-col h-full p-4">
                 <div className="flex justify-between items-center mb-8">
-                  <Logo />
+                   <span className="text-lg font-headline font-bold">
+                    Bright Future Talks
+                  </span>
                 </div>
                 <nav className="flex flex-col items-start gap-6 mb-auto">
                   {navLinks.map((link) => (

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Logo } from "@/components/ui/logo";
 import { Github, Twitter, Linkedin, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,9 @@ export function Footer() {
       <div className="container relative z-10 py-12 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16">
           <div className="md:col-span-5 flex flex-col items-start gap-4">
-            <Logo />
+            <span className="text-lg font-headline font-bold">
+              Bright Future Talks
+            </span>
             <h3 className="font-headline text-2xl font-bold">
               Ready to build your sales engine?
             </h3>

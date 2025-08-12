@@ -8,8 +8,8 @@ import { Quote, MoveRight } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Lizzy Smith",
-    title: "Senior Sales Executive",
+    name: "Ms. Leizl Sigua",
+    title: "Account Manager",
     avatar: "/MsLizzy.png",
     photo: "/MsLizzy.png",
     story: "From acquiring knowledge to boosting everyone’s confidence up to closing sales. Bright Future Talks is a fun-learning sales environment that I am motivated every training to discuss about mindset strategies for keeping the team engaged.",

@@ -30,7 +30,7 @@ export function Footer() {
 
       <div className="container py-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2">
-          <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={180} height={30} className="h-8 w-auto" />
+          <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={180} height={30} className="h-7 w-auto" />
         </div>
         <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
             <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link>

@@ -62,7 +62,7 @@ export function Footer() {
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <Link href="#" aria-label="TikTok">
+              <Link href="https://www.tiktok.com/@bright.future.tal8?_t=ZS-8ypF2uZ6exe&_r=1" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                 <TiktokIcon className="h-5 w-5" />
               </Link>
             </Button>

@@ -1,8 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Github, Linkedin, MoveRight } from "lucide-react";
+import { Facebook, Linkedin, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+
+const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16.6 5.82s.51.5 0 0A4.27 4.27 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.59A2.59 2.59 0 0 1 7.27 15.4a2.59 2.59 0 0 1 2.59-2.59h.23V9.72h-.23A5.68 5.68 0 0 0 4 15.4a5.68 5.68 0 0 0 5.68 5.68A5.68 5.68 0 0 0 15.4 15.4V9.94a7.35 7.35 0 0 0 4.3 1.46V8.3s-1.88-.12-3.23-1.54Z" />
+  </svg>
+);
+
 
 export function Footer() {
   return (
@@ -46,8 +62,8 @@ export function Footer() {
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <Link href="#" aria-label="GitHub">
-                <Github className="h-5 w-5" />
+              <Link href="#" aria-label="TikTok">
+                <TiktokIcon className="h-5 w-5" />
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>

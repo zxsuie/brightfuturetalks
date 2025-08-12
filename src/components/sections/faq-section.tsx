@@ -8,31 +8,77 @@ import {
 
 const faqItems = [
   {
-    question: "What types of businesses do you typically partner with?",
+    question: "What is Sales-as-a-Service (SaaS) and how does it work?",
     answer:
-      "We specialize in working with Micro, Small, and Medium-sized Enterprises (MSMEs) across various industries. Our ideal partners are businesses that have a proven product or service but lack the internal resources or expertise to build a scalable sales engine.",
+      "Sales-as-a-Service means we act as your outsourced sales team, plugging into your business to generate leads, nurture relationships, and close deals — without the overhead of hiring a full in-house team.",
   },
   {
-    question: "How long does it take to see tangible results?",
+    question: "Who can benefit from your service?",
     answer:
-      "While every business is unique, our partners typically see improvements in their sales pipeline and lead quality within the first few weeks. Significant revenue growth and a predictable sales system are usually established within the first 3-6 months as we fully ramp up our operations.",
+      "We work with B2B companies, startups, and growing businesses that need a dedicated sales team but don’t have the resources, time, or expertise to build one from scratch.",
   },
   {
-    question: "What is included in the monthly package?",
+    question: "How do you integrate with my business?",
     answer:
-      "Our service is a comprehensive Sales-as-a-Service solution. It includes a dedicated sales team, lead generation technology, CRM setup and management, strategic planning, and detailed performance reporting. We handle the entire sales cycle, from prospecting to closing deals.",
+      "We learn your products, services, and brand voice, then align our strategies with your goals. Think of us as your remote sales department working under your banner.",
   },
   {
-    question: "Can I customize the plan based on my specific needs?",
-    answer:
-      "Absolutely. Our standard package serves as a foundation, but we tailor every engagement to our client's specific goals, market, and budget. We'll work with you to create a custom quote and plan that aligns perfectly with your business objectives.",
+    question: "Do you specialize in specific industries?",
+    answer: "While we can adapt to many industries.",
   },
   {
-    question: "How do we stay updated on the progress?",
+    question: "How do you generate leads?",
     answer:
-      "Transparency is key to our partnership. We provide weekly performance reports, hold regular strategy calls to discuss progress and insights, and offer a shared communication channel (like Slack) for real-time updates and collaboration with your dedicated sales team.",
+      "We use a combination of data-driven prospecting, CRM automation, social selling, and cold outreach.",
+  },
+  {
+    question: "How do you ensure quality leads and not just quantity?",
+    answer:
+      "We use a lead scoring system to qualify prospects based on their fit, intent, and engagement before handing them over to your team (or closing the sale ourselves).",
+  },
+  {
+    question: "Can you handle the full sales cycle?",
+    answer:
+      "Yes — from lead generation and outreach to follow-ups, demos, negotiations, and closing deals.",
+  },
+  {
+    question: "How is pricing structured?",
+    answer:
+      "Our packages are flexible — you can choose on different packages depending on the needs of our client.",
+  },
+  {
+    question: "How do you measure success?",
+    answer:
+      "We track KPIs like leads generated, conversion rates, revenue closed, and ROI, and provide transparent reports so you see exactly what’s working.",
+  },
+  {
+    question: "Will you represent my brand or your own?",
+    answer:
+      "We represent your brand. All communications, presentations, and sales activities are done as if we’re part of your in-house team.",
+  },
+  {
+    question: "How do you train your salespeople to understand my business?",
+    answer:
+      "We conduct an in-depth onboarding session, review your sales materials, and even shadow your team to fully grasp your offers, target market, and tone.",
+  },
+  {
+    question: "Can you help with sales strategy as well?",
+    answer:
+      "Yes — we don’t just execute, we also help create and refine your sales strategy for better long-term results.",
+  },
+  {
+    question: "How do you handle client data and privacy?",
+    answer:
+      "We follow strict data protection standards and can sign NDAs to ensure all client and prospect information is secure.",
+  },
+  {
+    question:
+      "Can I scale up or down the service depending on my business growth?",
+    answer:
+      "Yes — we offer flexible contracts so you can scale our team up during peak seasons and scale down when needed.",
   },
 ];
+
 
 export function FaqSection() {
   return (

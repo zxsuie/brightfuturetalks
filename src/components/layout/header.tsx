@@ -67,48 +67,50 @@ export function Header() {
       </div>
       
       {/* Mobile Header and Menu */}
-      <div className="container md:hidden flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7 w-auto" />
-          </Link>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[80%]">
-              <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-              <SheetDescription className="sr-only">
-                A sliding menu for mobile navigation.
-              </SheetDescription>
-              <div className="flex flex-col h-full p-4">
-                <div className="flex justify-start items-center mb-8 gap-2">
-                   <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7 w-auto" />
+      <div className="w-full md:hidden bg-background/80 backdrop-blur-sm">
+        <div className="container flex h-16 items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7 w-auto" />
+            </Link>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[80%]">
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  A sliding menu for mobile navigation.
+                </SheetDescription>
+                <div className="flex flex-col h-full p-4">
+                  <div className="flex justify-start items-center mb-8 gap-2">
+                     <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7 w-auto" />
+                  </div>
+                  <nav className="flex flex-col items-start gap-6 mb-auto">
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="text-lg font-medium text-foreground transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </nav>
+                  <div className="flex flex-col gap-2">
+                    <Button variant="outline" asChild>
+                      <Link href="#contact">Contact Sales</Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href="#pricing">Get Started</Link>
+                    </Button>
+                  </div>
                 </div>
-                <nav className="flex flex-col items-start gap-6 mb-auto">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="text-lg font-medium text-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-                <div className="flex flex-col gap-2">
-                  <Button variant="outline" asChild>
-                    <Link href="#contact">Contact Sales</Link>
-                  </Button>
-                  <Button asChild>
-                    <Link href="#pricing">Get Started</Link>
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
     </header>
   );

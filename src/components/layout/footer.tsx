@@ -66,11 +66,6 @@ export function Footer() {
                 <TiktokIcon className="h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="#" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </Link>
-            </Button>
         </div>
       </div>
        <div className="pb-8 text-center text-sm text-muted-foreground">

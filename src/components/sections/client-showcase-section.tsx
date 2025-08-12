@@ -76,7 +76,7 @@ export function ClientShowcaseSection() {
           </p>
           <div className="mt-8">
             <Button size="lg" asChild>
-              <Link href="#contact">
+              <Link href="https://cal.com/brightfuturetalks/interview-with-ms.-rej" target="_blank" rel="noopener noreferrer">
                 Join Our Team
                 <MoveRight className="ml-2"/>
               </Link>

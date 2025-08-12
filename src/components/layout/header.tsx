@@ -60,7 +60,7 @@ export function Header() {
               </Link>
             ))}
           </nav>
-          <Button size="sm" asChild>
+          <Button size="sm" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
             <Link href="#pricing">Get Started</Link>
           </Button>
         </div>
@@ -103,7 +103,7 @@ export function Header() {
                     <Button variant="outline" asChild>
                       <Link href="#contact">Contact Sales</Link>
                     </Button>
-                    <Button asChild>
+                    <Button asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
                       <Link href="#pricing">Get Started</Link>
                     </Button>
                   </div>

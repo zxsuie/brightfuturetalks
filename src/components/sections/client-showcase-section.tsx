@@ -44,8 +44,8 @@ export function ClientShowcaseSection() {
               <Image
                 src={item.photo}
                 alt={`Photo of ${item.name}`}
-                width={600}
-                height={400}
+                width={1200}
+                height={800}
                 className="w-full object-cover"
                 data-ai-hint={item.aiHint}
               />

@@ -16,12 +16,12 @@ const teamMembers = [
     aiHint: "sales executive woman"
   },
   {
-    name: "David Chen",
-    title: "Sales Development Lead",
+    name: "Ken Padilla",
+    title: "Sales Intern",
     avatar: "/MsLizzy.png",
     photo: "/MsLizzy.png",
     story: "Though I wasn't sure how I would adjust when I started working at Bright Future Talks, this organization eventually served as the cornerstone of both my career and personal development.  I gained new abilities, increased my self-confidence, and realized my potential with the help of encouraging mentors, practical instruction, and an environment that encourages creativity and teamwork.",
-    aiHint: "team lead man"
+    aiHint: "sales intern man"
   },
 ];
 

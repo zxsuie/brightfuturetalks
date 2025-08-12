@@ -53,7 +53,7 @@ export function OfferStackSection() {
               </CardContent>
               <CardFooter>
                 <Button className="w-full" size="lg" asChild>
-                  <Link href="#contact">
+                  <Link href="https://cal.com/brightfuturetalks/bright-future-session" target="_blank" rel="noopener noreferrer">
                     <CalendarDays className="mr-2"/>
                     Book Your Free Strategy Call
                   </Link>

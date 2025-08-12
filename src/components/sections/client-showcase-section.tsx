@@ -75,7 +75,7 @@ export function ClientShowcaseSection() {
             We're always looking for ambitious, talented individuals to join our world-class sales team. If you're ready for growth, we're ready for you.
           </p>
           <div className="mt-8">
-            <Button size="lg" asChild>
+            <Button size="lg" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
               <Link href="https://cal.com/brightfuturetalks/interview-with-ms.-rej" target="_blank" rel="noopener noreferrer">
                 Join Our Team
                 <MoveRight className="ml-2"/>

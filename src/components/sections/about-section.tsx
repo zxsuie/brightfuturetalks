@@ -20,25 +20,25 @@ export function AboutSection() {
           <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src="https://placehold.co/800x1000.png"
-              alt="Team collaborating on sales strategy"
+              alt="Founder of Bright Future Talks"
               fill
               className="object-cover"
-              data-ai-hint="team business meeting"
+              data-ai-hint="founder portrait professional"
               style={{ transform: `translateY(${offsetY * 0.1}px)` }}
             />
           </div>
           <div className="text-center lg:text-left">
             <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Our Mission: Your Growth
+              Built From Experience
             </h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              To empower businesses to grow their revenue through smart, heart-led, and data-driven sales strategies that not only boost profits but also build meaningful relationships, elevate customer experiences, and create long-term value for all.
+              After a decade leading enterprise sales teams, our founder saw a gap. While large corporations had powerful sales systems, the most innovative small and medium-sized businesses were left to fend for themselves. Bright Future Talks was born from a simple belief: every great business deserves a world-class sales engine.
             </p>
             <div className="mt-8">
                 <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground">
-                    "When strategy meets sincerity, everyone wins—from the boardroom to the buyer. We are your partners in creating that win-win."
+                    "I saw too many brilliant entrepreneurs burn out trying to be their own sales team. I knew there had to be a better way—a system that was both high-tech and high-touch. That's what we build for our partners."
                 </blockquote>
-                <p className="mt-2 font-semibold text-foreground">- The Bright Future Talks Team</p>
+                <p className="mt-2 font-semibold text-foreground">- Alex Chen, Founder of Bright Future Talks</p>
             </div>
           </div>
         </div>

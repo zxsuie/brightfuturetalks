@@ -8,6 +8,9 @@ import { Footer } from '@/components/layout/footer';
 export const metadata: Metadata = {
   title: 'Bright Future Talks',
   description: 'Sales-as-a-Service for MSME business owners.',
+  icons: {
+    icon: '/bfticon.png',
+  },
 };
 
 export default function RootLayout({

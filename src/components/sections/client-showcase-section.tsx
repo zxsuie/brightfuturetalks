@@ -12,7 +12,7 @@ const teamMembers = [
     title: "Senior Sales Executive",
     avatar: "/MsLizzy.png",
     photo: "/MsLizzy.png",
-    story: "Before Bright Future, I struggled with inconsistent income. The systems here gave me the structure to not just meet, but consistently exceed my goals. I've grown more in two years than I did in the five years prior.",
+    story: "From acquiring knowledge to boosting everyone’s confidence up to closing sales. Bright Future Talks is a fun-learning sales environment that I am motivated every training to discuss about mindset strategies for keeping the team engaged.",
     aiHint: "sales executive woman"
   },
   {

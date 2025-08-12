@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Bright Future Talks',
   description: 'Sales-as-a-Service for MSME business owners.',
   icons: {
-    icon: 'public/bfticon.png',
+    icon: '/bfticon.png',
   },
 };
 

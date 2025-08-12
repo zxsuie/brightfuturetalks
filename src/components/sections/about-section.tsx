@@ -19,7 +19,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="https://placehold.co/800x1000.png"
+              src="/photos/REJ.png"
               alt="Founder of Bright Future Talks"
               fill
               className="object-cover"

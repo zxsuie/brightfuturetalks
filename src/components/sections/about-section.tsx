@@ -38,7 +38,7 @@ export function AboutSection() {
                 <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground">
                     "I saw too many brilliant entrepreneurs burn out trying to be their own sales team. I knew there had to be a better way—a system that was both high-tech and high-touch. That's what we build for our partners."
                 </blockquote>
-                <p className="mt-2 font-semibold text-foreground">- Alex Chen, Founder of Bright Future Talks</p>
+                <p className="mt-2 font-semibold text-foreground">- Regina Sultan, Founder of Bright Future Talks</p>
             </div>
           </div>
         </div>

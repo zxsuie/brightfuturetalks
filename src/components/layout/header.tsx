@@ -47,7 +47,7 @@ export function Header() {
       >
         <div className="flex items-center gap-8 bg-background/80 backdrop-blur-sm shadow-lg border rounded-full px-8 py-3">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={150} height={24} className="h-6" />
+            <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={150} height={24} className="h-6" />
           </Link>
           <nav className="flex items-center gap-6">
             {navLinks.map((link) => (
@@ -69,7 +69,7 @@ export function Header() {
       {/* Mobile Header and Menu */}
       <div className="container md:hidden flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7" />
+            <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7" />
           </Link>
           <Sheet>
             <SheetTrigger asChild>
@@ -85,7 +85,7 @@ export function Header() {
               </SheetDescription>
               <div className="flex flex-col h-full p-4">
                 <div className="flex justify-start items-center mb-8 gap-2">
-                   <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7" />
+                   <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={160} height={28} className="h-7" />
                 </div>
                 <nav className="flex flex-col items-start gap-6 mb-auto">
                   {navLinks.map((link) => (

@@ -28,7 +28,7 @@ export function HeroSection() {
           </p>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-4 animate-fade-in-up [animation-delay:0.2s]">
-          <Button size="lg" asChild>
+          <Button size="lg" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
             <Link href="#pricing">
               Get Your Sales System
               <MoveRight className="ml-2 h-5 w-5" />

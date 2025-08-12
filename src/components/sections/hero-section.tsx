@@ -34,7 +34,7 @@ export function HeroSection() {
               <MoveRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" asChild className="transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-primary/20 hover:-translate-y-1">
             <Link href="#process">See How It Works</Link>
           </Button>
         </div>

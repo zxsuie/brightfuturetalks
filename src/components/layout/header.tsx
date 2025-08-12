@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -85,6 +85,10 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[80%]">
+              <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+              <SheetDescription className="sr-only">
+                A sliding menu for mobile navigation.
+              </SheetDescription>
               <div className="flex flex-col h-full p-4">
                 <div className="flex justify-start items-center mb-8 gap-2">
                    <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={28} height={28} className="h-7 w-7" />

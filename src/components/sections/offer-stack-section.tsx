@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check, MoveRight } from "lucide-react";
+import { Check, CalendarDays } from "lucide-react";
 import Link from "next/link";
 
 const includedFeatures = [
@@ -26,23 +26,22 @@ export function OfferStackSection() {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Simple, Transparent Pricing
+            Ready to Build Your Growth Engine?
           </h2>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Invest in a complete sales system that grows with your business. No hidden fees, just predictable results.
+            Schedule a free, no-obligation strategy session with our experts. We'll dive into your business challenges and map out a clear path to scalable revenue.
           </p>
         </div>
 
         <div className="mt-16 flex justify-center">
             <Card className="w-full max-w-2xl shadow-[-5px_-5px_10px_#ffffff,5px_5px_10px_rgba(0,0,0,0.05)] border-primary border-2">
               <CardHeader className="text-center">
-                <CardDescription>Starts At</CardDescription>
-                <CardTitle className="font-headline text-6xl tracking-tight">
-                  $500<span className="text-lg font-medium text-muted-foreground tracking-normal">/month</span>
+                <CardTitle className="font-headline text-3xl tracking-tight">
+                  Your Custom Sales Solution
                 </CardTitle>
+                 <CardDescription>Every partnership is tailored for success and includes:</CardDescription>
               </CardHeader>
               <CardContent className="px-8">
-                <p className="text-center text-muted-foreground mb-6">Our packages are tailored to your specific needs. This foundational plan includes:</p>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                   {includedFeatures.map((feature) => (
                     <li key={feature} className="flex items-center gap-3">
@@ -55,15 +54,15 @@ export function OfferStackSection() {
               <CardFooter>
                 <Button className="w-full" size="lg" asChild>
                   <Link href="#contact">
-                    Get Your Custom Quote
-                    <MoveRight className="ml-2"/>
+                    <CalendarDays className="mr-2"/>
+                    Book Your Free Strategy Call
                   </Link>
                 </Button>
               </CardFooter>
             </Card>
         </div>
         <p className="text-center mt-8 text-sm text-muted-foreground">
-            Have different needs? We offer custom solutions. <Link href="#contact" className="underline hover:text-primary">Contact us</Link> for a personalized plan.
+            Let's build a sales engine that works for you, not the other way around.
         </p>
       </div>
     </AnimatedSection>

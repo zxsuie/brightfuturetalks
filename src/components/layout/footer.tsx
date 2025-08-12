@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Twitter, Linkedin, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -29,9 +30,7 @@ export function Footer() {
 
       <div className="container py-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2">
-           <span className="font-headline font-bold">
-              Bright Future Talks
-            </span>
+          <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={180} height={30} className="h-8 w-auto" />
         </div>
         <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
             <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link>

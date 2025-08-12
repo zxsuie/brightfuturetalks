@@ -52,7 +52,7 @@ export function OfferStackSection() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="lg" asChild>
+                <Button className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1" size="lg" asChild>
                   <Link href="https://cal.com/brightfuturetalks/bright-future-session" target="_blank" rel="noopener noreferrer">
                     <CalendarDays className="mr-2"/>
                     Book Your Free Strategy Call

@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -45,7 +46,8 @@ export function Header() {
         )}
       >
         <div className="flex items-center gap-8 bg-background/80 backdrop-blur-sm shadow-lg border rounded-full px-8 py-3">
-          <Link href="/">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={24} height={24} className="h-6 w-6" />
             <span className="text-lg font-headline font-bold">
               Bright Future Talks
             </span>
@@ -69,7 +71,8 @@ export function Header() {
       
       {/* Mobile Header and Menu */}
       <div className="container md:hidden flex h-16 items-center justify-between">
-          <Link href="/">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={28} height={28} className="h-7 w-7" />
              <span className="text-lg font-headline font-bold">
               Bright Future Talks
             </span>
@@ -83,7 +86,8 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[80%]">
               <div className="flex flex-col h-full p-4">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex justify-start items-center mb-8 gap-2">
+                   <Image src="/BFTLOGO.png" alt="Bright Future Talks Logo" width={28} height={28} className="h-7 w-7" />
                    <span className="text-lg font-headline font-bold">
                     Bright Future Talks
                   </span>

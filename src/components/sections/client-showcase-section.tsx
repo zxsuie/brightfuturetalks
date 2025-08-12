@@ -8,10 +8,10 @@ import { Quote, MoveRight } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Jessica Miller",
+    name: "Lizzy Smith",
     title: "Senior Sales Executive",
-    avatar: "https://placehold.co/100x100.png",
-    photo: "https://placehold.co/600x400.png",
+    avatar: "/MsLizzy.png",
+    photo: "/MsLizzy.png",
     story: "Before Bright Future, I struggled with inconsistent income. The systems here gave me the structure to not just meet, but consistently exceed my goals. I've grown more in two years than I did in the five years prior.",
     aiHint: "sales executive woman"
   },

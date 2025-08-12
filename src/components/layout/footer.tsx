@@ -57,7 +57,7 @@ export function Footer() {
         </nav>
         <div className="flex gap-2">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="#" aria-label="Facebook">
+              <Link href="https://www.facebook.com/brightfuturetalk?rdid=U9b9gjF2JO8ZJrxu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F176Razau7N" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </Link>
             </Button>

@@ -18,8 +18,8 @@ const teamMembers = [
   {
     name: "David Chen",
     title: "Sales Development Lead",
-    avatar: "https://placehold.co/100x100.png",
-    photo: "https://placehold.co/600x400.png",
+    avatar: "/MsLizzy.png",
+    photo: "/MsLizzy.png",
     story: "I came from a non-sales background and was intimidated. The training and mentorship are second to none. Now, I'm leading a team and helping new reps find the same success I did. It's incredibly rewarding.",
     aiHint: "team lead man"
   },

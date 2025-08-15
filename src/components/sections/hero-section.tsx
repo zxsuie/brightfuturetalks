@@ -15,7 +15,7 @@ export function HeroSection() {
                 <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2 animate-pulse-badge">
                     <Rocket className="h-3 w-3 text-primary" />
                     <span>
-                      Now accepting 3 <span className="text-primary font-bold">NEW</span> partners!
+                      Now accepting 1 <span className="text-primary font-bold">NEW</span> client!
                     </span>
                 </Badge>
           </Link>

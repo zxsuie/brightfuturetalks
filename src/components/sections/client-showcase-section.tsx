@@ -71,7 +71,7 @@ export function ClientShowcaseSection() {
                         alt={`Photo of ${item.name}`}
                         width={1200}
                         height={800}
-                        className="w-full h-64 object-cover"
+                        className="w-full h-80 object-cover"
                         data-ai-hint={item.aiHint}
                       />
                       <CardContent className="p-6 flex flex-col flex-grow">

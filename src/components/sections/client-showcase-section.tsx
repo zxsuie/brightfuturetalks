@@ -104,8 +104,8 @@ export function ClientShowcaseSection() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex"/>
-            <CarouselNext className="hidden md:flex"/>
+            <CarouselPrevious className="absolute left-[-5px] sm:left-[-50px]"/>
+            <CarouselNext className="absolute right-[-5px] sm:right-[-50px]"/>
           </Carousel>
         </div>
 

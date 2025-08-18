@@ -37,8 +37,8 @@ const teamMembers = [
   {
     name: "Ken Padilla",
     title: "Sales Intern",
-    avatar: "/Ken.png",
-    photo: "/Ken.png",
+    avatar: "/ken-pic.png",
+    photo: "/ken-pic.png",
     story: "The training was a game-changer. I learned how to connect with clients on a deeper level and my closing rate has gone up by 40%. The team environment is incredibly supportive.",
     aiHint: "sales intern ken padilla"
   }

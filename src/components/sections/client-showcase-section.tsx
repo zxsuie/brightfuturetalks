@@ -5,6 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Quote, MoveRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const teamMembers = [
   {
@@ -16,13 +23,21 @@ const teamMembers = [
     aiHint: "sales executive woman"
   },
   {
+    name: "Aljohn Ferber Pammit",
+    title: "Sales Intern",
+    avatar: "/aj-pic.png",
+    photo: "/aj-pic.png",
+    story: "The sales training greatly boosted my confidence in handling clients. I'm grateful for the skills I gained, especially in building communicstion and closing deals.",
+    aiHint: "sales intern aljohn pammit"
+  },
+  {
     name: "Ken Padilla",
     title: "Sales Intern",
     avatar: "/Ken.png",
     photo: "/Ken.png",
-    story: "Though I wasn't sure how I would adjust when I started working at Bright Future Talks, this organization eventually served as the cornerstone of both my career and personal development.  I gained new abilities, increased my self-confidence, and realized my potential with the help of encouraging mentors, practical instruction, and an environment that encourages creativity and teamwork.",
-    aiHint: "sales intern man"
-  },
+    story: "The training was a game-changer. I learned how to connect with clients on a deeper level and my closing rate has gone up by 40%. The team environment is incredibly supportive.",
+    aiHint: "sales intern ken padilla"
+  }
 ];
 
 export function ClientShowcaseSection() {
@@ -38,33 +53,49 @@ export function ClientShowcaseSection() {
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {teamMembers.map((item, index) => (
-            <Card key={index} className="overflow-hidden shadow-lg border border-transparent hover:border-primary hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
-              <Image
-                src={item.photo}
-                alt={`Photo of ${item.name}`}
-                width={1200}
-                height={800}
-                className="w-full object-cover"
-                data-ai-hint={item.aiHint}
-              />
-              <CardContent className="p-6 flex flex-col flex-grow">
-                 <Quote className="w-8 h-8 text-primary mb-4" />
-                <blockquote className="text-lg font-medium flex-grow">"{item.story}"</blockquote>
-                <div className="mt-6 flex items-center gap-4">
-                  <Avatar>
-                    <AvatarImage src={item.avatar} alt={item.name} data-ai-hint={item.aiHint}/>
-                    <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">{item.title}</p>
+        <div className="mt-16">
+           <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto"
+          >
+            <CarouselContent>
+              {teamMembers.map((item, index) => (
+                <CarouselItem key={index} className="md:basis-1/2">
+                   <div className="p-1 h-full">
+                    <Card className="overflow-hidden shadow-lg border border-transparent hover:border-primary hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full">
+                      <Image
+                        src={item.photo}
+                        alt={`Photo of ${item.name}`}
+                        width={1200}
+                        height={800}
+                        className="w-full h-64 object-cover"
+                        data-ai-hint={item.aiHint}
+                      />
+                      <CardContent className="p-6 flex flex-col flex-grow">
+                        <Quote className="w-8 h-8 text-primary mb-4" />
+                        <blockquote className="text-lg font-medium flex-grow">"{item.story}"</blockquote>
+                        <div className="mt-6 flex items-center gap-4">
+                          <Avatar>
+                            <AvatarImage src={item.avatar} alt={item.name} data-ai-hint={item.aiHint}/>
+                            <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-semibold">{item.name}</p>
+                            <p className="text-sm text-muted-foreground">{item.title}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex"/>
+            <CarouselNext className="hidden md:flex"/>
+          </Carousel>
         </div>
 
         <div className="mt-24 text-center bg-background p-12 rounded-2xl shadow-lg border">

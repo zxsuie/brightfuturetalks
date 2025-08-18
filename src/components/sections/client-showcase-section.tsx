@@ -1,3 +1,6 @@
+
+"use client";
+
 import Image from "next/image";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -5,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Quote, MoveRight } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -59,6 +63,13 @@ export function ClientShowcaseSection() {
               align: "start",
               loop: true,
             }}
+            plugins={[
+              Autoplay({
+                delay: 3000,
+                stopOnInteraction: true,
+                stopOnHover: true,
+              }),
+            ]}
             className="w-full max-w-5xl mx-auto"
           >
             <CarouselContent>

@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/footer';
 export const metadata: Metadata = {
   title: 'Bright Future Talks',
   description: 'Sales-as-a-Service for MSME business owners.',
-  // The icons object is kept for Next.js best practices but we will add explicit links as well.
   icons: {
     icon: '/bfticon.png',
   },
@@ -22,7 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/bfticon.png" sizes="any" />
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"

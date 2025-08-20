@@ -19,7 +19,7 @@ import {
 
 const teamMembers = [
   {
-    name: "Ms. Leizl Sigua",
+    name: "Ms. Liezl Sigua",
     title: "Account Manager",
     avatar: "/MsLizzy.png",
     photo: "/MsLizzy.png",

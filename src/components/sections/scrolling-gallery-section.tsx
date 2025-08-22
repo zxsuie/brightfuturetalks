@@ -64,7 +64,7 @@ const MarqueeRow = ({ images, direction = 'left' }: { images: {src: string, hint
                 trigger: marquee,
                 start: 'top bottom',
                 end: 'bottom top',
-                scrub: 0.5,
+                scrub: 2,
             }
         });
 

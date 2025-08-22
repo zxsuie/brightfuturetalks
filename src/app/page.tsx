@@ -33,8 +33,8 @@ export default function Home() {
       <AboutSection />
       <StorySection />
       <ValuePropSection />
-      <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <HowItWorksSection />
+      <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <ClientShowcaseSection />
       <OfferStackSection />
       <FaqSection />

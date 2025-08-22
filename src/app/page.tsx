@@ -7,7 +7,6 @@ import { HowItWorksSection } from '@/components/sections/how-it-works-section';
 import { OfferStackSection } from '@/components/sections/offer-stack-section';
 import { FaqSection } from '@/components/sections/faq-section';
 import { MarqueeSection } from '@/components/sections/marquee-section';
-import { TeamCultureSection } from '@/components/sections/team-culture-section';
 
 const marqueePhrases1 = [
   "Plug In. Close Sales. Scale Smarter.",
@@ -34,7 +33,6 @@ export default function Home() {
       <AboutSection />
       <StorySection />
       <ValuePropSection />
-      <TeamCultureSection />
       <HowItWorksSection />
       <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <ClientShowcaseSection />

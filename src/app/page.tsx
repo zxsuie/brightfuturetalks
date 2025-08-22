@@ -2,6 +2,7 @@ import { HeroSection } from '@/components/sections/hero-section';
 import { StorySection } from '@/components/sections/story-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { ValuePropSection } from '@/components/sections/value-prop-section';
+import { ScrollingGallerySection } from '@/components/sections/scrolling-gallery-section';
 import { ClientShowcaseSection } from '@/components/sections/client-showcase-section';
 import { HowItWorksSection } from '@/components/sections/how-it-works-section';
 import { OfferStackSection } from '@/components/sections/offer-stack-section';
@@ -33,6 +34,7 @@ export default function Home() {
       <AboutSection />
       <StorySection />
       <ValuePropSection />
+      <ScrollingGallerySection />
       <HowItWorksSection />
       <MarqueeSection phrases={marqueePhrases2} direction="reverse" />
       <ClientShowcaseSection />

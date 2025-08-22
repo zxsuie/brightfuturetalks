@@ -30,8 +30,8 @@ export function TeamCultureSection() {
         </div>
         
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
-          {images.map((image) => (
-            <div key={image.src} className={image.className}>
+          {images.map((image, index) => (
+            <div key={index} className={image.className}>
               <Image
                 src={image.src}
                 alt={image.alt}

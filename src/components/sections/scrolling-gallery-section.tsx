@@ -11,21 +11,21 @@ import { AnimatedSection } from '@/components/ui/animated-section';
 gsap.registerPlugin(ScrollTrigger);
 
 const imagesRow1 = [
-  { src: 'https://placehold.co/400x600.png', hint: 'team meeting' },
-  { src: 'https://placehold.co/600x400.png', hint: 'office collaboration' },
-  { src: 'https://placehold.co/400x600.png', hint: 'casual discussion' },
-  { src: 'https://placehold.co/600x400.png', hint: 'whiteboard session' },
-  { src: 'https://placehold.co/400x600.png', hint: 'group photo' },
-  { src: 'https://placehold.co/600x400.png', hint: 'team lunch' },
+  { src: '/photo/team-meeting.png', hint: 'team meeting' },
+  { src: '/photo/office-collaboration.png', hint: 'office collaboration' },
+  { src: '/photo/casual-discussion.png', hint: 'casual discussion' },
+  { src: '/photo/whiteboard-session.png', hint: 'whiteboard session' },
+  { src: '/photo/group-photo.png', hint: 'group photo' },
+  { src: '/photo/team-lunch.png', hint: 'team lunch' },
 ];
 
 const imagesRow2 = [
-  { src: 'https://placehold.co/600x400.png', hint: 'outdoor activity' },
-  { src: 'https://placehold.co/400x600.png', hint: ' smiling person laptop' },
-  { src: 'https://placehold.co/600x400.png', hint: 'team building' },
-  { src: 'https://placehold.co/400x600.png', hint: 'focused work' },
-  { src: 'https://placehold.co/600x400.png', hint: 'coffee break' },
-  { src: 'https://placehold.co/400x600.png', hint: 'celebration event' },
+  { src: '/photo/outdoor-activity.png', hint: 'outdoor activity' },
+  { src: '/photo/smiling-person-laptop.png', hint: ' smiling person laptop' },
+  { src: '/photo/team-building.png', hint: 'team building' },
+  { src: '/photo/focused-work.png', hint: 'focused work' },
+  { src: '/photo/coffee-break.png', hint: 'coffee break' },
+  { src: '/photo/celebration-event.png', hint: 'celebration event' },
 ];
 
 

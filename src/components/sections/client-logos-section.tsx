@@ -2,12 +2,7 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 import Image from "next/image";
 
 const logos = [
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 1", hint: "tech company logo" },
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 2", hint: "startup brand" },
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 3", hint: "ecommerce business" },
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 4", hint: "saas product" },
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 5", hint: "consulting firm" },
-  { src: "https://placehold.co/150x60.png", alt: "Client Logo 6", hint: "financial services" },
+  { src: "/jd foods logo.png", alt: "JD Foods Logo", hint: "food company logo" },
 ];
 
 export function ClientLogosSection() {
@@ -18,7 +13,7 @@ export function ClientLogosSection() {
           Powering the growth of industry-leading companies
         </h2>
         <div className="mt-8 flow-root">
-          <div className="mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
+          <div className="mx-auto flex justify-center">
             {logos.map((logo) => (
               <div key={logo.alt} className="flex items-center justify-center">
                 <Image

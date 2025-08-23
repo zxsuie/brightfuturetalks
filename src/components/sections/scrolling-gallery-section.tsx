@@ -11,21 +11,21 @@ import { AnimatedSection } from '@/components/ui/animated-section';
 gsap.registerPlugin(ScrollTrigger);
 
 const imagesRow1 = [
-  { src: '/photo/team-meeting.png', hint: 'team meeting' },
-  { src: '/photo/office-collaboration.png', hint: 'office collaboration' },
-  { src: '/photo/casual-discussion.png', hint: 'casual discussion' },
-  { src: '/photo/whiteboard-session.png', hint: 'whiteboard session' },
-  { src: '/photo/group-photo.png', hint: 'group photo' },
-  { src: '/photo/team-lunch.png', hint: 'team lunch' },
+  { src: '/IMG_1184.jpg', hint: 'team meeting' },
+  { src: '/IMG_1185.png', hint: 'office collaboration' },
+  { src: '/IMG_1186.png', hint: 'casual discussion' },
+  { src: '/IMG_1187.png', hint: 'whiteboard session' },
+  { src: '/IMG_1342.png', hint: 'group photo' },
+  { src: '/IMG_1343.png', hint: 'team lunch' },
 ];
 
 const imagesRow2 = [
-  { src: '/photo/outdoor-activity.png', hint: 'outdoor activity' },
-  { src: '/photo/smiling-person-laptop.png', hint: ' smiling person laptop' },
-  { src: '/photo/team-building.png', hint: 'team building' },
-  { src: '/photo/focused-work.png', hint: 'focused work' },
-  { src: '/photo/coffee-break.png', hint: 'coffee break' },
-  { src: '/photo/celebration-event.png', hint: 'celebration event' },
+  { src: '/IMG_1343.png', hint: 'outdoor activity' },
+  { src: '/IMG_1342.png', hint: ' smiling person laptop' },
+  { src: '/IMG_1185.png', hint: 'coffee break' },
+  { src: '/IMG_1184.jpg', hint: 'celebration event' },
+  { src: '/IMG_1186.png', hint: 'team building' },
+  { src: '/IMG_1187.png', hint: 'focused work' },
 ];
 
 

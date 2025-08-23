@@ -1,8 +1,14 @@
 import { AnimatedSection } from "@/components/ui/animated-section";
 import Image from "next/image";
+import Link from "next/link";
 
 const logos = [
-  { src: "/jd foods logo.png", alt: "JD Foods Logo", hint: "food company logo" },
+  { 
+    src: "/jd foods logo.png", 
+    alt: "JD Foods Logo", 
+    hint: "food company logo",
+    href: "https://jdfoods.shop/" 
+  },
 ];
 
 export function ClientLogosSection() {
@@ -15,7 +21,7 @@ export function ClientLogosSection() {
         <div className="mt-8 flow-root">
           <div className="mx-auto flex justify-center">
             {logos.map((logo) => (
-              <div key={logo.alt} className="flex items-center justify-center">
+              <Link key={logo.alt} href={logo.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                 <Image
                   src={logo.src}
                   alt={logo.alt}
@@ -24,7 +30,7 @@ export function ClientLogosSection() {
                   data-ai-hint={logo.hint}
                   className="grayscale hover:grayscale-0 transition-all duration-300 ease-in-out"
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </div>

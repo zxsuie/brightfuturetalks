@@ -11,21 +11,21 @@ import { AnimatedSection } from '@/components/ui/animated-section';
 gsap.registerPlugin(ScrollTrigger);
 
 const imagesRow1 = [
-  { src: '/IMG_1184.jpg', hint: 'team meeting' },
-  { src: '/IMG_1185.png', hint: 'office collaboration' },
-  { src: '/IMG_1186.png', hint: 'casual discussion' },
-  { src: '/IMG_1187.png', hint: 'whiteboard session' },
-  { src: '/IMG_1342.png', hint: 'group photo' },
-  { src: '/IMG_1343.png', hint: 'team lunch' },
+  { src: '/photo/team-meeting.jpg', hint: 'team meeting' },
+  { src: '/photo/office-collaboration.png', hint: 'office collaboration' },
+  { src: '/photo/casual-discussion.png', hint: 'casual discussion' },
+  { src: '/photo/whiteboard-session.png', hint: 'whiteboard session' },
+  { src: '/photo/group-photo.png', hint: 'group photo' },
+  { src: '/photo/team-lunch.png', hint: 'team lunch' },
 ];
 
 const imagesRow2 = [
-  { src: '/IMG_1343.png', hint: 'outdoor activity' },
-  { src: '/IMG_1342.png', hint: ' smiling person laptop' },
-  { src: '/IMG_1185.png', hint: 'coffee break' },
-  { src: '/IMG_1184.jpg', hint: 'celebration event' },
-  { src: '/IMG_1186.png', hint: 'team building' },
-  { src: '/IMG_1187.png', hint: 'focused work' },
+  { src: '/photo/outdoor-activity.png', hint: 'outdoor activity' },
+  { src: '/photo/smiling-person-laptop.png', hint: ' smiling person laptop' },
+  { src: '/photo/coffee-break.png', hint: 'coffee break' },
+  { src: '/photo/celebration-event.jpg', hint: 'celebration event' },
+  { src: '/photo/team-building.png', hint: 'team building' },
+  { src: '/photo/focused-work.png', hint: 'focused work' },
 ];
 
 
@@ -49,7 +49,7 @@ const MarqueeRow = ({ images, direction = 'left' }: { images: {src: string, hint
 
     useEffect(() => {
         const marquee = marqueeRef.current;
-        if (!marquee || window.innerWidth < 768) return;
+        if (!marquee) return;
 
         let amount = marquee.offsetWidth / 2;
         if (direction === 'right') {
@@ -92,10 +92,10 @@ export function ScrollingGallerySection() {
   return (
     <AnimatedSection className="py-24 sm:py-32 bg-background overflow-hidden">
         <div className="w-full space-y-6">
-            <div className="md:w-full md:overflow-hidden">
+            <div className="w-full overflow-hidden">
                <MarqueeRow images={imagesRow1} direction="left"/>
             </div>
-            <div className="md:w-full md:overflow-hidden">
+            <div className="w-full overflow-hidden">
                 <MarqueeRow images={imagesRow2} direction="right" />
             </div>
         </div>

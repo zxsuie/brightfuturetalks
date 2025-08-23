@@ -51,37 +51,54 @@ const MarqueeRow = ({ images, direction = 'left' }: { images: {src: string, hint
         const marquee = marqueeRef.current;
         if (!marquee) return;
 
-        let amount = marquee.offsetWidth / 2;
-        if (direction === 'right') {
-            gsap.set(marquee, {x: -amount});
-            amount = 0;
-        }
+        // Use a timeout to wait for images to load and get the correct width
+        const timer = setTimeout(() => {
+            if (!marquee) return;
+            const amount = marquee.scrollWidth / 2;
+            const fromX = direction === 'left' ? 0 : -amount;
+            const toX = direction === 'left' ? -amount : 0;
+            
+            const tl = gsap.timeline({
+                repeat: -1,
+                defaults: { ease: 'none' }
+            });
 
-        const tl = gsap.to(marquee, {
-            x: -amount,
-            ease: 'none',
-            scrollTrigger: {
+            tl.set(marquee, { x: fromX })
+              .to(marquee, { x: toX, duration: 40 });
+
+            ScrollTrigger.create({
                 trigger: marquee,
                 start: 'top bottom',
                 end: 'bottom top',
-                scrub: 5,
-            }
-        });
+                onEnter: () => tl.play(),
+                onLeave: () => tl.pause(),
+                onEnterBack: () => tl.play(),
+                onLeaveBack: () => tl.pause()
+            });
+
+            // Pause animation on hover
+            marquee.addEventListener('mouseenter', () => tl.pause());
+            marquee.addEventListener('mouseleave', () => tl.play());
+            
+        }, 100);
 
         return () => {
-            tl.kill();
+            clearTimeout(timer);
             ScrollTrigger.getAll().forEach(t => t.kill());
+            gsap.killTweensOf(marquee);
         }
 
     }, [direction]);
 
     return (
-        <div ref={marqueeRef} className="flex gap-6">
-            <div className="flex gap-6 flex-shrink-0">
-                {images.map((img, i) => <ImageCard key={`row1-1-${i}`} src={img.src} hint={img.hint} />)}
-            </div>
-             <div className="flex gap-6 flex-shrink-0" aria-hidden="true">
-                {images.map((img, i) => <ImageCard key={`row1-2-${i}`} src={img.src} hint={img.hint} />)}
+        <div className="overflow-hidden">
+            <div ref={marqueeRef} className="flex gap-6">
+                <div className="flex gap-6 flex-shrink-0">
+                    {images.map((img, i) => <ImageCard key={`row1-1-${i}`} src={img.src} hint={img.hint} />)}
+                </div>
+                 <div className="flex gap-6 flex-shrink-0" aria-hidden="true">
+                    {images.map((img, i) => <ImageCard key={`row1-2-${i}`} src={img.src} hint={img.hint} />)}
+                </div>
             </div>
         </div>
     )
@@ -92,12 +109,8 @@ export function ScrollingGallerySection() {
   return (
     <AnimatedSection className="py-24 sm:py-32 bg-background overflow-hidden">
         <div className="w-full space-y-6">
-            <div className="w-full overflow-hidden">
-               <MarqueeRow images={imagesRow1} direction="left"/>
-            </div>
-            <div className="w-full overflow-hidden">
-                <MarqueeRow images={imagesRow2} direction="right" />
-            </div>
+            <MarqueeRow images={imagesRow1} direction="left"/>
+            <MarqueeRow images={imagesRow2} direction="right" />
         </div>
     </AnimatedSection>
   );

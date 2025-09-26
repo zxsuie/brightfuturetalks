@@ -35,12 +35,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Sora:wght@400;600&display=swap"
           rel="stylesheet"
         />
-      </head>
-      <body
-        className={cn(
-          'min-h-screen bg-background font-body antialiased'
-        )}
-      >
         <Script
           async
           type="text/javascript"
@@ -56,6 +50,12 @@ export default function RootLayout({
             `,
           }}
         />
+      </head>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-body antialiased'
+        )}
+      >
         <Header />
         <main>{children}</main>
         <Footer />

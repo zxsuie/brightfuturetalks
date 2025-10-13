@@ -92,8 +92,10 @@ export default function SalesPage() {
         minutes: 0,
         seconds: 0,
     });
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
+        setIsClient(true);
         const webinarDate = new Date('2025-10-25T19:00:00');
 
         const calculateTimeLeft = () => {
@@ -115,7 +117,6 @@ export default function SalesPage() {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
         
-        // Set initial value to avoid flash of 00:00:00:00
         setTimeLeft(calculateTimeLeft());
 
         return () => clearInterval(timer);
@@ -141,11 +142,16 @@ export default function SalesPage() {
 
   return (
     <div className="bg-background text-foreground">
+      <header className="py-4">
+        <div className="container max-w-4xl mx-auto text-center">
+             <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={200} height={35} className="h-8 w-auto mx-auto" />
+        </div>
+      </header>
       <div className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <div className="text-center">
-            <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl text-primary">
-              <span className="block">Extra Kita Sa</span>
+            <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
+              <span className="block text-primary">Extra Kita Sa</span>
               <span className="block">Food Business</span>
             </h1>
             <p className="mt-4 max-w-3xl mx-auto text-xl text-muted-foreground">
@@ -197,18 +203,20 @@ export default function SalesPage() {
             </div>
         </AnimatedSection>
 
-        <AnimatedSection className="mt-16">
-             <div className="text-center max-w-2xl mx-auto">
-                <h2 className="font-headline text-2xl font-bold text-center mb-2 text-primary">Limited Spots Available!</h2>
-                <p className="text-muted-foreground mb-6">Registration closes soon. Reserve your seat now!</p>
-                <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto mb-8">
-                    <CountdownUnit value={timeLeft.days} label="Days" />
-                    <CountdownUnit value={timeLeft.hours} label="Hours" />
-                    <CountdownUnit value={timeLeft.minutes} label="Minutes" />
-                    <CountdownUnit value={timeLeft.seconds} label="Seconds" />
-                </div>
-            </div>
-        </AnimatedSection>
+        {isClient && (
+          <AnimatedSection className="mt-16">
+              <div className="text-center max-w-2xl mx-auto">
+                  <h2 className="font-headline text-2xl font-bold text-center mb-2 text-primary">Limited Spots Available!</h2>
+                  <p className="text-muted-foreground mb-6">Registration closes soon. Reserve your seat now!</p>
+                  <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto mb-8">
+                      <CountdownUnit value={timeLeft.days} label="Days" />
+                      <CountdownUnit value={timeLeft.hours} label="Hours" />
+                      <CountdownUnit value={timeLeft.minutes} label="Minutes" />
+                      <CountdownUnit value={timeLeft.seconds} label="Seconds" />
+                  </div>
+              </div>
+          </AnimatedSection>
+        )}
 
         <AnimatedSection id="register" className="mt-8">
             <Card className="max-w-2xl mx-auto shadow-lg border-primary/50">
@@ -266,25 +274,36 @@ export default function SalesPage() {
         </AnimatedSection>
 
         <AnimatedSection className="mt-24 text-center">
-            <h2 className="text-sm font-semibold tracking-wider uppercase text-primary">Sino ang Pwede?</h2>
-            <p className="mt-2 font-headline text-3xl font-extrabold tracking-tight sm:text-4xl">
-              This Webinar is For You
-            </p>
-            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {whoIsThisForItems.map((item) => (
-                    <div key={item.title} className="text-center">
-                         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                            {item.icon}
-                        </div>
-                        <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
-                        <p className="mt-2 text-muted-foreground">{item.description}</p>
-                    </div>
-                ))}
-            </div>
-             <p className="mt-12 text-lg text-muted-foreground">
-                Kung nakikita mo ang sarili mo dito, mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
-            </p>
-        </AnimatedSection>
+          <h2 className="text-sm font-semibold tracking-wider uppercase text-primary">Sino ang Pwede?</h2>
+          <p className="mt-2 font-headline text-3xl font-extrabold tracking-tight sm:text-4xl">
+            This Webinar is For You
+          </p>
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+              {whoIsThisForItems.slice(0, 2).map((item) => (
+                  <div key={item.title} className="text-center p-6 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                          {item.icon}
+                      </div>
+                      <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
+                      <p className="mt-2 text-muted-foreground">{item.description}</p>
+                  </div>
+              ))}
+          </div>
+           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+              {whoIsThisForItems.slice(2).map((item) => (
+                  <div key={item.title} className="text-center p-6 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                          {item.icon}
+                      </div>
+                      <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
+                      <p className="mt-2 text-muted-foreground">{item.description}</p>
+                  </div>
+              ))}
+          </div>
+          <p className="mt-12 text-lg text-muted-foreground">
+              Kung nakikita mo ang sarili mo dito, mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
+          </p>
+      </AnimatedSection>
 
 
          <footer className="mt-24 text-center text-muted-foreground text-sm">

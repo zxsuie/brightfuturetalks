@@ -15,7 +15,7 @@ export function HeroSection() {
                 <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2 animate-pulse-badge">
                     <CalendarCheck className="h-3 w-3 text-primary" />
                     <span>
-                      Free Webinar on Oct. 25th - Register Now!
+                      Free Webinar on Nov. 15th - Register Now!
                     </span>
                 </Badge>
           </Link>

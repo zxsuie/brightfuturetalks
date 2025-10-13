@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -121,7 +122,7 @@ export default function SalesPage() {
 
     useEffect(() => {
         setIsClient(true);
-        const webinarDate = new Date('2025-10-25T19:00:00');
+        const webinarDate = new Date('2025-11-15T20:00:00');
 
         const calculateTimeLeft = () => {
             const difference = +webinarDate - +new Date();
@@ -416,5 +417,3 @@ export default function SalesPage() {
     </>
   )
 }
-
-    

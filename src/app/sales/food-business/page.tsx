@@ -111,10 +111,12 @@ export default function SalesPage() {
             return timeLeft;
         };
 
-        setTimeLeft(calculateTimeLeft());
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
+        
+        // Set initial value to avoid flash of 00:00:00:00
+        setTimeLeft(calculateTimeLeft());
 
         return () => clearInterval(timer);
     }, []);
@@ -142,8 +144,9 @@ export default function SalesPage() {
       <div className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <div className="text-center">
-            <h1 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-primary">
-              Extra Kita Sa Food Business
+            <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl text-primary">
+              <span className="block">Extra Kita Sa</span>
+              <span className="block">Food Business</span>
             </h1>
             <p className="mt-4 max-w-3xl mx-auto text-xl text-muted-foreground">
               Para sa mga taong kumikita na pero gusto pang lumago — o sa mga naghahangad ng mas mataas na income, lifestyle, at opportunities.

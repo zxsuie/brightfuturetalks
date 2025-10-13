@@ -88,16 +88,16 @@ const whoIsThisForItems = [
 
 const faqItems = [
     {
-        question: "What if I have zero experience in business?",
-        answer: "No problem! This webinar is designed for beginners. We'll guide you step-by-step from zero to launching your food business."
+        question: "Paano kung wala akong experience sa negosyo?",
+        answer: "Walang problema! Para 'to sa mga beginners. Igagabay ka namin step-by-step mula zero hanggang sa ma-launch mo ang food business mo."
     },
     {
-        question: "Is this webinar only for Filipino participants?",
-        answer: "The webinar is open to everyone, but the context and language will be a mix of English and Tagalog, tailored for the Filipino market."
+        question: "Para lang ba sa mga Pinoy itong webinar?",
+        answer: "Bukas ito para sa lahat! Pero ang content at lenggwahe ay Taglish (Tagalog-English) at naka-ayon sa market ng Pilipinas."
     },
     {
-        question: "Will there be a recording?",
-        answer: "Yes, all registered participants will receive a link to the webinar recording so you can re-watch it anytime."
+        question: "May recording ba kung hindi ako makapanood?",
+        answer: "Oo! Lahat ng nag-register ay makakatanggap ng link para sa recording para mapanood mo ulit kahit kailan mo gusto."
     },
 ];
 

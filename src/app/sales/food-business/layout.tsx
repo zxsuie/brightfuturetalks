@@ -15,8 +15,22 @@ export default function SalesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={cn('bg-background font-body antialiased')}>
-       <Script
+    <html lang="en">
+       <head>
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Sora:wght@400;600&display=swap"
+          rel="stylesheet"
+        />
+        <Script
           async
           type="text/javascript"
           src="https://static.klaviyo.com/onsite/js/UgxRfS/klaviyo.js?company_id=UgxRfS"
@@ -31,8 +45,11 @@ export default function SalesLayout({
             `,
           }}
         />
-      <main>{children}</main>
-      <Toaster />
-    </div>
+      </head>
+      <body className={cn('bg-background font-body antialiased')}>
+        <main>{children}</main>
+        <Toaster />
+      </body>
+    </html>
   );
 }

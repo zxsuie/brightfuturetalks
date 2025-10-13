@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -73,10 +74,7 @@ const whoIsThisForItems = [
     {
         title: "Side-Hustlers & Employees",
         description: "Gustong magkaroon ng extra income source na flexible at scalable.",
-        icon: <CheckCircle2 's life?\'\'\'
-another = "Yo!"
-'''))
-/>,
+        icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
     },
     {
         title: "Career Shifters",
@@ -184,11 +182,6 @@ export default function SalesPage() {
         />
 
       <div className="bg-background text-foreground">
-        <header className="py-4">
-          <div className="container max-w-4xl mx-auto text-center">
-              <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={200} height={35} className="h-8 w-auto mx-auto" />
-          </div>
-        </header>
         <main className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center">
@@ -358,3 +351,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

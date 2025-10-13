@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-import { PlayCircle } from "lucide-react"
+import { PlayCircle, CheckCircle2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -31,6 +31,29 @@ const formSchema = z.object({
       message: "Please enter a valid phone number."
   })
 })
+
+const whoIsThisForItems = [
+    {
+        title: "Existing Food Business Owners",
+        description: "Gusto pang palaguin ang kanilang kita at i-streamline ang operations.",
+        icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
+    },
+    {
+        title: "Aspiring Entrepreneurs",
+        description: "Naghahanap ng proven business model para sa kanilang unang food venture.",
+        icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
+    },
+    {
+        title: "Side-Hustlers & Employees",
+        description: "Gustong magkaroon ng extra income source na flexible at scalable.",
+        icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
+    },
+    {
+        title: "Career Shifters",
+        description: "Handang pumasok sa food industry pero hindi alam kung saan magsisimula.",
+        icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
+    },
+]
 
 export default function SalesPage() {
     const { toast } = useToast()
@@ -147,20 +170,27 @@ export default function SalesPage() {
             </Card>
         </AnimatedSection>
 
-        <AnimatedSection className="mt-24 text-center max-w-3xl mx-auto">
-            <h3 className="font-headline text-2xl font-bold text-foreground">WHO IS THIS FOR?</h3>
-            <div className="mt-6 text-lg text-muted-foreground space-y-4">
-                <p>
-                    Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
-                </p>
-                <p>
-                    Sa Free Food Webinar ng JD Foods, ipapakita namin sa’yo kung paano ang simpleng pagkain ay puwedeng maging susi sa mas malaking kita at mas maluwag na buhay. Hindi mo kailangan maging chef o magbukas agad ng malaking restaurant. Ang kailangan mo lang ay desire for more income and freedom.
-                </p>
-                <p className="font-semibold text-primary">
-                    Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
-                </p>
+        <AnimatedSection className="mt-24 text-center">
+            <h2 className="text-sm font-semibold tracking-wider uppercase text-primary">Sino ang Pwede?</h2>
+            <p className="mt-2 font-headline text-3xl font-extrabold tracking-tight sm:text-4xl">
+              This Webinar is For You
+            </p>
+            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {whoIsThisForItems.map((item) => (
+                    <div key={item.title} className="text-center">
+                         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                            {item.icon}
+                        </div>
+                        <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
+                        <p className="mt-2 text-muted-foreground">{item.description}</p>
+                    </div>
+                ))}
             </div>
+             <p className="mt-12 text-lg text-muted-foreground">
+                Kung nakikita mo ang sarili mo dito, mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
+            </p>
         </AnimatedSection>
+
 
          <footer className="mt-24 text-center text-muted-foreground text-sm">
             <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={150} height={25} className="h-6 w-auto mx-auto mb-4" />

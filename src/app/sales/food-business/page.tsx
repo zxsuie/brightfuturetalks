@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
 import { PlayCircle, CheckCircle2 } from "lucide-react"
+import { useState, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -76,8 +77,47 @@ const whoIsThisForItems = [
     },
 ]
 
+const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
+    <div className="flex flex-col items-center">
+        <span className="text-4xl font-bold tracking-tighter text-primary">{String(value).padStart(2, '0')}</span>
+        <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
+    </div>
+);
+
 export default function SalesPage() {
     const { toast } = useToast()
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+    });
+
+    useEffect(() => {
+        const webinarDate = new Date('2025-10-25T19:00:00');
+
+        const calculateTimeLeft = () => {
+            const difference = +webinarDate - +new Date();
+            let timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+            if (difference > 0) {
+                timeLeft = {
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                    seconds: Math.floor((difference / 1000) % 60),
+                };
+            }
+            return timeLeft;
+        };
+
+        setTimeLeft(calculateTimeLeft());
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -154,8 +194,20 @@ export default function SalesPage() {
             </div>
         </AnimatedSection>
 
+        <AnimatedSection className="mt-16">
+             <div className="text-center max-w-2xl mx-auto">
+                <h2 className="font-headline text-2xl font-bold text-center mb-2 text-primary">Limited Spots Available!</h2>
+                <p className="text-muted-foreground mb-6">Registration closes soon. Reserve your seat now!</p>
+                <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto mb-8">
+                    <CountdownUnit value={timeLeft.days} label="Days" />
+                    <CountdownUnit value={timeLeft.hours} label="Hours" />
+                    <CountdownUnit value={timeLeft.minutes} label="Minutes" />
+                    <CountdownUnit value={timeLeft.seconds} label="Seconds" />
+                </div>
+            </div>
+        </AnimatedSection>
 
-        <AnimatedSection id="register" className="mt-16">
+        <AnimatedSection id="register" className="mt-8">
             <Card className="max-w-2xl mx-auto shadow-lg border-primary/50">
                 <CardContent className="p-8">
                      <h2 className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</h2>

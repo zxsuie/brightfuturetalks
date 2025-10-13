@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Button } from "@/components/ui/button";
-import { MoveRight } from "lucide-react";
+import { MoveRight, CalendarDays } from "lucide-react";
 
 export function UpcomingEventSection() {
   return (
@@ -16,13 +16,17 @@ export function UpcomingEventSection() {
             <h3 className="mt-4 font-headline text-3xl font-bold tracking-tight sm:text-4xl">
               Extra Kita Sa Food Business
             </h3>
+            <div className="mt-4 flex items-center justify-center lg:justify-start gap-2 text-muted-foreground">
+                <CalendarDays className="w-5 h-5"/>
+                <span className="font-semibold">October 25, 2025</span>
+            </div>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
               Para sa mga taong kumikita na pero gusto pang lumago — o sa mga naghahangad ng mas mataas na income, lifestyle, at opportunities.
             </p>
             <div className="mt-8">
               <Button size="lg" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
                 <Link href="#" target="_blank" rel="noopener noreferrer">
-                  Register Now
+                  Learn More
                   <MoveRight className="ml-2"/>
                 </Link>
               </Button>

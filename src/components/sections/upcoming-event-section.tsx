@@ -34,7 +34,7 @@ export function UpcomingEventSection() {
             <Button
               size="lg"
               asChild
-              className="transition-all duration-300 ease-in-out bg-primary hover:bg-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1 animate-pulse-badge"
+              className="transition-all duration-300 ease-in-out bg-primary hover:bg-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1"
             >
               <Link href="#" target="_blank" rel="noopener noreferrer">
                 Reserve Your Spot

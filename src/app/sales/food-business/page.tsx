@@ -1,5 +1,4 @@
 
-
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -411,15 +410,11 @@ export default function SalesPage() {
                     </Dialog>
                  </div>
             </AnimatedSection>
-
-
-          <footer className="mt-24 text-center text-muted-foreground text-sm">
-              <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={150} height={25} className="h-6 w-auto mx-auto mb-4" />
-              &copy; {new Date().getFullYear()} Bright Future Talks. All Rights Reserved.
-          </footer>
         </main>
         <Toaster />
       </div>
     </>
   )
 }
+
+    

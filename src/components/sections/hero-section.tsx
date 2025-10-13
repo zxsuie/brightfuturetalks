@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { AnimatedHeroBackground } from "@/components/ui/animated-hero-background";
 import Link from "next/link";
-import { MoveRight, Rocket } from "lucide-react";
+import { MoveRight, CalendarCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +11,11 @@ export function HeroSection() {
       <AnimatedHeroBackground />
       <div className="container relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
         <div className="flex flex-col items-center gap-4 animate-fade-in-up">
-           <Link href="#pricing" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
+           <Link href="/sales/food-business" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
                 <Badge variant="outline" className="py-1 px-3 text-xs sm:py-2 sm:px-4 sm:text-sm hover:bg-accent transition-colors border-primary bg-background shadow-lg text-center flex items-center gap-2 animate-pulse-badge">
-                    <Rocket className="h-3 w-3 text-primary" />
+                    <CalendarCheck className="h-3 w-3 text-primary" />
                     <span>
-                      Last Spot Taken – Join Our Waitlist
+                      Free Webinar on Oct. 25th - Register Now!
                     </span>
                 </Badge>
           </Link>

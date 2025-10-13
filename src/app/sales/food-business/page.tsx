@@ -366,7 +366,7 @@ export default function SalesPage() {
                          <div>
                             <h2 className="font-headline text-3xl font-bold">Ang "Guaranteed Value" Promise Namin</h2>
                             <p className="mt-4 text-lg text-muted-foreground">
-                                Sobrang tiwala kami sa value ng webinar na 'to, kaya ginagarantiya namin na may matututunan kang at least tatlong practical strategies na puwede mong gamitin agad. Kung hindi, padadalhan ka namin ng libreng kopya ng aming exclusive "Filipino Food Business Starter Kit" e-book.
+                                Alam naming mahalaga ang bawat oras mo — kaya sisiguraduhin namin na bawat minuto ng webinar ay sulit. Garantisado kang may matututunang mga real-world strategies na ginagamit mismo ng mga matagumpay na negosyante sa food industry. At kung sa tingin mo ay hindi mo nakuha ang inaasahan mong value, may free “Food Business Checklist” pa rin kami para sa’yo.
                             </p>
                          </div>
                     </CardContent>
@@ -423,9 +423,3 @@ export default function SalesPage() {
     </>
   )
 }
-
-    
-
-    
-
-    

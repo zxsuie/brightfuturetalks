@@ -253,7 +253,7 @@ export default function SalesPage() {
         />
 
       <div className="bg-background text-foreground">
-        <main className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <main className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-16">
             {/* 1. Hero Section */}
             <AnimatedSection>
                 <div className="text-center">

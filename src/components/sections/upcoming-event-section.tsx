@@ -36,7 +36,7 @@ export function UpcomingEventSection() {
               asChild
               className="transition-all duration-300 ease-in-out bg-primary hover:bg-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1"
             >
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="/sales/food-business" rel="noopener noreferrer">
                 Reserve Your Spot
               </Link>
             </Button>

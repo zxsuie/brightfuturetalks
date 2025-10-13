@@ -1,12 +1,11 @@
 
-
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-import { PlayCircle, CheckCircle2 } from "lucide-react"
+import { PlayCircle, CheckCircle2, ShieldCheck, Star } from "lucide-react"
 import { useState, useEffect } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
@@ -26,6 +25,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -83,6 +85,40 @@ const whoIsThisForItems = [
     },
 ]
 
+const testimonials = [
+  {
+    quote: "I never thought I could start my own business, but this webinar gave me the confidence and the exact steps to follow. Now I'm earning on the side while doing what I love!",
+    name: "Anna D.",
+    title: "Home Baker",
+  },
+  {
+    quote: "The marketing tips were pure gold! My online orders have doubled since I applied what I learned. Highly recommended!",
+    name: "Marco P.",
+    title: "Small Eatery Owner",
+  },
+   {
+    quote: "Akala ko dati, passion lang sapat na. This webinar taught me the business side of things, especially pricing and management. My profit margins have never been better.",
+    name: "Jenny L.",
+    title: "Catering Services",
+  },
+];
+
+const faqItems = [
+    {
+        question: "What if I have zero experience in business?",
+        answer: "No problem! This webinar is designed for beginners. We'll guide you step-by-step from zero to launching your food business."
+    },
+    {
+        question: "Is this webinar only for Filipino participants?",
+        answer: "The webinar is open to everyone, but the context and language will be a mix of English and Tagalog, tailored for the Filipino market."
+    },
+    {
+        question: "Will there be a recording?",
+        answer: "Yes, all registered participants will receive a link to the webinar recording so you can re-watch it anytime."
+    },
+];
+
+
 const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
         <span className="text-4xl font-bold tracking-tighter text-primary">{String(value).padStart(2, '0')}</span>
@@ -92,6 +128,7 @@ const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
 
 export default function SalesPage() {
     const { toast } = useToast()
+    const [isFormOpen, setIsFormOpen] = useState(false);
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
         hours: 0,
@@ -144,7 +181,58 @@ export default function SalesPage() {
       description: "Thank you for registering. We've sent a confirmation to your email.",
     })
     form.reset();
+    setIsFormOpen(false);
   }
+  
+  const RegistrationForm = () => (
+    <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                    <Input placeholder="Juan dela Cruz" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                    <Input placeholder="juan@example.com" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                    <Input placeholder="09123456789" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+                Secure My Spot
+            </Button>
+            <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
+        </form>
+    </Form>
+  );
 
   return (
     <>
@@ -183,45 +271,92 @@ export default function SalesPage() {
 
       <div className="bg-background text-foreground">
         <main className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <div className="text-center">
-              <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
-                <span className="block text-primary">Extra Kita Sa</span>
-                <span className="block">Food Business</span>
-              </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-xl text-muted-foreground">
-                Para sa mga taong kumikita na pero gusto pang lumago — o sa mga naghahangad ng mas mataas na income, lifestyle, at opportunities.
-              </p>
-              <p className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                  <PlayCircle className="w-4 h-4 text-primary"/>
-                  Watch the video to learn more
-              </p>
-            </div>
-          </AnimatedSection>
+            {/* 1. Hero Section */}
+            <AnimatedSection>
+                <div className="text-center">
+                <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
+                    <span className="block text-primary">Extra Kita Sa</span>
+                    <span className="block">Food Business</span>
+                </h1>
+                <p className="mt-4 max-w-3xl mx-auto text-xl text-muted-foreground">
+                    Para sa mga taong kumikita na pero gusto pang lumago — o sa mga naghahangad ng mas mataas na income, lifestyle, at opportunities.
+                </p>
+                <p className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <PlayCircle className="w-4 h-4 text-primary"/>
+                    Watch the video to learn more
+                </p>
+                </div>
+            </AnimatedSection>
+            
+            <AnimatedSection className="mt-8">
+                <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"
+                        title="YouTube video player" 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen
+                        className="absolute top-0 left-0 w-full h-full"
+                    ></iframe>
+                </div>
+            </AnimatedSection>
+
+            <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">
+                <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+                    <DialogTrigger asChild>
+                        <Button size="lg" className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+                            SECURE YOUR SPOT
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                        <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
+                        </DialogHeader>
+                        <RegistrationForm />
+                    </DialogContent>
+                </Dialog>
+                <p className="mt-8 text-lg text-muted-foreground">
+                    Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
+                </p>
+            </AnimatedSection>
+
+            {/* 2. Sino ang pwede? section */}
+            <AnimatedSection className="mt-24 text-center">
+                <h2 className="text-sm font-semibold tracking-wider uppercase text-primary">Sino ang Pwede?</h2>
+                <p className="mt-2 font-headline text-3xl font-extrabold tracking-tight sm:text-4xl">
+                This Webinar is For You
+                </p>
+                <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+                    {whoIsThisForItems.map((item) => (
+                        <div key={item.title} className="text-center p-6 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                                {item.icon}
+                            </div>
+                            <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
+                            <p className="mt-2 text-muted-foreground">{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </AnimatedSection>
+
+            {/* 3. Countdown Timer section */}
+            {isClient && (
+                <AnimatedSection className="mt-16">
+                    <div className="text-center max-w-2xl mx-auto">
+                        <h2 className="font-headline text-2xl font-bold text-center mb-2 text-primary">Limited Spots Available!</h2>
+                        <p className="text-muted-foreground mb-6">Registration closes soon. Reserve your seat now!</p>
+                        <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto mb-8">
+                            <CountdownUnit value={timeLeft.days} label="Days" />
+                            <CountdownUnit value={timeLeft.hours} label="Hours" />
+                            <CountdownUnit value={timeLeft.minutes} label="Minutes" />
+                            <CountdownUnit value={timeLeft.seconds} label="Seconds" />
+                        </div>
+                    </div>
+                </AnimatedSection>
+            )}
           
-          <AnimatedSection className="mt-8">
-              <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
-                  <iframe 
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"
-                      title="YouTube video player" 
-                      frameBorder="0" 
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                      allowFullScreen
-                      className="absolute top-0 left-0 w-full h-full"
-                  ></iframe>
-              </div>
-          </AnimatedSection>
-
-          <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">
-              <Button size="lg" className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1" onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}>
-                  SECURE YOUR SPOT
-              </Button>
-              <p className="mt-8 text-lg text-muted-foreground">
-                  Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
-              </p>
-          </AnimatedSection>
-
-          <AnimatedSection className="mt-16">
+            {/* 4. What you'll learn in this free webinar section */}
+            <AnimatedSection className="mt-16">
               <div className="max-w-2xl mx-auto">
                   <h2 className="font-headline text-3xl font-bold text-center mb-8">What You'll Learn In This Free Webinar:</h2>
                   <ul className="space-y-4">
@@ -236,109 +371,93 @@ export default function SalesPage() {
                       Sa Free Food Webinar ng JD Foods, ipapakita namin sa’yo kung paano ang simpleng pagkain ay puwedeng maging susi sa mas malaking kita at mas maluwag na buhay. Hindi mo kailangan maging chef o magbukas agad ng malaking restaurant. Ang kailangan mo lang ay desire for more income and freedom.
                   </p>
               </div>
-          </AnimatedSection>
+            </AnimatedSection>
 
-          {isClient && (
-            <AnimatedSection className="mt-16">
-                <div className="text-center max-w-2xl mx-auto">
-                    <h2 className="font-headline text-2xl font-bold text-center mb-2 text-primary">Limited Spots Available!</h2>
-                    <p className="text-muted-foreground mb-6">Registration closes soon. Reserve your seat now!</p>
-                    <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto mb-8">
-                        <CountdownUnit value={timeLeft.days} label="Days" />
-                        <CountdownUnit value={timeLeft.hours} label="Hours" />
-                        <CountdownUnit value={timeLeft.minutes} label="Minutes" />
-                        <CountdownUnit value={timeLeft.seconds} label="Seconds" />
-                    </div>
+            {/* 5. Guaranteed Section */}
+            <AnimatedSection className="mt-24">
+                <Card className="max-w-3xl mx-auto bg-accent/40 border-primary/20 shadow-lg">
+                    <CardContent className="p-8 flex flex-col md:flex-row items-center gap-8">
+                         <div className="flex-shrink-0">
+                             <ShieldCheck className="w-24 h-24 text-primary" />
+                         </div>
+                         <div>
+                            <h2 className="font-headline text-3xl font-bold">Our "Guaranteed Value" Promise</h2>
+                            <p className="mt-4 text-lg text-muted-foreground">
+                                We are so confident in the value this webinar provides that we guarantee you will walk away with at least three actionable strategies you can implement immediately. If not, we'll send you a free copy of our exclusive "Filipino Food Business Starter Kit" e-book.
+                            </p>
+                         </div>
+                    </CardContent>
+                </Card>
+            </AnimatedSection>
+
+            {/* 6. Testimonials Section */}
+            <AnimatedSection className="mt-24">
+                 <div className="text-center max-w-3xl mx-auto">
+                    <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
+                       Don't Just Take Our Word For It
+                    </h2>
+                    <p className="mt-6 text-lg leading-8 text-muted-foreground">
+                       See what past attendees have to say about their experience.
+                    </p>
+                </div>
+                <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+                    {testimonials.map((testimonial, index) => (
+                        <Card key={index} className="flex flex-col">
+                            <CardContent className="p-6 flex-grow">
+                                <div className="flex">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                                    ))}
+                                </div>
+                                <blockquote className="mt-4 text-muted-foreground italic">"{testimonial.quote}"</blockquote>
+                            </CardContent>
+                            <div className="p-6 pt-0 mt-auto">
+                                <p className="font-bold">{testimonial.name}</p>
+                                <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                            </div>
+                        </Card>
+                    ))}
                 </div>
             </AnimatedSection>
-          )}
+            
+            {/* 7. Small FAQ Section */}
+            <AnimatedSection className="mt-24">
+                <div className="max-w-2xl mx-auto">
+                     <h2 className="font-headline text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+                     <Accordion type="single" collapsible className="w-full">
+                        {faqItems.map((item, index) => (
+                            <AccordionItem key={index} value={`item-${index}`}>
+                                <AccordionTrigger>{item.question}</AccordionTrigger>
+                                <AccordionContent>{item.answer}</AccordionContent>
+                            </AccordionItem>
+                        ))}
+                    </Accordion>
+                </div>
+            </AnimatedSection>
 
-          <AnimatedSection id="register" className="mt-8">
-              <Card className="max-w-2xl mx-auto shadow-lg border-primary/50">
-                  <CardContent className="p-8">
-                      <h2 className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</h2>
-                      <Form {...form}>
-                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                              <FormField
-                              control={form.control}
-                              name="name"
-                              render={({ field }) => (
-                                  <FormItem>
-                                  <FormLabel>Full Name</FormLabel>
-                                  <FormControl>
-                                      <Input placeholder="Juan dela Cruz" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                  </FormItem>
-                              )}
-                              />
-                              <FormField
-                              control={form.control}
-                              name="email"
-                              render={({ field }) => (
-                                  <FormItem>
-                                  <FormLabel>Email Address</FormLabel>
-                                  <FormControl>
-                                      <Input placeholder="juan@example.com" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                  </FormItem>
-                              )}
-                              />
-                              <FormField
-                              control={form.control}
-                              name="phone"
-                              render={({ field }) => (
-                                  <FormItem>
-                                  <FormLabel>Phone Number</FormLabel>
-                                  <FormControl>
-                                      <Input placeholder="09123456789" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                  </FormItem>
-                              )}
-                              />
-                              <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
-                                  Secure My Spot
-                              </Button>
-                              <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
-                          </form>
-                      </Form>
-                  </CardContent>
-              </Card>
-          </AnimatedSection>
 
-          <AnimatedSection className="mt-24 text-center">
-            <h2 className="text-sm font-semibold tracking-wider uppercase text-primary">Sino ang Pwede?</h2>
-            <p className="mt-2 font-headline text-3xl font-extrabold tracking-tight sm:text-4xl">
-              This Webinar is For You
-            </p>
-            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
-                {whoIsThisForItems.slice(0, 2).map((item) => (
-                    <div key={item.title} className="text-center p-6 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-                          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                            {item.icon}
-                        </div>
-                        <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
-                        <p className="mt-2 text-muted-foreground">{item.description}</p>
-                    </div>
-                ))}
-            </div>
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
-                {whoIsThisForItems.slice(2).map((item) => (
-                    <div key={item.title} className="text-center p-6 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-                          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                            {item.icon}
-                        </div>
-                        <h3 className="mt-6 font-headline text-lg font-bold">{item.title}</h3>
-                        <p className="mt-2 text-muted-foreground">{item.description}</p>
-                    </div>
-                ))}
-            </div>
-            <p className="mt-12 text-lg text-muted-foreground">
-                Kung nakikita mo ang sarili mo dito, mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
-            </p>
-        </AnimatedSection>
+            {/* 8. Registration Button */}
+            <AnimatedSection id="register" className="mt-24 text-center">
+                 <div className="max-w-2xl mx-auto">
+                    <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">Ready to Start Earning?</h2>
+                    <p className="mt-6 text-lg text-muted-foreground">
+                        Your journey to an extra ₱30,000/month (or more!) starts here. Click the button below to reserve your free spot. It only takes 30 seconds.
+                    </p>
+                    <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+                        <DialogTrigger asChild>
+                             <Button size="lg" className="mt-8 w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+                                SECURE YOUR SPOT NOW
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
+                            </DialogHeader>
+                            <RegistrationForm />
+                        </DialogContent>
+                    </Dialog>
+                 </div>
+            </AnimatedSection>
 
 
           <footer className="mt-24 text-center text-muted-foreground text-sm">

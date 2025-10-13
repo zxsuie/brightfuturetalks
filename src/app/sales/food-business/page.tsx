@@ -147,17 +147,19 @@ export default function SalesPage() {
             </Card>
         </AnimatedSection>
 
-        <AnimatedSection className="mt-24 prose prose-lg mx-auto text-muted-foreground text-center">
+        <AnimatedSection className="mt-24 text-center max-w-3xl mx-auto">
             <h3 className="font-headline text-2xl font-bold text-foreground">WHO IS THIS FOR?</h3>
-            <p>
-                Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
-            </p>
-            <p>
-                Sa Free Food Webinar ng JD Foods, ipapakita namin sa’yo kung paano ang simpleng pagkain ay puwedeng maging susi sa mas malaking kita at mas maluwag na buhay. Hindi mo kailangan maging chef o magbukas agad ng malaking restaurant. Ang kailangan mo lang ay desire for more income and freedom.
-            </p>
-            <p className="font-semibold text-primary">
-                Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
-            </p>
+            <div className="mt-6 text-lg text-muted-foreground space-y-4">
+                <p>
+                    Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
+                </p>
+                <p>
+                    Sa Free Food Webinar ng JD Foods, ipapakita namin sa’yo kung paano ang simpleng pagkain ay puwedeng maging susi sa mas malaking kita at mas maluwag na buhay. Hindi mo kailangan maging chef o magbukas agad ng malaking restaurant. Ang kailangan mo lang ay desire for more income and freedom.
+                </p>
+                <p className="font-semibold text-primary">
+                    Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.
+                </p>
+            </div>
         </AnimatedSection>
 
          <footer className="mt-24 text-center text-muted-foreground text-sm">

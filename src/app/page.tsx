@@ -1,3 +1,4 @@
+
 import { HeroSection } from '@/components/sections/hero-section';
 import { StorySection } from '@/components/sections/story-section';
 import { AboutSection } from '@/components/sections/about-section';
@@ -35,8 +36,8 @@ export default function Home() {
       <MarqueeSection phrases={marqueePhrases1} direction="normal" />
       <AboutSection />
       <StorySection />
-      <UpcomingEventSection />
       <ValuePropSection />
+      <UpcomingEventSection />
       <ClientLogosSection />
       <ScrollingGallerySection />
       <HowItWorksSection />

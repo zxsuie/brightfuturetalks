@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -363,9 +364,9 @@ export default function SalesPage() {
                              <ShieldCheck className="w-24 h-24 text-primary" />
                          </div>
                          <div>
-                            <h2 className="font-headline text-3xl font-bold">Our "Guaranteed Value" Promise</h2>
+                            <h2 className="font-headline text-3xl font-bold">Ang "Guaranteed Value" Promise Namin</h2>
                             <p className="mt-4 text-lg text-muted-foreground">
-                                We are so confident in the value this webinar provides that we guarantee you will walk away with at least three actionable strategies you can implement immediately. If not, we'll send you a free copy of our exclusive "Filipino Food Business Starter Kit" e-book.
+                                Sobrang tiwala kami sa value ng webinar na 'to, kaya ginagarantiya namin na may matututunan kang at least tatlong practical strategies na puwede mong gamitin agad. Kung hindi, padadalhan ka namin ng libreng kopya ng aming exclusive "Filipino Food Business Starter Kit" e-book.
                             </p>
                          </div>
                     </CardContent>
@@ -422,5 +423,7 @@ export default function SalesPage() {
     </>
   )
 }
+
+    
 
     

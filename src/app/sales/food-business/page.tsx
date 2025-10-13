@@ -85,24 +85,6 @@ const whoIsThisForItems = [
     },
 ]
 
-const testimonials = [
-  {
-    quote: "I never thought I could start my own business, but this webinar gave me the confidence and the exact steps to follow. Now I'm earning on the side while doing what I love!",
-    name: "Anna D.",
-    title: "Home Baker",
-  },
-  {
-    quote: "The marketing tips were pure gold! My online orders have doubled since I applied what I learned. Highly recommended!",
-    name: "Marco P.",
-    title: "Small Eatery Owner",
-  },
-   {
-    quote: "Akala ko dati, passion lang sapat na. This webinar taught me the business side of things, especially pricing and management. My profit margins have never been better.",
-    name: "Jenny L.",
-    title: "Catering Services",
-  },
-];
-
 const faqItems = [
     {
         question: "What if I have zero experience in business?",
@@ -390,36 +372,6 @@ export default function SalesPage() {
                 </Card>
             </AnimatedSection>
 
-            {/* 6. Testimonials Section */}
-            <AnimatedSection className="mt-24">
-                 <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl">
-                       Don't Just Take Our Word For It
-                    </h2>
-                    <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                       See what past attendees have to say about their experience.
-                    </p>
-                </div>
-                <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
-                    {testimonials.map((testimonial, index) => (
-                        <Card key={index} className="flex flex-col">
-                            <CardContent className="p-6 flex-grow">
-                                <div className="flex">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                                    ))}
-                                </div>
-                                <blockquote className="mt-4 text-muted-foreground italic">"{testimonial.quote}"</blockquote>
-                            </CardContent>
-                            <div className="p-6 pt-0 mt-auto">
-                                <p className="font-bold">{testimonial.name}</p>
-                                <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            </AnimatedSection>
-            
             {/* 7. Small FAQ Section */}
             <AnimatedSection className="mt-24">
                 <div className="max-w-2xl mx-auto">

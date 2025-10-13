@@ -35,8 +35,8 @@ export default function Home() {
       <MarqueeSection phrases={marqueePhrases1} direction="normal" />
       <AboutSection />
       <StorySection />
-      <ValuePropSection />
       <UpcomingEventSection />
+      <ValuePropSection />
       <ClientLogosSection />
       <ScrollingGallerySection />
       <HowItWorksSection />

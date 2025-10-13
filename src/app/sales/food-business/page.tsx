@@ -32,6 +32,27 @@ const formSchema = z.object({
   })
 })
 
+const whatYoullLearnItems = [
+    {
+        text: "The exact blueprint to earn an extra ₱30k/month.",
+    },
+    {
+        text: "Paano mag-presyo ng tama para sa maximum profit.",
+    },
+    {
+        text: "Sikreto sa pag-market ng food business mo online (kahit walang budget).",
+    },
+    {
+        text: "Step-by-step guide on creating your food business from scratch.",
+    },
+    {
+        text: "How to find your first paying customers.",
+    },
+    {
+        text: "Paano i-manage ang kita at expenses para sa long-term growth."
+    }
+]
+
 const whoIsThisForItems = [
     {
         title: "Existing Food Business Owners",
@@ -108,15 +129,33 @@ export default function SalesPage() {
         </AnimatedSection>
 
         <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">
-            <p className="text-lg text-muted-foreground">
-                This is your chance to earn more than 30k a month using the method that has already helped me make 500k online.
-            </p>
-            <Button size="lg" className="mt-6 w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+            <Button size="lg" className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1" onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}>
                 SECURE YOUR SPOT
             </Button>
+             <p className="mt-8 text-lg text-muted-foreground">
+                Kung minsan, kahit gaano ka pa kasipag, parang kulang pa rin ang kinikita. At kahit mayaman na tayo o may maayos nang negosyo, nandiyan pa rin yung tanong: ‘Paano pa kaya ako makakadagdag ng kita?’
+            </p>
         </AnimatedSection>
 
-        <AnimatedSection id="register" className="mt-24">
+        <AnimatedSection className="mt-16">
+            <div className="max-w-2xl mx-auto">
+                <h2 className="font-headline text-3xl font-bold text-center mb-8">What You'll Learn In This Free Webinar:</h2>
+                <ul className="space-y-4">
+                    {whatYoullLearnItems.map((item, index) => (
+                        <li key={index} className="flex items-start gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                            <span className="text-lg text-muted-foreground">{item.text}</span>
+                        </li>
+                    ))}
+                </ul>
+                 <p className="mt-8 text-center text-lg text-muted-foreground">
+                    Sa Free Food Webinar ng JD Foods, ipapakita namin sa’yo kung paano ang simpleng pagkain ay puwedeng maging susi sa mas malaking kita at mas maluwag na buhay. Hindi mo kailangan maging chef o magbukas agad ng malaking restaurant. Ang kailangan mo lang ay desire for more income and freedom.
+                </p>
+            </div>
+        </AnimatedSection>
+
+
+        <AnimatedSection id="register" className="mt-16">
             <Card className="max-w-2xl mx-auto shadow-lg border-primary/50">
                 <CardContent className="p-8">
                      <h2 className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</h2>
@@ -164,6 +203,7 @@ export default function SalesPage() {
                             <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
                                 Secure My Spot
                             </Button>
+                             <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
                         </form>
                     </Form>
                 </CardContent>

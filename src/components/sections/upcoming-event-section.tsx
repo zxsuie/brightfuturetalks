@@ -25,7 +25,7 @@ export function UpcomingEventSection() {
             October 25, 2025 • Online Webinar
           </p>
           <h2 className="mt-4 font-headline text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl">
-            Start Your Food Business With Confidence
+            Extra Kita sa Food Business
           </h2>
           <p className="mt-6 text-xl leading-8 text-muted-foreground">
             Learn how to grow your food business and boost your income opportunities.

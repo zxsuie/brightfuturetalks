@@ -1,5 +1,4 @@
 
-
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -99,12 +98,12 @@ const faqItems = [
     {
         question: "May recording ba kung hindi ako makapanood?",
         answer: "Oo! Lahat ng nag-register ay makakatanggap ng link para sa recording para mapanood mo ulit kahit kailan mo gusto."
-    },
+    }
 ];
 
-const RegistrationForm = ({ form, onSubmit }: { form: UseFormReturn<FormValues>, onSubmit: (values: FormValues) => void }) => (
+const RegistrationForm = ({ form, onSubmit, className }: { form: UseFormReturn<FormValues>, onSubmit: (values: FormValues) => Promise<void>, className?: string }) => (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-6", className)}>
             <FormField
             control={form.control}
             name="name"
@@ -165,21 +164,6 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
     const [isMuted, setIsMuted] = useState(true);
 
     useEffect(() => {
-        const loadYouTubeAPI = () => {
-            if (!(window as any).YT) {
-                const tag = document.createElement('script');
-                tag.src = "https://www.youtube.com/iframe_api";
-                const firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-                (window as any).onYouTubeIframeAPIReady = () => {
-                    createPlayer();
-                };
-            } else {
-                createPlayer();
-            }
-        };
-
         const createPlayer = () => {
             if (document.getElementById('youtube-player-food-business') && !playerRef.current) {
                 playerRef.current = new (window as any).YT.Player('youtube-player-food-business', {
@@ -194,10 +178,30 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
                         modestbranding: 1,
                         rel: 0,
                     },
+                    events: {
+                        onReady: (event: any) => {
+                             // The player is ready, you can now control it.
+                             // For example, you could play it here if not using autoplay.
+                             // event.target.playVideo();
+                        }
+                    }
                 });
             }
         };
 
+        const loadYouTubeAPI = () => {
+            if (!(window as any).YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+                (window as any).onYouTubeIframeAPIReady = createPlayer;
+            } else {
+                createPlayer();
+            }
+        };
+        
         loadYouTubeAPI();
         
         const currentVideoRef = videoRef.current;
@@ -223,8 +227,9 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
              if (currentVideoRef) {
                 observer.unobserve(currentVideoRef);
             }
+            // Cleanup the onYouTubeIframeAPIReady function and the player
+            (window as any).onYouTubeIframeAPIReady = undefined;
             if (playerRef.current && typeof playerRef.current.destroy === 'function') {
-                 // The destroy function might not exist if the API didn't load, so we check for it.
                 try {
                     playerRef.current.destroy();
                     playerRef.current = null;
@@ -232,7 +237,6 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
                     console.error("Error destroying YouTube player:", e);
                 }
             }
-            (window as any).onYouTubeIframeAPIReady = undefined;
         };
     }, [videoId]);
     
@@ -317,23 +321,25 @@ export default function SalesPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const listId = "TiBf86";
-    const apiKey = "UgxRfS";
-
-    const data = new FormData();
-    data.append('a', apiKey);
-    data.append('email', values.email);
-    data.append('first_name', values.name.split(' ')[0]);
-    data.append('last_name', values.name.split(' ').slice(1).join(' '));
-    data.append('phone_number', values.phone);
-    data.append('g', listId); // The List ID
+    const apiKey = "UgxRfS"; // This is the Public API Key
 
     try {
-        const response = await fetch(`https://manage.kmail-lists.com/ajax/subscriptions/subscribe`, {
-            method: 'POST',
-            body: data,
-        });
+        // Ensure Klaviyo is loaded
+        if (typeof window.klaviyo !== 'undefined') {
+            
+            // Identify the user with their properties
+            window.klaviyo.push(['identify', {
+                $email: values.email,
+                $first_name: values.name.split(' ')[0],
+                $last_name: values.name.split(' ').slice(1).join(' '),
+                $phone_number: values.phone,
+            }]);
 
-        if (response.ok) {
+            // Add the user to the specific list
+            window.klaviyo.push(['track', 'Subscribed to List', {
+                list_id: listId
+            }]);
+
             toast({
                 title: "Registration Successful!",
                 description: "Thank you for registering. We've sent a confirmation to your email.",
@@ -341,19 +347,16 @@ export default function SalesPage() {
             form.reset();
             setIsFormOpen(false);
         } else {
-            const result = await response.json();
-             toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: result.message || "Could not complete your registration. Please try again.",
-            });
+            throw new Error("Klaviyo script not loaded.");
         }
+
     } catch (error) {
          toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
-            description: "There was a problem connecting to the server. Please check your internet connection and try again.",
+            description: "There was a problem with your registration. Please try again.",
         });
+        console.error("Klaviyo submission error:", error);
     }
   }
   

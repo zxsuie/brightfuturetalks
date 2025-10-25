@@ -263,14 +263,46 @@ export default function SalesPage() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    toast({
-      title: "Registration Successful!",
-      description: "Thank you for registering. We've sent a confirmation to your email.",
-    })
-    form.reset();
-    setIsFormOpen(false);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const listId = "TiBf86";
+    const apiKey = "UgxRfS";
+
+    const data = new FormData();
+    data.append('a', apiKey);
+    data.append('email', values.email);
+    data.append('first_name', values.name.split(' ')[0]);
+    data.append('last_name', values.name.split(' ').slice(1).join(' '));
+    data.append('phone_number', values.phone);
+    data.append('g', listId); // The List ID
+
+    try {
+        const response = await fetch(`https://manage.kmail-lists.com/ajax/subscriptions/subscribe`, {
+            method: 'POST',
+            body: data,
+        });
+
+        if (response.ok) {
+            toast({
+                title: "Registration Successful!",
+                description: "Thank you for registering. We've sent a confirmation to your email.",
+            });
+            form.reset();
+            setIsFormOpen(false);
+        } else {
+            const result = await response.json();
+             toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: result.message || "Could not complete your registration. Please try again.",
+            });
+        }
+    } catch (error) {
+         toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem connecting to the server. Please check your internet connection and try again.",
+        });
+    }
   }
   
   const RegistrationForm = () => (
@@ -508,5 +540,3 @@ export default function SalesPage() {
     </>
   )
 }
-
-    

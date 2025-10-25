@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -325,23 +326,18 @@ export default function SalesPage() {
     const listId = "TiBf86";
     const apiKey = "UgxRfS";
     
+    const formData = new FormData();
+    formData.append('g', listId);
+    formData.append('email', values.email);
+    formData.append('$fields', '$first_name,$last_name,phone_number');
+    formData.append('$first_name', values.name.split(' ')[0]);
+    formData.append('$last_name', values.name.split(' ').slice(1).join(' '));
+    formData.append('phone_number', values.phone);
+
     try {
-        const response = await fetch(`https://a.klaviyo.com/api/v2/list/${listId}/subscribe`, {
+        const response = await fetch(`https://manage.kmail-lists.com/ajax/subscriptions/subscribe`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                api_key: apiKey,
-                profiles: [
-                    {
-                        email: values.email,
-                        phone_number: values.phone,
-                        first_name: values.name.split(' ')[0],
-                        last_name: values.name.split(' ').slice(1).join(' '),
-                    }
-                ]
-            })
+            body: formData,
         });
 
         if (!response.ok) {
@@ -552,3 +548,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

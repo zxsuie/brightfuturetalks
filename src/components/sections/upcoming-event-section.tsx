@@ -12,9 +12,9 @@ export function UpcomingEventSection() {
     <AnimatedSection className="py-24 sm:py-32 bg-background">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group border-4 border-accent/40">
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl group border-4 border-accent/40">
              <Image
-                src="https://picsum.photos/seed/webinarbg/1200/900"
+                src="https://picsum.photos/seed/webinarbg/1920/1080"
                 alt="People learning in a webinar setting"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

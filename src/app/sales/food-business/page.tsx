@@ -1,8 +1,9 @@
 
+
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, type UseFormReturn } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
 import { CheckCircle2, ShieldCheck, VolumeX, Volume2 } from "lucide-react"
@@ -39,6 +40,8 @@ const formSchema = z.object({
       message: "Please enter a valid phone number."
   })
 })
+
+type FormValues = z.infer<typeof formSchema>;
 
 const whatYoullLearnItems = [
     {
@@ -99,6 +102,55 @@ const faqItems = [
     },
 ];
 
+const RegistrationForm = ({ form, onSubmit }: { form: UseFormReturn<FormValues>, onSubmit: (values: FormValues) => void }) => (
+    <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                    <Input placeholder="Juan dela Cruz" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                    <Input placeholder="juan@example.com" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                    <Input placeholder="09123456789" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+                Secure My Spot
+            </Button>
+            <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
+        </form>
+    </Form>
+  );
 
 const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
@@ -305,55 +357,6 @@ export default function SalesPage() {
     }
   }
   
-  const RegistrationForm = () => (
-    <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                    <Input placeholder="Juan dela Cruz" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Email Address</FormLabel>
-                <FormControl>
-                    <Input placeholder="juan@example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                    <Input placeholder="09123456789" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
-                Secure My Spot
-            </Button>
-            <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
-        </form>
-    </Form>
-  );
 
   return (
     <>
@@ -418,7 +421,7 @@ export default function SalesPage() {
                         <DialogHeader>
                         <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
                         </DialogHeader>
-                        <RegistrationForm />
+                        <RegistrationForm form={form} onSubmit={onSubmit} />
                     </DialogContent>
                 </Dialog>
                 <p className="mt-8 text-lg text-muted-foreground">
@@ -529,7 +532,7 @@ export default function SalesPage() {
                             <DialogHeader>
                                 <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
                             </DialogHeader>
-                            <RegistrationForm />
+                            <RegistrationForm form={form} onSubmit={onSubmit} />
                         </DialogContent>
                     </Dialog>
                  </div>
@@ -540,3 +543,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

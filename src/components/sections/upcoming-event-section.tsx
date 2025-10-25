@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -14,7 +13,7 @@ export function UpcomingEventSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl group border-4 border-accent/40">
              <Image
-                src="https://picsum.photos/seed/webinarbg/1920/1080"
+                src="/webinar/extrakitawebinar.png"
                 alt="People learning in a webinar setting"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

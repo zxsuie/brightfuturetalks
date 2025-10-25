@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
 import { PlayCircle, CheckCircle2, ShieldCheck, Star } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
 
@@ -119,6 +119,7 @@ export default function SalesPage() {
         seconds: 0,
     });
     const [isClient, setIsClient] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         setIsClient(true);
@@ -144,6 +145,12 @@ export default function SalesPage() {
         }, 1000);
         
         setTimeLeft(calculateTimeLeft());
+
+        if (videoRef.current) {
+            videoRef.current.play().catch(error => {
+                console.error("Video autoplay was prevented:", error);
+            });
+        }
 
         return () => clearInterval(timer);
     }, []);
@@ -274,6 +281,7 @@ export default function SalesPage() {
             <AnimatedSection className="mt-8">
                 <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
                     <video
+                        ref={videoRef}
                         src="/webinar/extrakitawebinar.mp4"
                         autoPlay
                         muted

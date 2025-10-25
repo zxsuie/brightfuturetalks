@@ -1,5 +1,4 @@
 
-
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -434,7 +433,7 @@ export default function SalesPage() {
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
                                 <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
-                            </Header>
+                            </DialogHeader>
                             <RegistrationForm />
                         </DialogContent>
                     </Dialog>

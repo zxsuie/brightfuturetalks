@@ -26,6 +26,7 @@ import { AnimatedSection } from "@/components/ui/animated-section"
 import { Toaster } from "@/components/ui/toaster"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { cn } from "@/lib/utils"
 
 
 const formSchema = z.object({
@@ -41,6 +42,56 @@ const formSchema = z.object({
 })
 
 type FormValues = z.infer<typeof formSchema>;
+
+const RegistrationForm = ({ form, onSubmit, className }: { form: UseFormReturn<FormValues>, onSubmit: (values: FormValues) => Promise<void>, className?: string }) => (
+    <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-6", className)}>
+            <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                    <Input placeholder="Juan dela Cruz" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                    <Input placeholder="juan@example.com" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                    <Input placeholder="09123456789" {...field} />
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+            )}
+            />
+            <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
+                Secure My Spot
+            </Button>
+            <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
+        </form>
+    </Form>
+  );
 
 const whatYoullLearnItems = [
     {
@@ -101,55 +152,6 @@ const faqItems = [
     }
 ];
 
-const RegistrationForm = ({ form, onSubmit, className }: { form: UseFormReturn<FormValues>, onSubmit: (values: FormValues) => Promise<void>, className?: string }) => (
-    <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-6", className)}>
-            <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                    <Input placeholder="Juan dela Cruz" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Email Address</FormLabel>
-                <FormControl>
-                    <Input placeholder="juan@example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                    <Input placeholder="09123456789" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
-                Secure My Spot
-            </Button>
-            <p className="text-center text-sm text-muted-foreground pt-4">Mag-register ka na — libre ito, pero puwedeng maging start ng next big break mo.</p>
-        </form>
-    </Form>
-  );
 
 const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
@@ -321,23 +323,19 @@ export default function SalesPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const listId = "TiBf86";
-    const apiKey = "UgxRfS"; // This is the Public API Key
-
+    
     try {
-        // Ensure Klaviyo is loaded
-        if (typeof window.klaviyo !== 'undefined') {
-            
-            // Identify the user with their properties
-            window.klaviyo.push(['identify', {
+        if (typeof (window as any).klaviyo !== 'undefined') {
+            (window as any).klaviyo.push(['identify', {
                 $email: values.email,
                 $first_name: values.name.split(' ')[0],
                 $last_name: values.name.split(' ').slice(1).join(' '),
                 $phone_number: values.phone,
             }]);
 
-            // Add the user to the specific list
-            window.klaviyo.push(['track', 'Subscribed to List', {
-                list_id: listId
+            (window as any).klaviyo.push(['track', 'Subscribed to List', {
+                $list_id: listId,
+                $value: 0
             }]);
 
             toast({

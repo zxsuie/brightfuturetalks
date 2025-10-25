@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-import { PlayCircle, CheckCircle2, ShieldCheck, Star } from "lucide-react"
+import { PlayCircle, CheckCircle2, ShieldCheck } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
@@ -24,7 +24,6 @@ import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/components/ui/card"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Toaster } from "@/components/ui/toaster"
-import { cn } from "@/lib/utils"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
@@ -118,6 +117,10 @@ export default function SalesPage() {
         seconds: 0,
     });
     const [isClient, setIsClient] = useState(false);
+    
+    const playerRef = useRef<any>(null);
+    const videoContainerRef = useRef<HTMLDivElement>(null);
+
 
     useEffect(() => {
         setIsClient(true);
@@ -144,7 +147,78 @@ export default function SalesPage() {
         
         setTimeLeft(calculateTimeLeft());
 
-        return () => clearInterval(timer);
+        // YouTube Player API Logic
+        const onYouTubeIframeAPIReady = () => {
+          playerRef.current = new (window as any).YT.Player('youtube-player', {
+            height: '100%',
+            width: '100%',
+            videoId: 'K06QOjPE08k',
+            playerVars: {
+              autoplay: 1,
+              mute: 1,
+              controls: 1,
+              loop: 1,
+              playlist: 'K06QOjPE08k', // Required for loop to work
+              playsinline: 1,
+              enablejsapi: 1,
+            },
+            events: {
+              'onReady': onPlayerReady,
+            }
+          });
+        };
+
+        const onPlayerReady = (event: any) => {
+            // The API will call this function when the video player is ready.
+            // We can now start observing the video container.
+            setupIntersectionObserver();
+        };
+        
+        const setupIntersectionObserver = () => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+                            if (entry.isIntersecting) {
+                                playerRef.current.playVideo();
+                            } else {
+                                playerRef.current.pauseVideo();
+                            }
+                        }
+                    });
+                },
+                { threshold: 0.5 } // Trigger when 50% of the video is visible
+            );
+
+            if (videoContainerRef.current) {
+                observer.observe(videoContainerRef.current);
+            }
+
+            return () => {
+                if (videoContainerRef.current) {
+                    observer.unobserve(videoContainerRef.current);
+                }
+            };
+        };
+
+        if (!(window as any).YT) { // If the API script hasn't been loaded
+          const tag = document.createElement('script');
+          tag.src = "https://www.youtube.com/iframe_api";
+          const firstScriptTag = document.getElementsByTagName('script')[0];
+          if (firstScriptTag && firstScriptTag.parentNode) {
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          }
+          (window as any).onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        } else { // If the API is already loaded
+          onYouTubeIframeAPIReady();
+        }
+
+        return () => {
+            clearInterval(timer);
+            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                playerRef.current.destroy();
+            }
+        };
     }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -218,7 +292,7 @@ export default function SalesPage() {
 
   return (
     <>
-      <Head>
+       <Head>
         <title>Extra Kita Sa Food Business - Bright Future Talks</title>
         <meta name="description" content="Learn how to grow your food business and boost your income opportunities." />
          <link
@@ -250,7 +324,6 @@ export default function SalesPage() {
             `,
           }}
         />
-
       <div className="bg-background text-foreground">
         <main className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-16">
             {/* 1. Hero Section */}
@@ -270,18 +343,10 @@ export default function SalesPage() {
                 </div>
             </AnimatedSection>
             
-            <AnimatedSection className="mt-8">
-                <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
-                    <video
-                        src="/webinar/extrakitawebinar.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        controls
-                        className="absolute top-0 left-0 w-full h-full object-cover"
-                    ></video>
-                </div>
+            <AnimatedSection className="mt-8" ref={videoContainerRef}>
+              <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
+                  <div id="youtube-player" className="absolute top-0 left-0 w-full h-full"></div>
+              </div>
             </AnimatedSection>
 
             <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">

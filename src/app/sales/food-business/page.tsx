@@ -323,36 +323,44 @@ export default function SalesPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const listId = "TiBf86";
+    const apiKey = "UgxRfS";
     
     try {
-        if (typeof (window as any).klaviyo !== 'undefined') {
-            (window as any).klaviyo.push(['identify', {
-                $email: values.email,
-                $first_name: values.name.split(' ')[0],
-                $last_name: values.name.split(' ').slice(1).join(' '),
-                $phone_number: values.phone,
-            }]);
+        const response = await fetch(`https://a.klaviyo.com/api/v2/list/${listId}/subscribe`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                api_key: apiKey,
+                profiles: [
+                    {
+                        email: values.email,
+                        phone_number: values.phone,
+                        first_name: values.name.split(' ')[0],
+                        last_name: values.name.split(' ').slice(1).join(' '),
+                    }
+                ]
+            })
+        });
 
-            (window as any).klaviyo.push(['track', 'Subscribed to List', {
-                $list_id: listId,
-                $value: 0
-            }]);
-
-            toast({
-                title: "Registration Successful!",
-                description: "Thank you for registering. We've sent a confirmation to your email.",
-            });
-            form.reset();
-            setIsFormOpen(false);
-        } else {
-            throw new Error("Klaviyo script not loaded.");
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Klaviyo API request failed");
         }
+
+        toast({
+            title: "Registration Successful!",
+            description: "Thank you for registering. We've sent a confirmation to your email.",
+        });
+        form.reset();
+        setIsFormOpen(false);
 
     } catch (error) {
          toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your registration. Please try again.",
+            description: (error as Error).message || "There was a problem with your registration. Please try again.",
         });
         console.error("Klaviyo submission error:", error);
     }
@@ -544,5 +552,3 @@ export default function SalesPage() {
     </>
   )
 }
-
-    

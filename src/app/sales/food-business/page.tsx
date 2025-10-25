@@ -146,14 +146,35 @@ export default function SalesPage() {
         
         setTimeLeft(calculateTimeLeft());
 
-        if (videoRef.current) {
-            videoRef.current.play().catch(error => {
-                console.error("Video autoplay was prevented:", error);
-            });
-        }
-
         return () => clearInterval(timer);
     }, []);
+
+    useEffect(() => {
+        const videoElement = videoRef.current;
+        if (!videoElement) return;
+
+        const playVideo = () => {
+            videoElement.play().catch(error => {
+                console.error("Video autoplay was prevented:", error);
+                // As a fallback, we can show the controls if autoplay fails
+                videoElement.controls = true;
+            });
+        };
+
+        // If the video is already loaded, play it.
+        if (videoElement.readyState >= 4) { // HAVE_ENOUGH_DATA
+            playVideo();
+        } else {
+            // Otherwise, wait for it to be ready.
+            videoElement.addEventListener('canplay', playVideo);
+        }
+
+        return () => {
+            if (videoElement) {
+                videoElement.removeEventListener('canplay', playVideo);
+            }
+        };
+    }, [videoRef]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -413,7 +434,7 @@ export default function SalesPage() {
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
                                 <DialogTitle className="font-headline text-3xl font-bold text-center mb-6">Register for the Free Webinar</DialogTitle>
-                            </DialogHeader>
+                            </Header>
                             <RegistrationForm />
                         </DialogContent>
                     </Dialog>

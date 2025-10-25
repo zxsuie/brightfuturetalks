@@ -147,32 +147,7 @@ export default function SalesPage() {
         
         setTimeLeft(calculateTimeLeft());
 
-        // YouTube Player API Logic
-        const onYouTubeIframeAPIReady = () => {
-          playerRef.current = new (window as any).YT.Player('youtube-player', {
-            height: '100%',
-            width: '100%',
-            videoId: 'K06QOjPE08k',
-            playerVars: {
-              autoplay: 1,
-              mute: 1,
-              controls: 1,
-              loop: 1,
-              playlist: 'K06QOjPE08k', // Required for loop to work
-              playsinline: 1,
-              enablejsapi: 1,
-            },
-            events: {
-              'onReady': onPlayerReady,
-            }
-          });
-        };
-
-        const onPlayerReady = (event: any) => {
-            // The API will call this function when the video player is ready.
-            // We can now start observing the video container.
-            setupIntersectionObserver();
-        };
+        // --- YouTube Player API Logic ---
         
         const setupIntersectionObserver = () => {
             const observer = new IntersectionObserver(
@@ -199,6 +174,33 @@ export default function SalesPage() {
                     observer.unobserve(videoContainerRef.current);
                 }
             };
+        };
+        
+        const onPlayerReady = (event: any) => {
+            // The API will call this function when the video player is ready.
+            // We can now start observing the video container.
+            event.target.mute(); // Mute the video on ready
+            setupIntersectionObserver();
+        };
+
+        const onYouTubeIframeAPIReady = () => {
+          playerRef.current = new (window as any).YT.Player('youtube-player', {
+            height: '100%',
+            width: '100%',
+            videoId: 'K06QOjPE08k',
+            playerVars: {
+              autoplay: 1,
+              mute: 1,
+              controls: 1,
+              loop: 1,
+              playlist: 'K06QOjPE08k', // Required for loop to work
+              playsinline: 1,
+              enablejsapi: 1,
+            },
+            events: {
+              'onReady': onPlayerReady,
+            }
+          });
         };
 
         if (!(window as any).YT) { // If the API script hasn't been loaded
@@ -482,3 +484,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

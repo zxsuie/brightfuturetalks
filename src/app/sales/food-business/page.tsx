@@ -273,14 +273,14 @@ export default function SalesPage() {
             
             <AnimatedSection className="mt-8">
                 <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
-                    <iframe 
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"
-                        title="YouTube video player" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowFullScreen
-                        className="absolute top-0 left-0 w-full h-full"
-                    ></iframe>
+                    <video
+                        src="/webinar/extrakitawebinar.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                    ></video>
                 </div>
             </AnimatedSection>
 
@@ -417,3 +417,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

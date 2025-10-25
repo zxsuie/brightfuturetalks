@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-import { PlayCircle, CheckCircle2, ShieldCheck } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
+import { CheckCircle2, ShieldCheck } from "lucide-react"
+import { useState, useEffect } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
 
@@ -117,10 +117,6 @@ export default function SalesPage() {
         seconds: 0,
     });
     const [isClient, setIsClient] = useState(false);
-    
-    const playerRef = useRef<any>(null);
-    const videoContainerRef = useRef<HTMLDivElement>(null);
-
 
     useEffect(() => {
         setIsClient(true);
@@ -147,79 +143,8 @@ export default function SalesPage() {
         
         setTimeLeft(calculateTimeLeft());
 
-        // --- YouTube Player API Logic ---
-        
-        const setupIntersectionObserver = () => {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
-                            if (entry.isIntersecting) {
-                                playerRef.current.playVideo();
-                            } else {
-                                playerRef.current.pauseVideo();
-                            }
-                        }
-                    });
-                },
-                { threshold: 0.5 } // Trigger when 50% of the video is visible
-            );
-
-            if (videoContainerRef.current) {
-                observer.observe(videoContainerRef.current);
-            }
-
-            return () => {
-                if (videoContainerRef.current) {
-                    observer.unobserve(videoContainerRef.current);
-                }
-            };
-        };
-        
-        const onPlayerReady = (event: any) => {
-            // The API will call this function when the video player is ready.
-            // We can now start observing the video container.
-            event.target.mute(); // Mute the video on ready
-            setupIntersectionObserver();
-        };
-
-        const onYouTubeIframeAPIReady = () => {
-          playerRef.current = new (window as any).YT.Player('youtube-player', {
-            height: '100%',
-            width: '100%',
-            videoId: 'K06QOjPE08k',
-            playerVars: {
-              autoplay: 1,
-              mute: 1,
-              controls: 1,
-              loop: 1,
-              playlist: 'K06QOjPE08k', // Required for loop to work
-              playsinline: 1,
-              enablejsapi: 1,
-            },
-            events: {
-              'onReady': onPlayerReady,
-            }
-          });
-        };
-
-        if (!(window as any).YT) { // If the API script hasn't been loaded
-          const tag = document.createElement('script');
-          tag.src = "https://www.youtube.com/iframe_api";
-          const firstScriptTag = document.getElementsByTagName('script')[0];
-          if (firstScriptTag && firstScriptTag.parentNode) {
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          }
-          (window as any).onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-        } else { // If the API is already loaded
-          onYouTubeIframeAPIReady();
-        }
-
         return () => {
             clearInterval(timer);
-            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
-                playerRef.current.destroy();
-            }
         };
     }, []);
 
@@ -338,17 +263,7 @@ export default function SalesPage() {
                 <p className="mt-4 max-w-3xl mx-auto text-xl text-muted-foreground">
                     Para sa mga taong kumikita na pero gusto pang lumago — o sa mga naghahangad ng mas mataas na income, lifestyle, at opportunities.
                 </p>
-                <p className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <PlayCircle className="w-4 h-4 text-primary"/>
-                    Watch the video to learn more
-                </p>
                 </div>
-            </AnimatedSection>
-            
-            <AnimatedSection className="mt-8" ref={videoContainerRef}>
-              <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
-                  <div id="youtube-player" className="absolute top-0 left-0 w-full h-full"></div>
-              </div>
             </AnimatedSection>
 
             <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">
@@ -484,3 +399,5 @@ export default function SalesPage() {
     </>
   )
 }
+
+    

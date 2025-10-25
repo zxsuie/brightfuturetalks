@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
 import { CheckCircle2, ShieldCheck } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
 
@@ -106,6 +106,92 @@ const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
         <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
     </div>
 );
+
+const YouTubePlayer = ({ videoId }: { videoId: string }) => {
+    const playerRef = useRef<any>(null);
+    const videoRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const loadYouTubeAPI = () => {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            document.body.appendChild(tag);
+            
+            (window as any).onYouTubeIframeAPIReady = () => {
+                createPlayer();
+            };
+        };
+
+        const createPlayer = () => {
+             if (document.getElementById('youtube-player-food-business')) {
+                playerRef.current = new (window as any).YT.Player('youtube-player-food-business', {
+                    videoId: videoId,
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        loop: 1,
+                        playlist: videoId,
+                        mute: 1,
+                        playsinline: 1,
+                        modestbranding: 1,
+                        rel: 0,
+                    },
+                    events: {
+                        'onReady': onPlayerReady
+                    }
+                });
+            }
+        };
+
+        const onPlayerReady = (event: any) => {
+             // The API will call this function when the video player is ready.
+        };
+
+        if (!(window as any).YT) {
+            loadYouTubeAPI();
+        } else {
+            createPlayer();
+        }
+
+        return () => {
+            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                playerRef.current.destroy();
+            }
+            (window as any).onYouTubeIframeAPIReady = undefined;
+        };
+    }, [videoId]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+                    if (entry.isIntersecting) {
+                        playerRef.current.playVideo();
+                    } else {
+                        playerRef.current.pauseVideo();
+                    }
+                }
+            },
+            { threshold: 0.5 } // 50% of the video must be visible
+        );
+
+        const currentVideoRef = videoRef.current;
+        if (currentVideoRef) {
+            observer.observe(currentVideoRef);
+        }
+
+        return () => {
+            if (currentVideoRef) {
+                observer.unobserve(currentVideoRef);
+            }
+        };
+    }, []);
+
+
+    return <div ref={videoRef} id="youtube-player-food-business" className="w-full aspect-video rounded-xl shadow-2xl" />;
+};
+
 
 export default function SalesPage() {
     const { toast } = useToast()
@@ -265,8 +351,11 @@ export default function SalesPage() {
                 </p>
                 </div>
             </AnimatedSection>
-
+            
             <AnimatedSection className="mt-8 text-center max-w-3xl mx-auto">
+                 <div className="my-8">
+                    <YouTubePlayer videoId="K06QOjPE08k" />
+                </div>
                 <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
                     <DialogTrigger asChild>
                         <Button size="lg" className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">

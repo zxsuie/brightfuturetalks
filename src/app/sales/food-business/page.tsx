@@ -118,7 +118,6 @@ export default function SalesPage() {
         seconds: 0,
     });
     const [isClient, setIsClient] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         setIsClient(true);
@@ -147,33 +146,6 @@ export default function SalesPage() {
 
         return () => clearInterval(timer);
     }, []);
-
-    useEffect(() => {
-        const videoElement = videoRef.current;
-        if (!videoElement) return;
-
-        const playVideo = () => {
-            videoElement.play().catch(error => {
-                console.error("Video autoplay was prevented:", error);
-                // As a fallback, we can show the controls if autoplay fails
-                videoElement.controls = true;
-            });
-        };
-
-        // If the video is already loaded, play it.
-        if (videoElement.readyState >= 4) { // HAVE_ENOUGH_DATA
-            playVideo();
-        } else {
-            // Otherwise, wait for it to be ready.
-            videoElement.addEventListener('canplay', playVideo);
-        }
-
-        return () => {
-            if (videoElement) {
-                videoElement.removeEventListener('canplay', playVideo);
-            }
-        };
-    }, [videoRef]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -301,12 +273,12 @@ export default function SalesPage() {
             <AnimatedSection className="mt-8">
                 <div className="relative pt-[56.25%] w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl border-4 border-primary/20">
                     <video
-                        ref={videoRef}
                         src="/webinar/extrakitawebinar.mp4"
                         autoPlay
                         muted
                         loop
                         playsInline
+                        controls
                         className="absolute top-0 left-0 w-full h-full object-cover"
                     ></video>
                 </div>

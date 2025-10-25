@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-import { CheckCircle2, ShieldCheck } from "lucide-react"
+import { CheckCircle2, ShieldCheck, VolumeX, Volume2 } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import Head from 'next/head';
 import Script from 'next/script';
@@ -110,20 +110,26 @@ const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
 const YouTubePlayer = ({ videoId }: { videoId: string }) => {
     const playerRef = useRef<any>(null);
     const videoRef = useRef<HTMLDivElement>(null);
+    const [isMuted, setIsMuted] = useState(true);
 
     useEffect(() => {
         const loadYouTubeAPI = () => {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            document.body.appendChild(tag);
-            
-            (window as any).onYouTubeIframeAPIReady = () => {
+            if (!(window as any).YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+                (window as any).onYouTubeIframeAPIReady = () => {
+                    createPlayer();
+                };
+            } else {
                 createPlayer();
-            };
+            }
         };
 
         const createPlayer = () => {
-             if (document.getElementById('youtube-player-food-business')) {
+            if (document.getElementById('youtube-player-food-business') && !playerRef.current) {
                 playerRef.current = new (window as any).YT.Player('youtube-player-food-business', {
                     videoId: videoId,
                     playerVars: {
@@ -136,32 +142,13 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
                         modestbranding: 1,
                         rel: 0,
                     },
-                    events: {
-                        'onReady': onPlayerReady
-                    }
                 });
             }
         };
 
-        const onPlayerReady = (event: any) => {
-             // The API will call this function when the video player is ready.
-        };
-
-        if (!(window as any).YT) {
-            loadYouTubeAPI();
-        } else {
-            createPlayer();
-        }
-
-        return () => {
-            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
-                playerRef.current.destroy();
-            }
-            (window as any).onYouTubeIframeAPIReady = undefined;
-        };
-    }, [videoId]);
-
-    useEffect(() => {
+        loadYouTubeAPI();
+        
+        const currentVideoRef = videoRef.current;
         const observer = new IntersectionObserver(
             (entries) => {
                 const entry = entries[0];
@@ -176,20 +163,53 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
             { threshold: 0.5 } // 50% of the video must be visible
         );
 
-        const currentVideoRef = videoRef.current;
         if (currentVideoRef) {
             observer.observe(currentVideoRef);
         }
 
         return () => {
-            if (currentVideoRef) {
+             if (currentVideoRef) {
                 observer.unobserve(currentVideoRef);
             }
+            if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                 // The destroy function might not exist if the API didn't load, so we check for it.
+                try {
+                    playerRef.current.destroy();
+                    playerRef.current = null;
+                } catch (e) {
+                    console.error("Error destroying YouTube player:", e);
+                }
+            }
+            (window as any).onYouTubeIframeAPIReady = undefined;
         };
-    }, []);
+    }, [videoId]);
+    
+    const toggleMute = () => {
+      if (!playerRef.current) return;
+      if (playerRef.current.isMuted()) {
+        playerRef.current.unMute();
+        setIsMuted(false);
+      } else {
+        playerRef.current.mute();
+        setIsMuted(true);
+      }
+    };
 
 
-    return <div ref={videoRef} id="youtube-player-food-business" className="w-full aspect-video rounded-xl shadow-2xl" />;
+    return (
+        <div ref={videoRef} className="relative">
+            <div id="youtube-player-food-business" className="w-full aspect-video rounded-xl shadow-2xl" />
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleMute}
+                className="absolute bottom-4 right-4 z-10 bg-black/50 text-white hover:bg-black/70 hover:text-white"
+            >
+                {isMuted ? <VolumeX /> : <Volume2 />}
+                <span className="sr-only">{isMuted ? 'Unmute' : 'Mute'}</span>
+            </Button>
+        </div>
+    );
 };
 
 

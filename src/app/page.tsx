@@ -10,7 +10,6 @@ import { OfferStackSection } from '@/components/sections/offer-stack-section';
 import { FaqSection } from '@/components/sections/faq-section';
 import { MarqueeSection } from '@/components/sections/marquee-section';
 import { ClientLogosSection } from '@/components/sections/client-logos-section';
-import { UpcomingEventSection } from '@/components/sections/upcoming-event-section';
 import { ContactSection } from '@/components/sections/contact-section';
 
 const marqueePhrases1 = [
@@ -38,7 +37,6 @@ export default function Home() {
       <AboutSection />
       <StorySection />
       <ValuePropSection />
-      <UpcomingEventSection />
       <ClientLogosSection />
       <ScrollingGallerySection />
       <HowItWorksSection />

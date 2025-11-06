@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit/zod';
+import { z } from 'zod';
 
 export const SalesAuditInputSchema = z.object({
   businessName: z.string().describe('The name of the business being audited.'),

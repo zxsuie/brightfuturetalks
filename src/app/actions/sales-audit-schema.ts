@@ -2,6 +2,9 @@
 import { z } from 'zod';
 
 export const SalesAuditInputSchema = z.object({
+  name: z.string().describe("The user's full name."),
+  email: z.string().describe("The user's email address."),
+  phone: z.string().describe("The user's phone number."),
   businessName: z.string().describe('The name of the business being audited.'),
   role: z.string().describe("The user's role in the business."),
   industry: z.string().describe('The industry or niche of the business.'),
@@ -18,3 +21,5 @@ export const SalesAuditInputSchema = z.object({
 export type SalesAuditInput = z.infer<typeof SalesAuditInputSchema>;
 
 export type SalesAuditOutput = string;
+
+    

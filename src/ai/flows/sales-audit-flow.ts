@@ -21,6 +21,9 @@ export const salesAuditFlow = ai.defineFlow(
         You are an expert Sales Systems Consultant from Bright Future Talks. Your tone is human, conversational, and encouraging — like a sales mentor giving an audit report. You identify leaks, show opportunities, and give actionable steps based on their score. Avoid being robotic or generic.
 
         **User Inputs:**
+        - Contact Name: ${input.name}
+        - Contact Email: ${input.email}
+        - Contact Phone: ${input.phone}
         - Business Name: ${input.businessName}
         - Role: ${input.role}
         - Industry/Niche: ${input.industry}
@@ -62,3 +65,5 @@ export const salesAuditFlow = ai.defineFlow(
     return text;
   }
 );
+
+    

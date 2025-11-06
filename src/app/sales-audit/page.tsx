@@ -26,6 +26,9 @@ import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const salesAuditSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('A valid email is required'),
+  phone: z.string().min(1, 'Phone number is required'),
   businessName: z.string().min(1, 'Business name is required'),
   role: z.string().min(1, 'Your role is required'),
   industry: z.string().min(1, 'Industry or niche is required'),
@@ -87,7 +90,7 @@ const RatingQuestion = ({ form, name, question }: { form: any, name: keyof Sales
   );
 
 const steps = [
-    { id: 1, title: 'Business Snapshot 📸', fields: ['businessName', 'role', 'industry', 'revenueBracket', 'salesChannel'] },
+    { id: 1, title: 'Business Snapshot 📸', fields: ['name', 'email', 'phone', 'businessName', 'role', 'industry', 'revenueBracket', 'salesChannel'] },
     { id: 2, title: 'Sales System Clarity ⚙️', fields: ['clarityQ1', 'clarityQ2', 'clarityQ3', 'clarityQ4', 'clarityQ5'] },
     { id: 3, title: 'Lead Generation & Conversion 💰', fields: ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'] },
     { id: 4, title: 'Sales Team Performance 🔍', fields: ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'] },
@@ -104,6 +107,9 @@ export default function SalesAuditPage() {
   const form = useForm<SalesAuditFormValues>({
     resolver: zodResolver(salesAuditSchema),
     defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
       businessName: '',
       role: '',
       industry: '',
@@ -218,6 +224,9 @@ export default function SalesAuditPage() {
                         <fieldset className="space-y-6">
                             <legend className="font-headline text-xl font-bold pb-2 mb-4 w-full">Part 1: Business Snapshot 📸</legend>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <FormField control={form.control} name="name" render={({ field }) => (<FormItem><FormLabel>Your Name</FormLabel><FormControl><Input placeholder="e.g., Juan dela Cruz" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="email" render={({ field }) => (<FormItem><FormLabel>Your Email</FormLabel><FormControl><Input placeholder="e.g., juan@example.com" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="phone" render={({ field }) => (<FormItem><FormLabel>Your Phone Number</FormLabel><FormControl><Input placeholder="e.g., 09123456789" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField
@@ -408,3 +417,5 @@ export default function SalesAuditPage() {
     </div>
   );
 }
+
+    

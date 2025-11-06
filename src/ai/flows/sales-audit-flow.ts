@@ -7,24 +7,8 @@
  */
 
 import { ai } from '@/ai/genkit';
+import { SalesAuditInputSchema } from '@/app/actions/generate-sales-audit';
 import { z } from 'zod';
-
-export const SalesAuditInputSchema = z.object({
-  businessName: z.string().describe('The name of the business being audited.'),
-  role: z.string().describe("The user's role in the business."),
-  industry: z.string().describe('The industry or niche of the business.'),
-  revenueBracket: z.string().describe('The average monthly revenue of the business.'),
-  salesChannel: z.string().describe('The primary sales channel of the business.'),
-  clarityScore: z.number().describe('A score out of 25 representing sales system clarity.'),
-  leadScore: z.number().describe('A score out of 25 representing lead generation and conversion effectiveness.'),
-  teamScore: z.number().describe('A score out of 25 representing sales team performance.'),
-  totalScore: z.number().describe('The total score out of 75.'),
-  challenge: z.string().describe('The biggest sales challenge the user is facing.'),
-  desiredOutcome: z.string().describe('The desired outcome from improving their sales system.'),
-});
-export type SalesAuditInput = z.infer<typeof SalesAuditInputSchema>;
-
-export type SalesAuditOutput = string;
 
 export const salesAuditFlow = ai.defineFlow(
   {
@@ -61,7 +45,7 @@ export const salesAuditFlow = ai.defineFlow(
            - 🔹 Sales System Clarity → interpret their clarityScore (show what’s working or missing)
            - 🔹 Lead Generation & Conversion → interpret leadScore (focus on lead flow and conversion quality)
            - 🔹 Sales Team Performance → interpret teamScore (focus on leadership, motivation, training)
-        4. Then generate **3–5 Actionable Recommendations**. Phrase it like a mentor giving direct advice. Focus on the 'what' and 'why' for the user.
+        4. Then generate **3–5 Actionable Recommendations**. Phrase it like a mentor giving direct advice. Focus on the 'what' and 'why' for the user. These should be direct and not sales-oriented.
            - Example Format: "**Document your process flow:** This is the first step to creating a scalable system. It ensures no lead falls through the cracks and everyone on the team knows what to do."
            - Use short bullets with verbs (e.g. “Implement CRM tracking”, “Set weekly conversion reviews”)
         5. Close with a **motivational next-step CTA** based on score:

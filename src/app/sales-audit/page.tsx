@@ -100,7 +100,8 @@ export default function SalesAuditPage() {
     },
   });
 
-  const watchAllFields = form.watch();
+  const watchedValues = form.watch();
+  const watchedValuesString = JSON.stringify(watchedValues);
 
   useEffect(() => {
     const calculateScores = () => {
@@ -108,7 +109,7 @@ export default function SalesAuditPage() {
       const leadKeys: (keyof SalesAuditFormValues)[] = ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'];
       const teamKeys: (keyof SalesAuditFormValues)[] = ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'];
       
-      const getScore = (keys: (keyof SalesAuditFormValues)[]) => keys.reduce((acc, key) => acc + (parseInt(watchAllFields[key] as string) || 0), 0);
+      const getScore = (keys: (keyof SalesAuditFormValues)[]) => keys.reduce((acc, key) => acc + (parseInt(watchedValues[key] as string) || 0), 0);
 
       const clarityScore = getScore(clarityKeys);
       const leadScore = getScore(leadKeys);
@@ -118,7 +119,7 @@ export default function SalesAuditPage() {
       setScores({ clarity: clarityScore, lead: leadScore, team: teamScore, total: totalScore });
     };
     calculateScores();
-  }, [watchAllFields]);
+  }, [watchedValuesString, watchedValues]);
 
 
   async function onSubmit(values: SalesAuditFormValues) {
@@ -223,7 +224,7 @@ export default function SalesAuditPage() {
                                     <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Others" /></FormControl><FormLabel className="font-normal">Others</FormLabel></FormItem>
                                 </RadioGroup>
                             </FormControl>
-                            {watchAllFields.salesChannel === 'Others' && (
+                            {watchedValues.salesChannel === 'Others' && (
                                <FormField control={form.control} name="otherSalesChannel" render={({ field }) => (<FormItem><FormControl><Input placeholder="Please specify" {...field} className="mt-2" /></FormControl><FormMessage /></FormItem>)} />
                             )}
                             <FormMessage />

@@ -52,10 +52,7 @@ export const salesAuditFlow = ai.defineFlow(
         4. Then generate **3–5 Actionable Recommendations**. Phrase it like a mentor giving direct advice. Focus on the 'what' and 'why' for the user. These should be direct and not sales-oriented.
            - Example Format: "**Document your process flow:** This is the first step to creating a scalable system. It ensures no lead falls through the cracks and everyone on the team knows what to do."
            - Use short bullets with verbs (e.g. “Implement CRM tracking”, “Set weekly conversion reviews”)
-        5. Close with a **personalized next-step CTA**. This should encourage the user to book a "Sales Audit Review" to discuss their results. For example: "The next step is to discuss these results. Book a free Sales Audit Review with our team, and let's create a tailored action plan for ${input.businessName}."
-        6. End with an encouraging final line — something like:
-           “Remember, clarity and consistency drive predictable growth 🚀 — and you’re already taking the right step.”
-
+        
         **Format:**
         Use emojis sparingly to add energy.
         Output in clean markdown for web rendering.

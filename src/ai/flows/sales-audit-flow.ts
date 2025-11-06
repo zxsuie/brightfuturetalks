@@ -1,5 +1,4 @@
 
-'use server';
 /**
  * @fileOverview A sales audit AI agent.
  *

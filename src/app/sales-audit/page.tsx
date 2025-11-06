@@ -45,7 +45,7 @@ const salesAuditSchema = z.object({
   leadQ1: z.string({ required_error: "Score is required." }),
   leadQ2: z.string({ required_error: "Score is required." }),
   leadQ3: z.string({ required_error: "Score is required." }),
-  leadQ4: z_string({ required_error: "Score is required." }),
+  leadQ4: z.string({ required_error: "Score is required." }),
   leadQ5: z.string({ required_error: "Score is required." }),
 
   teamQ1: z.string({ required_error: "Score is required." }),
@@ -154,12 +154,20 @@ export default function SalesAuditPage() {
 
     try {
       const result = await generateSalesAudit({ 
-        ...(values as z.infer<typeof salesAuditSchema>),
-        salesChannel: finalSalesChannel,
+        name: values.name || '',
+        email: values.email || '',
+        phone: values.phone || '',
+        businessName: values.businessName || '',
+        role: values.role || '',
+        industry: values.industry || '',
+        revenueBracket: values.revenueBracket || '',
+        salesChannel: finalSalesChannel || '',
         clarityScore: clarityScore,
         leadScore: leadScore,
         teamScore: teamScore,
         totalScore: totalScore,
+        challenge: values.challenge || '',
+        desiredOutcome: values.desiredOutcome || '',
        });
       setAuditResult(result);
       const resultElement = document.getElementById('audit-results');
@@ -176,9 +184,9 @@ export default function SalesAuditPage() {
   }
   
   const getStatus = (score: number) => {
-    if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system lacks foundational structure, leading to unpredictable sales outcomes.' };
+    if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system lacks foundational structure, leading to unpredictable sales outcomes and high-effort, low-reward results.' };
     if (score <= 50) return { status: '⚙️ Inconsistent Performance', message: 'Some effective processes are in place, but inconsistencies are likely causing revenue leaks and hindering growth.' };
-    return { status: '🚀 Ready to Scale', message: 'A strong sales system is in place, demonstrating readiness for advanced automation and strategic scaling.' };
+    return { status: '🚀 Ready to Scale', message: 'A strong sales system is in place, demonstrating readiness for advanced automation and strategic scaling to enter new markets or expand offerings.' };
   };
 
   const getRecommendation = (score: number) => {
@@ -420,5 +428,3 @@ export default function SalesAuditPage() {
     </div>
   );
 }
-
-    

@@ -1,5 +1,4 @@
 
-'use server';
 /**
  * @fileOverview A sales audit AI agent.
  *
@@ -7,8 +6,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { SalesAuditInputSchema } from '@/app/actions/generate-sales-audit';
 import { z } from 'zod';
+import { SalesAuditInputSchema } from '@/app/actions/sales-audit-schema';
 
 export const salesAuditFlow = ai.defineFlow(
   {

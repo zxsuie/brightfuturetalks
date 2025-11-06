@@ -57,7 +57,7 @@ const salesAuditSchema = z.object({
 
   challenge: z.string().min(1, 'This field is required'),
   desiredOutcome: z.string().min(1, 'This field is required'),
-}).partial(); // Make all fields optional to allow partial validation per step
+});
 
 type SalesAuditFormValues = z.infer<typeof salesAuditSchema>;
 
@@ -237,12 +237,15 @@ export default function SalesAuditPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <FormField control={form.control} name="name" render={({ field }) => (<FormItem><FormLabel>Your Name</FormLabel><FormControl><Input placeholder="e.g., Juan dela Cruz" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="email" render={({ field }) => (<FormItem><FormLabel>Your Email</FormLabel><FormControl><Input placeholder="e.g., juan@example.com" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                                <div className="md:col-span-2 grid grid-cols-[auto_1fr] gap-x-2">
+                                
+                                <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-6">
                                   <FormField control={form.control} name="countryCode" render={({ field }) => (<FormItem><FormLabel>Code</FormLabel><FormControl><Input placeholder="+63" {...field} className="w-20" /></FormControl><FormMessage /></FormItem>)} />
                                   <FormField control={form.control} name="phone" render={({ field }) => (<FormItem><FormLabel>Phone Number</FormLabel><FormControl><Input placeholder="912 345 6789" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                  <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 </div>
-                                <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
+
                                 <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                
                                 <FormField
                                   control={form.control}
                                   name="industry"

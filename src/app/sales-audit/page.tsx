@@ -31,7 +31,7 @@ const salesAuditSchema = z.object({
   countryCode: z.string().min(1, 'Code is required'),
   phone: z.string().min(1, 'Phone number is required'),
   businessName: z.string().min(1, 'Business name is required'),
-  role: z.string().min(1, 'Your role is required'),
+  role: z.string({ required_error: "Your role is required." }),
   industry: z.string().min(1, 'Industry or niche is required'),
   revenueBracket: z.string({ required_error: "Please select a revenue bracket." }),
   salesChannel: z.string({ required_error: "Please select a sales channel." }),
@@ -244,7 +244,32 @@ export default function SalesAuditPage() {
                                   <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 </div>
 
-                                <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField
+                                  control={form.control}
+                                  name="role"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Your Role</FormLabel>
+                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                          <SelectTrigger>
+                                            <SelectValue placeholder="Select your role" />
+                                          </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                          <SelectItem value="Founder / Owner">Founder / Owner</SelectItem>
+                                          <SelectItem value="CEO / Executive">CEO / Executive</SelectItem>
+                                          <SelectItem value="Sales Manager">Sales Manager</SelectItem>
+                                          <SelectItem value="Sales Representative">Sales Representative</SelectItem>
+                                          <SelectItem value="Marketing">Marketing</SelectItem>
+                                          <SelectItem value="Operations">Operations</SelectItem>
+                                          <SelectItem value="Other">Other</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
                                 
                                 <FormField
                                   control={form.control}
@@ -437,3 +462,5 @@ export default function SalesAuditPage() {
     </div>
   );
 }
+
+    

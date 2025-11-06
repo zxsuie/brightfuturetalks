@@ -99,6 +99,7 @@ export default function SalesAuditPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [auditResult, setAuditResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useForm<SalesAuditFormValues>({
     resolver: zodResolver(salesAuditSchema),
@@ -140,6 +141,7 @@ export default function SalesAuditPage() {
 
   async function onSubmit(values: SalesAuditFormValues) {
     setIsLoading(true);
+    setIsSubmitted(true);
     setAuditResult('');
 
     const finalSalesChannel = values.salesChannel === 'Others' ? values.otherSalesChannel || 'Others' : values.salesChannel;
@@ -195,7 +197,8 @@ export default function SalesAuditPage() {
           </p>
         </div>
       </AnimatedSection>
-
+        
+      {!isSubmitted && (
       <AnimatedSection className="mt-12">
         <Card className="shadow-lg border-primary/20">
           <CardHeader>
@@ -351,24 +354,27 @@ export default function SalesAuditPage() {
             </Form>
         </Card>
       </AnimatedSection>
+      )}
       
       <div id="audit-results">
         {isLoading && (
             <AnimatedSection className="mt-12">
-                <Card className="shadow-lg animate-pulse">
-                    <CardHeader>
-                        <CardTitle className="font-headline text-2xl">Generating Your Sales Audit...</CardTitle>
+                <Card className="shadow-lg">
+                    <CardHeader className="items-center text-center">
+                        <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                        <CardTitle className="font-headline text-2xl mt-4">Our AI is assessing your answers...</CardTitle>
+                        <CardDescription>This will just take a moment. Your personalized report is being generated.</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="h-4 bg-muted rounded w-3/4"></div>
-                        <div className="h-4 bg-muted rounded w-1/2"></div>
-                        <div className="h-4 bg-muted rounded w-full"></div>
-                        <div className="h-4 bg-muted rounded w-2/3"></div>
+                    <CardContent className="space-y-4 pt-4">
+                        <div className="h-4 bg-muted rounded w-3/4 mx-auto animate-pulse"></div>
+                        <div className="h-4 bg-muted rounded w-1/2 mx-auto animate-pulse delay-75"></div>
+                        <div className="h-4 bg-muted rounded w-full mx-auto animate-pulse delay-150"></div>
+                        <div className="h-4 bg-muted rounded w-2/3 mx-auto animate-pulse delay-200"></div>
                     </CardContent>
                 </Card>
             </AnimatedSection>
         )}
-        {auditResult && (
+        {auditResult && !isLoading && (
             <AnimatedSection className="mt-12">
                 <Card className="shadow-lg border-2 border-primary">
                     <CardHeader>
@@ -382,7 +388,7 @@ export default function SalesAuditPage() {
         )}
       </div>
 
-       {auditResult && (
+       {auditResult && !isLoading && (
          <AnimatedSection className="mt-16 text-center">
             <Card className="bg-accent/40">
             <CardHeader>
@@ -402,5 +408,3 @@ export default function SalesAuditPage() {
     </div>
   );
 }
-
-    

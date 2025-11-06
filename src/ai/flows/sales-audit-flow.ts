@@ -1,4 +1,5 @@
 
+'use server';
 /**
  * @fileOverview A sales audit AI agent.
  *
@@ -50,7 +51,7 @@ export const salesAuditFlow = ai.defineFlow(
         - Desired Outcome: ${input.desiredOutcome}
 
         **Instructions for output:**
-        1. Start with a **short personalized headline**, e.g.  
+        1. Start with a **short personalized headline**, e.g.
            “Hey ${input.businessName} Team — here’s what your Sales Audit reveals 👇”
         2. Provide a **brief summary paragraph (2–3 sentences)** about their current sales system health based on totalScore.
            - If below 30 → highlight instability and missing structure.
@@ -60,8 +61,9 @@ export const salesAuditFlow = ai.defineFlow(
            - 🔹 Sales System Clarity → interpret their clarityScore (show what’s working or missing)
            - 🔹 Lead Generation & Conversion → interpret leadScore (focus on lead flow and conversion quality)
            - 🔹 Sales Team Performance → interpret teamScore (focus on leadership, motivation, training)
-        4. Then generate **3–5 Actionable Recommendations**, phrased like a mentor:
-           - Use short bullets with verbs (e.g. “Document your process flow”, “Implement CRM tracking”, “Set weekly conversion reviews”)
+        4. Then generate **3–5 Actionable Recommendations**. For each recommendation, phrase it like a mentor and briefly explain how Bright Future Talks helps achieve it.
+           - Example Format: "**Document your process flow:** This is the first step to creating a scalable system. *We help our partners map out their entire sales journey to ensure no lead falls through the cracks.*"
+           - Use short bullets with verbs (e.g. “Implement CRM tracking”, “Set weekly conversion reviews”)
         5. Close with a **motivational next-step CTA** based on score:
            - If totalScore < 30 → “Book a free discovery call to fix your sales foundation.”
            - If 30–50 → “Join our 1-on-1 Sales Coaching to strengthen your system.”

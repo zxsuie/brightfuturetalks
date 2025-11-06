@@ -233,9 +233,16 @@ export default function SalesAuditPage() {
                                           <SelectItem value="B2B Services">B2B Services</SelectItem>
                                           <SelectItem value="B2C E-commerce">B2C E-commerce</SelectItem>
                                           <SelectItem value="SaaS">SaaS (Software as a Service)</SelectItem>
+                                          <SelectItem value="Agency (Marketing, Creative, etc.)">Agency (Marketing, Creative, etc.)</SelectItem>
                                           <SelectItem value="Education / Coaching">Education / Coaching</SelectItem>
                                           <SelectItem value="Health & Wellness">Health & Wellness</SelectItem>
+                                          <SelectItem value="Financial Services">Financial Services</SelectItem>
                                           <SelectItem value="Real Estate">Real Estate</SelectItem>
+                                          <SelectItem value="Manufacturing">Manufacturing</SelectItem>
+                                          <SelectItem value="Construction">Construction</SelectItem>
+                                          <SelectItem value="Retail">Retail</SelectItem>
+                                          <SelectItem value="Hospitality">Hospitality</SelectItem>
+                                          <SelectItem value="Non-Profit">Non-Profit</SelectItem>
                                           <SelectItem value="Other">Other</SelectItem>
                                         </SelectContent>
                                       </Select>

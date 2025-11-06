@@ -23,6 +23,7 @@ import { Bot, Loader2, FileText, MoveRight, MoveLeft } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const salesAuditSchema = z.object({
   businessName: z.string().min(1, 'Business name is required'),
@@ -124,8 +125,6 @@ export default function SalesAuditPage() {
   const leadScore = getScore(leadKeys);
   const teamScore = getScore(teamKeys);
   const totalScore = clarityScore + leadScore + teamScore;
-
-  const scores = { clarity: clarityScore, lead: leadScore, team: teamScore, total: totalScore };
   
   const nextStep = async () => {
     const fieldsToValidate = steps[currentStep - 1].fields as (keyof SalesAuditFormValues)[];
@@ -149,10 +148,10 @@ export default function SalesAuditPage() {
       const result = await generateSalesAudit({ 
         ...(values as z.infer<typeof salesAuditSchema>),
         salesChannel: finalSalesChannel,
-        clarityScore: scores.clarity,
-        leadScore: scores.lead,
-        teamScore: scores.team,
-        totalScore: scores.total,
+        clarityScore: clarityScore,
+        leadScore: leadScore,
+        teamScore: teamScore,
+        totalScore: totalScore,
        });
       setAuditResult(result);
       const resultElement = document.getElementById('audit-results');
@@ -218,7 +217,32 @@ export default function SalesAuditPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                                <FormField control={form.control} name="industry" render={({ field }) => (<FormItem><FormLabel>Industry / Niche</FormLabel><FormControl><Input placeholder="e.g., B2B SaaS, E-commerce" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField
+                                  control={form.control}
+                                  name="industry"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Industry / Niche</FormLabel>
+                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                          <SelectTrigger>
+                                            <SelectValue placeholder="Select your industry" />
+                                          </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                          <SelectItem value="B2B Services">B2B Services</SelectItem>
+                                          <SelectItem value="B2C E-commerce">B2C E-commerce</SelectItem>
+                                          <SelectItem value="SaaS">SaaS (Software as a Service)</SelectItem>
+                                          <SelectItem value="Education / Coaching">Education / Coaching</SelectItem>
+                                          <SelectItem value="Health & Wellness">Health & Wellness</SelectItem>
+                                          <SelectItem value="Real Estate">Real Estate</SelectItem>
+                                          <SelectItem value="Other">Other</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
                             </div>
                             <FormField control={form.control} name="revenueBracket" render={({ field }) => (
                                 <FormItem className="space-y-3"><FormLabel>Average Monthly Revenue</FormLabel>

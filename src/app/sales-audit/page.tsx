@@ -1,6 +1,6 @@
 
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -19,9 +19,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { generateSalesAudit } from '@/app/actions/generate-sales-audit';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bot, Loader2, FileText, Building, Briefcase, DollarSign, Goal } from 'lucide-react';
+import { Bot, Loader2, FileText } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const salesAuditSchema = z.object({
@@ -86,7 +85,6 @@ const RatingQuestion = ({ form, name, question }: { form: any, name: keyof Sales
 export default function SalesAuditPage() {
   const [auditResult, setAuditResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [scores, setScores] = useState({ clarity: 0, lead: 0, team: 0, total: 0 });
 
   const form = useForm<SalesAuditFormValues>({
     resolver: zodResolver(salesAuditSchema),
@@ -101,26 +99,19 @@ export default function SalesAuditPage() {
   });
 
   const watchedValues = form.watch();
-  const watchedValuesString = JSON.stringify(watchedValues);
 
-  useEffect(() => {
-    const calculateScores = () => {
-      const clarityKeys: (keyof SalesAuditFormValues)[] = ['clarityQ1', 'clarityQ2', 'clarityQ3', 'clarityQ4', 'clarityQ5'];
-      const leadKeys: (keyof SalesAuditFormValues)[] = ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'];
-      const teamKeys: (keyof SalesAuditFormValues)[] = ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'];
-      
-      const getScore = (keys: (keyof SalesAuditFormValues)[]) => keys.reduce((acc, key) => acc + (parseInt(watchedValues[key] as string) || 0), 0);
+  const clarityKeys: (keyof SalesAuditFormValues)[] = ['clarityQ1', 'clarityQ2', 'clarityQ3', 'clarityQ4', 'clarityQ5'];
+  const leadKeys: (keyof SalesAuditFormValues)[] = ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'];
+  const teamKeys: (keyof SalesAuditFormValues)[] = ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'];
+  
+  const getScore = (keys: (keyof SalesAuditFormValues)[]) => keys.reduce((acc, key) => acc + (parseInt(watchedValues[key] as string) || 0), 0);
 
-      const clarityScore = getScore(clarityKeys);
-      const leadScore = getScore(leadKeys);
-      const teamScore = getScore(teamKeys);
-      const totalScore = clarityScore + leadScore + teamScore;
+  const clarityScore = getScore(clarityKeys);
+  const leadScore = getScore(leadKeys);
+  const teamScore = getScore(teamKeys);
+  const totalScore = clarityScore + leadScore + teamScore;
 
-      setScores({ clarity: clarityScore, lead: leadScore, team: teamScore, total: totalScore });
-    };
-    calculateScores();
-  }, [watchedValuesString, watchedValues]);
-
+  const scores = { clarity: clarityScore, lead: leadScore, team: teamScore, total: totalScore };
 
   async function onSubmit(values: SalesAuditFormValues) {
     setIsLoading(true);
@@ -335,5 +326,3 @@ export default function SalesAuditPage() {
     </div>
   );
 }
-
-    

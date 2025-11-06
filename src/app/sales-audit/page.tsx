@@ -18,8 +18,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from '@/components/ui/textarea';
 import { generateSalesAudit } from '@/app/actions/generate-sales-audit';
 import { AnimatedSection } from '@/components/ui/animated-section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bot, Loader2, FileText } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Bot, Loader2, FileText, MoveRight, MoveLeft } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 
@@ -51,13 +52,12 @@ const salesAuditSchema = z.object({
 
   challenge: z.string().min(1, 'This field is required'),
   desiredOutcome: z.string().min(1, 'This field is required'),
-});
+}).partial(); // Make all fields optional to allow partial validation per step
 
 type SalesAuditFormValues = z.infer<typeof salesAuditSchema>;
 
-
 const RatingQuestion = ({ form, name, question }: { form: any, name: keyof SalesAuditFormValues, question: string }) => (
-    <div className="grid grid-cols-[1fr_auto] items-center gap-4 py-2 border-b">
+    <div className="grid grid-cols-[1fr_auto] items-center gap-4 py-3 border-b last:border-b-0">
       <p className="text-sm">{question}</p>
       <Controller
         control={form.control}
@@ -73,16 +73,29 @@ const RatingQuestion = ({ form, name, question }: { form: any, name: keyof Sales
                 <FormControl>
                   <RadioGroupItem value={String(val)} id={`${name}-${val}`} />
                 </FormControl>
-                <FormLabel htmlFor={`${name}-${val}`} className="text-xs">{val}</FormLabel>
+                <FormLabel htmlFor={`${name}-${val}`} className="text-xs cursor-pointer">{val}</FormLabel>
               </FormItem>
             ))}
           </RadioGroup>
         )}
       />
+       <div className="col-span-2 -mt-2">
+            <FormMessage />
+        </div>
     </div>
   );
 
+const steps = [
+    { id: 1, title: 'Business Snapshot 📸', fields: ['businessName', 'role', 'industry', 'revenueBracket', 'salesChannel'] },
+    { id: 2, title: 'Sales System Clarity ⚙️', fields: ['clarityQ1', 'clarityQ2', 'clarityQ3', 'clarityQ4', 'clarityQ5'] },
+    { id: 3, title: 'Lead Generation & Conversion 💰', fields: ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'] },
+    { id: 4, title: 'Sales Team Performance 🔍', fields: ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'] },
+    { id: 5, title: 'Quick Reflection 💡', fields: ['challenge', 'desiredOutcome'] }
+];
+const totalSteps = steps.length;
+
 export default function SalesAuditPage() {
+  const [currentStep, setCurrentStep] = useState(1);
   const [auditResult, setAuditResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -96,6 +109,7 @@ export default function SalesAuditPage() {
       challenge: '',
       desiredOutcome: '',
     },
+    mode: 'onChange'
   });
 
   const watchedValues = form.watch();
@@ -112,6 +126,18 @@ export default function SalesAuditPage() {
   const totalScore = clarityScore + leadScore + teamScore;
 
   const scores = { clarity: clarityScore, lead: leadScore, team: teamScore, total: totalScore };
+  
+  const nextStep = async () => {
+    const fieldsToValidate = steps[currentStep - 1].fields as (keyof SalesAuditFormValues)[];
+    const isValid = await form.trigger(fieldsToValidate);
+    if (isValid) {
+      setCurrentStep(prev => prev + 1);
+    }
+  }
+
+  const prevStep = () => {
+    setCurrentStep(prev => prev - 1);
+  }
 
   async function onSubmit(values: SalesAuditFormValues) {
     setIsLoading(true);
@@ -121,7 +147,7 @@ export default function SalesAuditPage() {
 
     try {
       const result = await generateSalesAudit({ 
-        ...values, 
+        ...(values as z.infer<typeof salesAuditSchema>),
         salesChannel: finalSalesChannel,
         clarityScore: scores.clarity,
         leadScore: scores.lead,
@@ -154,8 +180,8 @@ export default function SalesAuditPage() {
     return { text: "Let’s discuss automation or scaling through our Sales Plug-In Partnership.", href: "https://cal.com/brightfuturetalks/bright-future-session"};
   };
 
-  const scoreStatus = getStatus(scores.total);
-  const recommendation = getRecommendation(scores.total);
+  const scoreStatus = getStatus(totalScore);
+  const recommendation = getRecommendation(totalScore);
 
   return (
     <div className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-16">
@@ -171,7 +197,6 @@ export default function SalesAuditPage() {
         </div>
       </AnimatedSection>
 
-
       <AnimatedSection className="mt-12">
         <Card className="shadow-lg border-primary/20">
           <CardHeader>
@@ -179,101 +204,120 @@ export default function SalesAuditPage() {
               <FileText className="w-6 h-6 text-primary" /> Your Sales Health Check
             </CardTitle>
             <CardDescription>Fill this out to get your personalized AI-generated report.</CardDescription>
+            <div className="pt-4">
+                <Progress value={(currentStep / totalSteps) * 100} />
+                <p className="text-center text-sm text-muted-foreground mt-2">Step {currentStep} of {totalSteps}</p>
+            </div>
           </CardHeader>
-          <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-                
-                {/* Part 1 */}
-                <fieldset className="space-y-6">
-                    <legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 1: Business Snapshot 📸</legend>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                      <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                      <FormField control={form.control} name="industry" render={({ field }) => (<FormItem><FormLabel>Industry / Niche</FormLabel><FormControl><Input placeholder="e.g., B2B SaaS, E-commerce" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                    </div>
-                    <FormField control={form.control} name="revenueBracket" render={({ field }) => (
-                        <FormItem className="space-y-3"><FormLabel>Average Monthly Revenue</FormLabel>
-                            <FormControl>
-                                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col md:flex-row gap-4">
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Below ₱100K" /></FormControl><FormLabel className="font-normal">Below ₱100K</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱100K–₱500K" /></FormControl><FormLabel className="font-normal">₱100K–₱500K</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱500K–₱1M" /></FormControl><FormLabel className="font-normal">₱500K–₱1M</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱1M+" /></FormControl><FormLabel className="font-normal">₱1M+</FormLabel></FormItem>
-                                </RadioGroup>
-                            </FormControl><FormMessage />
-                        </FormItem>
-                    )} />
-                    <FormField control={form.control} name="salesChannel" render={({ field }) => (
-                        <FormItem className="space-y-3"><FormLabel>Primary Sales Channel</FormLabel>
-                            <FormControl>
-                                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col md:flex-row gap-4">
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Social Media DMs" /></FormControl><FormLabel className="font-normal">Social Media DMs</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Website Leads" /></FormControl><FormLabel className="font-normal">Website Leads</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Referrals" /></FormControl><FormLabel className="font-normal">Referrals</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Cold Calls / Email" /></FormControl><FormLabel className="font-normal">Cold Calls / Email</FormLabel></FormItem>
-                                    <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Others" /></FormControl><FormLabel className="font-normal">Others</FormLabel></FormItem>
-                                </RadioGroup>
-                            </FormControl>
-                            {watchedValues.salesChannel === 'Others' && (
-                               <FormField control={form.control} name="otherSalesChannel" render={({ field }) => (<FormItem><FormControl><Input placeholder="Please specify" {...field} className="mt-2" /></FormControl><FormMessage /></FormItem>)} />
-                            )}
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                </fieldset>
-                
-                {/* Part 2, 3, 4 */}
-                <fieldset className="space-y-6"><legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 2: Sales System Clarity ⚙️</legend>
-                    <RatingQuestion form={form} name="clarityQ1" question="Do you have a clear, documented sales process?" />
-                    <RatingQuestion form={form} name="clarityQ2" question="Are roles and responsibilities defined in your sales team?" />
-                    <RatingQuestion form={form} name="clarityQ3" question="Do you track lead-to-close conversion rates?" />
-                    <RatingQuestion form={form} name="clarityQ4" question="Do you use any CRM or automation tool?" />
-                    <RatingQuestion form={form} name="clarityQ5" question="Do you have a daily/weekly sales activity tracker?" />
-                    <div className="text-right font-bold">Subtotal: {scores.clarity}/25</div>
-                </fieldset>
-
-                <fieldset className="space-y-6"><legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 3: Lead Generation & Conversion 💰</legend>
-                    <RatingQuestion form={form} name="leadQ1" question="Do you consistently get new leads every week?" />
-                    <RatingQuestion form={form} name="leadQ2" question="Are your leads qualified before being contacted?" />
-                    <RatingQuestion form={form} name="leadQ3" question="Do you have a nurturing system (emails, messages, remarketing)?" />
-                    <RatingQuestion form={form} name="leadQ4" question="Are your closing rates above 20%?" />
-                    <RatingQuestion form={form} name="leadQ5" question="Do you have follow-up strategies for non-responders?" />
-                    <div className="text-right font-bold">Subtotal: {scores.lead}/25</div>
-                </fieldset>
-
-                <fieldset className="space-y-6"><legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 4: Sales Team Performance 🔍</legend>
-                    <RatingQuestion form={form} name="teamQ1" question="Do your salespeople consistently hit targets?" />
-                    <RatingQuestion form={form} name="teamQ2" question="Do you provide training or coaching regularly?" />
-                    <RatingQuestion form={form} name="teamQ3" question="Is your team motivated and monitored weekly?" />
-                    <RatingQuestion form={form} name="teamQ4" question="Do they understand your brand’s value proposition?" />
-                    <RatingQuestion form={form} name="teamQ5" question="Do you reward or incentivize high performance?" />
-                    <div className="text-right font-bold">Subtotal: {scores.team}/25</div>
-                </fieldset>
-
-                {/* Part 5 */}
-                <Card><CardHeader><CardTitle>Part 5: Overall Sales System Health</CardTitle></CardHeader>
-                  <CardContent>
-                    <div className="text-center p-4 bg-muted rounded-lg">
-                      <div className="text-lg">Total Score</div>
-                      <div className="text-5xl font-bold text-primary">{scores.total}/75</div>
-                      <div className="mt-2"><span className="font-bold">{scoreStatus.status}</span>: {scoreStatus.message}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Part 6 */}
-                <fieldset className="space-y-6"><legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 6: Quick Reflection 💡</legend>
-                  <FormField control={form.control} name="challenge" render={({ field }) => (<FormItem><FormLabel>What’s your biggest sales challenge right now?</FormLabel><FormControl><Textarea placeholder="e.g., converting leads, team performance, consistency, etc." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="desiredOutcome" render={({ field }) => (<FormItem><FormLabel>What would it mean for your business if you could fix this in the next 30 days?</FormLabel><FormControl><Textarea placeholder="e.g., Double our revenue, free up my time..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                </fieldset>
-
-                <Button type="submit" size="lg" disabled={isLoading} className="w-full text-lg">
-                  {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Generating Your Free Audit...</> : 'Generate My AI Sales Audit'}
-                </Button>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <CardContent className="min-h-[300px]">
+                    {currentStep === 1 && (
+                        <fieldset className="space-y-6">
+                            <legend className="font-headline text-xl font-bold pb-2 mb-4 w-full">Part 1: Business Snapshot 📸</legend>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="industry" render={({ field }) => (<FormItem><FormLabel>Industry / Niche</FormLabel><FormControl><Input placeholder="e.g., B2B SaaS, E-commerce" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                            </div>
+                            <FormField control={form.control} name="revenueBracket" render={({ field }) => (
+                                <FormItem className="space-y-3"><FormLabel>Average Monthly Revenue</FormLabel>
+                                    <FormControl>
+                                        <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col md:flex-row gap-4">
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Below ₱100K" /></FormControl><FormLabel className="font-normal cursor-pointer">Below ₱100K</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱100K–₱500K" /></FormControl><FormLabel className="font-normal cursor-pointer">₱100K–₱500K</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱500K–₱1M" /></FormControl><FormLabel className="font-normal cursor-pointer">₱500K–₱1M</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="₱1M+" /></FormControl><FormLabel className="font-normal cursor-pointer">₱1M+</FormLabel></FormItem>
+                                        </RadioGroup>
+                                    </FormControl><FormMessage />
+                                </FormItem>
+                            )} />
+                            <FormField control={form.control} name="salesChannel" render={({ field }) => (
+                                <FormItem className="space-y-3"><FormLabel>Primary Sales Channel</FormLabel>
+                                    <FormControl>
+                                        <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col md:flex-row gap-4">
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Social Media DMs" /></FormControl><FormLabel className="font-normal cursor-pointer">Social Media DMs</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Website Leads" /></FormControl><FormLabel className="font-normal cursor-pointer">Website Leads</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Referrals" /></FormControl><FormLabel className="font-normal cursor-pointer">Referrals</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Cold Calls / Email" /></FormControl><FormLabel className="font-normal cursor-pointer">Cold Calls / Email</FormLabel></FormItem>
+                                            <FormItem className="flex items-center space-x-2"><FormControl><RadioGroupItem value="Others" /></FormControl><FormLabel className="font-normal cursor-pointer">Others</FormLabel></FormItem>
+                                        </RadioGroup>
+                                    </FormControl>
+                                    {watchedValues.salesChannel === 'Others' && (
+                                    <FormField control={form.control} name="otherSalesChannel" render={({ field }) => (<FormItem><FormControl><Input placeholder="Please specify" {...field} className="mt-2" /></FormControl><FormMessage /></FormItem>)} />
+                                    )}
+                                    <FormMessage />
+                                </FormItem>
+                            )} />
+                        </fieldset>
+                    )}
+                    {currentStep === 2 && (
+                        <fieldset className="space-y-4"><legend className="font-headline text-xl font-bold pb-2 mb-4 w-full">Part 2: Sales System Clarity ⚙️</legend>
+                            <RatingQuestion form={form} name="clarityQ1" question="Do you have a clear, documented sales process?" />
+                            <RatingQuestion form={form} name="clarityQ2" question="Are roles and responsibilities defined in your sales team?" />
+                            <RatingQuestion form={form} name="clarityQ3" question="Do you track lead-to-close conversion rates?" />
+                            <RatingQuestion form={form} name="clarityQ4" question="Do you use any CRM or automation tool?" />
+                            <RatingQuestion form={form} name="clarityQ5" question="Do you have a daily/weekly sales activity tracker?" />
+                            <div className="text-right font-bold pt-4">Subtotal: {clarityScore}/25</div>
+                        </fieldset>
+                    )}
+                    {currentStep === 3 && (
+                        <fieldset className="space-y-4"><legend className="font-headline text-xl font-bold pb-2 mb-4 w-full">Part 3: Lead Generation & Conversion 💰</legend>
+                            <RatingQuestion form={form} name="leadQ1" question="Do you consistently get new leads every week?" />
+                            <RatingQuestion form={form} name="leadQ2" question="Are your leads qualified before being contacted?" />
+                            <RatingQuestion form={form} name="leadQ3" question="Do you have a nurturing system (emails, messages, remarketing)?" />
+                            <RatingQuestion form={form} name="leadQ4" question="Are your closing rates above 20%?" />
+                            <RatingQuestion form={form} name="leadQ5" question="Do you have follow-up strategies for non-responders?" />
+                            <div className="text-right font-bold pt-4">Subtotal: {leadScore}/25</div>
+                        </fieldset>
+                    )}
+                    {currentStep === 4 && (
+                       <fieldset className="space-y-4"><legend className="font-headline text-xl font-bold pb-2 mb-4 w-full">Part 4: Sales Team Performance 🔍</legend>
+                            <RatingQuestion form={form} name="teamQ1" question="Do your salespeople consistently hit targets?" />
+                            <RatingQuestion form={form} name="teamQ2" question="Do you provide training or coaching regularly?" />
+                            <RatingQuestion form={form} name="teamQ3" question="Is your team motivated and monitored weekly?" />
+                            <RatingQuestion form={form} name="teamQ4" question="Do they understand your brand’s value proposition?" />
+                            <RatingQuestion form={form} name="teamQ5" question="Do you reward or incentivize high performance?" />
+                            <div className="text-right font-bold pt-4">Subtotal: {teamScore}/25</div>
+                        </fieldset>
+                    )}
+                     {currentStep === 5 && (
+                        <>
+                        <Card className="mb-6"><CardHeader><CardTitle>Part 5: Overall Sales System Health</CardTitle></CardHeader>
+                          <CardContent>
+                            <div className="text-center p-4 bg-muted rounded-lg">
+                              <div className="text-lg">Total Score</div>
+                              <div className="text-5xl font-bold text-primary">{totalScore}/75</div>
+                              <div className="mt-2"><span className="font-bold">{scoreStatus.status}</span>: {scoreStatus.message}</div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                        <fieldset className="space-y-6"><legend className="font-headline text-xl font-bold border-b pb-2 mb-4 w-full">Part 6: Quick Reflection 💡</legend>
+                          <FormField control={form.control} name="challenge" render={({ field }) => (<FormItem><FormLabel>What’s your biggest sales challenge right now?</FormLabel><FormControl><Textarea placeholder="e.g., converting leads, team performance, consistency, etc." {...field} /></FormControl><FormMessage /></FormItem>)} />
+                          <FormField control={form.control} name="desiredOutcome" render={({ field }) => (<FormItem><FormLabel>What would it mean for your business if you could fix this in the next 30 days?</FormLabel><FormControl><Textarea placeholder="e.g., Double our revenue, free up my time..." {...field} /></FormControl><FormMessage /></FormItem>)} />
+                        </fieldset>
+                        </>
+                    )}
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                    {currentStep > 1 && (
+                        <Button type="button" variant="outline" onClick={prevStep}>
+                            <MoveLeft className="mr-2 h-4 w-4" /> Back
+                        </Button>
+                    )}
+                    {currentStep < totalSteps && (
+                        <Button type="button" onClick={nextStep} className="ml-auto">
+                            Next <MoveRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    )}
+                     {currentStep === totalSteps && (
+                        <Button type="submit" size="lg" disabled={isLoading} className="w-full text-lg ml-auto">
+                        {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Generating Your Free Audit...</> : 'Generate My AI Sales Audit'}
+                        </Button>
+                    )}
+                </CardFooter>
               </form>
             </Form>
-          </CardContent>
         </Card>
       </AnimatedSection>
       
@@ -307,22 +351,25 @@ export default function SalesAuditPage() {
         )}
       </div>
 
-       {/* Part 7 */}
-       <AnimatedSection className="mt-16 text-center">
-        <Card className="bg-accent/40">
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl">🧠 Part 7: Your Recommended Next Step</CardTitle>
-          </CardHeader>
-          <CardContent>
-             <p className="text-lg mb-4">Based on your score of <strong className="text-primary">{scores.total}</strong>, here’s what we recommend:</p>
-             <Button asChild size="lg">
-                <Link href={recommendation.href} target="_blank" rel="noopener noreferrer">
-                    {recommendation.text}
-                </Link>
-             </Button>
-          </CardContent>
-        </Card>
-      </AnimatedSection>
+       {auditResult && (
+         <AnimatedSection className="mt-16 text-center">
+            <Card className="bg-accent/40">
+            <CardHeader>
+                <CardTitle className="font-headline text-2xl">🧠 Your Recommended Next Step</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-lg mb-4">Based on your score of <strong className="text-primary">{totalScore}</strong>, here’s what we recommend:</p>
+                <Button asChild size="lg">
+                    <Link href={recommendation.href} target="_blank" rel="noopener noreferrer">
+                        {recommendation.text}
+                    </Link>
+                </Button>
+            </CardContent>
+            </Card>
+        </AnimatedSection>
+       )}
     </div>
   );
 }
+
+    

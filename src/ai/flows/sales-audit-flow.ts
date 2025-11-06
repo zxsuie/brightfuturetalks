@@ -1,4 +1,5 @@
 
+'use server';
 /**
  * @fileOverview A sales audit AI agent.
  *
@@ -60,8 +61,8 @@ export const salesAuditFlow = ai.defineFlow(
            - 🔹 Sales System Clarity → interpret their clarityScore (show what’s working or missing)
            - 🔹 Lead Generation & Conversion → interpret leadScore (focus on lead flow and conversion quality)
            - 🔹 Sales Team Performance → interpret teamScore (focus on leadership, motivation, training)
-        4. Then generate **3–5 Actionable Recommendations**. For each recommendation, phrase it like a mentor and briefly explain how Bright Future Talks helps achieve it.
-           - Example Format: "**Document your process flow:** This is the first step to creating a scalable system. *We help our partners map out their entire sales journey to ensure no lead falls through the cracks.*"
+        4. Then generate **3–5 Actionable Recommendations**. Phrase it like a mentor giving direct advice. Focus on the 'what' and 'why' for the user.
+           - Example Format: "**Document your process flow:** This is the first step to creating a scalable system. It ensures no lead falls through the cracks and everyone on the team knows what to do."
            - Use short bullets with verbs (e.g. “Implement CRM tracking”, “Set weekly conversion reviews”)
         5. Close with a **motivational next-step CTA** based on score:
            - If totalScore < 30 → “Book a free discovery call to fix your sales foundation.”

@@ -45,7 +45,7 @@ const salesAuditSchema = z.object({
   leadQ1: z.string({ required_error: "Score is required." }),
   leadQ2: z.string({ required_error: "Score is required." }),
   leadQ3: z.string({ required_error: "Score is required." }),
-  leadQ4: z.string({ required_error: "Score is required." }),
+  leadQ4: z_string({ required_error: "Score is required." }),
   leadQ5: z.string({ required_error: "Score is required." }),
 
   teamQ1: z.string({ required_error: "Score is required." }),
@@ -176,9 +176,9 @@ export default function SalesAuditPage() {
   }
   
   const getStatus = (score: number) => {
-    if (score <= 30) return { status: '🚨 Needs a Plug-In ASAP', message: 'No structure or system; sales dependent on luck or effort.' };
-    if (score <= 50) return { status: '⚙️ Inconsistent', message: 'Some systems exist, but leaks cause lost sales.' };
-    return { status: '🚀 Scalable', message: 'System is working; ready for automation or team scaling.' };
+    if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system lacks foundational structure, leading to unpredictable sales outcomes.' };
+    if (score <= 50) return { status: '⚙️ Inconsistent Performance', message: 'Some effective processes are in place, but inconsistencies are likely causing revenue leaks and hindering growth.' };
+    return { status: '🚀 Ready to Scale', message: 'A strong sales system is in place, demonstrating readiness for advanced automation and strategic scaling.' };
   };
 
   const getRecommendation = (score: number) => {
@@ -254,6 +254,9 @@ export default function SalesAuditPage() {
                                           <SelectItem value="Construction">Construction</SelectItem>
                                           <SelectItem value="Retail">Retail</SelectItem>
                                           <SelectItem value="Hospitality">Hospitality</SelectItem>
+                                          <SelectItem value="Food & Beverage">Food & Beverage</SelectItem>
+                                          <SelectItem value="Technology / IT">Technology / IT</SelectItem>
+                                          <SelectItem value="Automotive">Automotive</SelectItem>
                                           <SelectItem value="Non-Profit">Non-Profit</SelectItem>
                                           <SelectItem value="Other">Other</SelectItem>
                                         </SelectContent>

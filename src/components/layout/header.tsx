@@ -59,8 +59,8 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-             <Link href="/sales-audit" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground flex items-center gap-1">
-                <Bot className="h-4 w-4" /> Sales Audit
+             <Link href="/sales-audit" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                Sales Audit
               </Link>
           </nav>
           <Button size="sm" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
@@ -101,8 +101,8 @@ export function Header() {
                         {link.label}
                       </Link>
                     ))}
-                     <Link href="/sales-audit" className="text-lg font-medium text-foreground transition-colors hover:text-primary flex items-center gap-2">
-                        <Bot className="h-5 w-5" /> Sales Audit
+                     <Link href="/sales-audit" className="text-lg font-medium text-foreground transition-colors hover:text-primary">
+                        Sales Audit
                       </Link>
                   </nav>
                   <div className="flex flex-col gap-2">

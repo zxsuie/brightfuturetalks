@@ -37,7 +37,8 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  phone: z.string().min(10, {
+  countryCode: z.string().min(1, "Code required"),
+  phone: z.string().min(5, {
       message: "Please enter a valid phone number."
   })
 })
@@ -73,19 +74,34 @@ const RegistrationForm = ({ form, onSubmit, className }: { form: UseFormReturn<F
                 </FormItem>
             )}
             />
-            <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                    <Input placeholder="09123456789" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
+             <div className="grid grid-cols-[auto_1fr] gap-x-2">
+                <FormField
+                    control={form.control}
+                    name="countryCode"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Code</FormLabel>
+                        <FormControl>
+                        <Input placeholder="+63" {...field} className="w-20" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                        <Input placeholder="912 345 6789" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
+            </div>
             <Button type="submit" size="lg" className="w-full transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
                 Secure My Spot
             </Button>
@@ -318,6 +334,7 @@ export default function SalesPage() {
     defaultValues: {
       name: "",
       email: "",
+      countryCode: "+63",
       phone: "",
     },
   })
@@ -326,13 +343,15 @@ export default function SalesPage() {
     const listId = "TiBf86";
     const apiKey = "UgxRfS";
     
+    const fullPhoneNumber = `${values.countryCode}${values.phone}`;
+    
     const formData = new FormData();
     formData.append('g', listId);
     formData.append('email', values.email);
     formData.append('$fields', '$first_name,$last_name,phone_number');
     formData.append('$first_name', values.name.split(' ')[0]);
     formData.append('$last_name', values.name.split(' ').slice(1).join(' '));
-    formData.append('phone_number', values.phone);
+    formData.append('phone_number', fullPhoneNumber);
 
     try {
         const response = await fetch(`https://manage.kmail-lists.com/ajax/subscriptions/subscribe`, {

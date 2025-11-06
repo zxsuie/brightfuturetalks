@@ -28,6 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 const salesAuditSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('A valid email is required'),
+  countryCode: z.string().min(1, 'Code is required'),
   phone: z.string().min(1, 'Phone number is required'),
   businessName: z.string().min(1, 'Business name is required'),
   role: z.string().min(1, 'Your role is required'),
@@ -90,7 +91,7 @@ const RatingQuestion = ({ form, name, question }: { form: any, name: keyof Sales
   );
 
 const steps = [
-    { id: 1, title: 'Business Snapshot 📸', fields: ['name', 'email', 'phone', 'businessName', 'role', 'industry', 'revenueBracket', 'salesChannel'] },
+    { id: 1, title: 'Business Snapshot 📸', fields: ['name', 'email', 'countryCode', 'phone', 'businessName', 'role', 'industry', 'revenueBracket', 'salesChannel'] },
     { id: 2, title: 'Sales System Clarity ⚙️', fields: ['clarityQ1', 'clarityQ2', 'clarityQ3', 'clarityQ4', 'clarityQ5'] },
     { id: 3, title: 'Lead Generation & Conversion 💰', fields: ['leadQ1', 'leadQ2', 'leadQ3', 'leadQ4', 'leadQ5'] },
     { id: 4, title: 'Sales Team Performance 🔍', fields: ['teamQ1', 'teamQ2', 'teamQ3', 'teamQ4', 'teamQ5'] },
@@ -109,6 +110,7 @@ export default function SalesAuditPage() {
     defaultValues: {
       name: '',
       email: '',
+      countryCode: '+63',
       phone: '',
       businessName: '',
       role: '',
@@ -151,12 +153,13 @@ export default function SalesAuditPage() {
     setAuditResult('');
 
     const finalSalesChannel = values.salesChannel === 'Others' ? values.otherSalesChannel || 'Others' : values.salesChannel;
+    const fullPhoneNumber = `${values.countryCode}${values.phone}`;
 
     try {
       const result = await generateSalesAudit({ 
         name: values.name || '',
         email: values.email || '',
-        phone: values.phone || '',
+        phone: fullPhoneNumber,
         businessName: values.businessName || '',
         role: values.role || '',
         industry: values.industry || '',
@@ -234,7 +237,10 @@ export default function SalesAuditPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <FormField control={form.control} name="name" render={({ field }) => (<FormItem><FormLabel>Your Name</FormLabel><FormControl><Input placeholder="e.g., Juan dela Cruz" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="email" render={({ field }) => (<FormItem><FormLabel>Your Email</FormLabel><FormControl><Input placeholder="e.g., juan@example.com" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                                <FormField control={form.control} name="phone" render={({ field }) => (<FormItem><FormLabel>Your Phone Number</FormLabel><FormControl><Input placeholder="e.g., 09123456789" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <div className="md:col-span-2 grid grid-cols-[auto_1fr] gap-x-2">
+                                  <FormField control={form.control} name="countryCode" render={({ field }) => (<FormItem><FormLabel>Code</FormLabel><FormControl><Input placeholder="+63" {...field} className="w-20" /></FormControl><FormMessage /></FormItem>)} />
+                                  <FormField control={form.control} name="phone" render={({ field }) => (<FormItem><FormLabel>Phone Number</FormLabel><FormControl><Input placeholder="912 345 6789" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                </div>
                                 <FormField control={form.control} name="businessName" render={({ field }) => (<FormItem><FormLabel>Business Name</FormLabel><FormControl><Input placeholder="Your Company" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Your Role</FormLabel><FormControl><Input placeholder="e.g., Founder, CEO" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormField
@@ -428,3 +434,5 @@ export default function SalesAuditPage() {
     </div>
   );
 }
+
+    

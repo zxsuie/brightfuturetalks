@@ -4,16 +4,16 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { Menu, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#process", label: "Process" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "/#about", label: "About" },
+  { href: "/#process", label: "Process" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#testimonials", label: "Testimonials" },
 ];
 
 export function Header() {
@@ -59,6 +59,9 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+             <Link href="/sales-audit" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground flex items-center gap-1">
+                <Bot className="h-4 w-4" /> Sales Audit
+              </Link>
           </nav>
           <Button size="sm" asChild className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1">
             <Link href="#pricing">Get Started</Link>
@@ -98,6 +101,9 @@ export function Header() {
                         {link.label}
                       </Link>
                     ))}
+                     <Link href="/sales-audit" className="text-lg font-medium text-foreground transition-colors hover:text-primary flex items-center gap-2">
+                        <Bot className="h-5 w-5" /> Sales Audit
+                      </Link>
                   </nav>
                   <div className="flex flex-col gap-2">
                     <Button variant="outline" asChild>

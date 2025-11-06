@@ -28,11 +28,6 @@ export type SalesAuditInput = z.infer<typeof SalesAuditInputSchema>;
 
 export type SalesAuditOutput = string;
 
-export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesAuditOutput> {
-  const { text } = await salesAuditFlow(input);
-  return text;
-}
-
 const salesAuditFlow = ai.defineFlow(
   {
     name: 'salesAuditFlow',
@@ -82,6 +77,10 @@ const salesAuditFlow = ai.defineFlow(
         Output in clean markdown for web rendering.
         `,
     });
-    return { text };
+    return text;
   }
 );
+
+export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesAuditOutput> {
+  return salesAuditFlow(input);
+}

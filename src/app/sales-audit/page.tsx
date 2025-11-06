@@ -187,15 +187,13 @@ export default function SalesAuditPage() {
   }
   
   const getStatus = (score: number) => {
-    if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system lacks foundational structure, leading to unpredictable sales outcomes and high-effort, low-reward results.' };
-    if (score <= 50) return { status: '⚙️ Inconsistent Performance', message: 'Some effective processes are in place, but inconsistencies are likely causing revenue leaks and hindering growth.' };
+    if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system shows critical gaps in its foundational structure, leading to unpredictable sales outcomes and high-effort, low-reward results.' };
+    if (score <= 50) return { status: '⚙️ Inconsistent Performance', message: 'Some effective processes are in place, but inconsistencies are causing revenue leaks and creating a barrier to scalable growth.' };
     return { status: '🚀 Ready to Scale', message: 'A strong sales system is in place, demonstrating readiness for advanced automation and strategic scaling to enter new markets or expand offerings.' };
   };
 
   const getRecommendation = (score: number) => {
-    if (score <= 30) return { text: "Book a free discovery call with our team to design your Sales Plug-In system.", href: "https://cal.com/brightfuturetalks/bright-future-session"};
-    if (score <= 50) return { text: "Join our “1-on-1 Sales Coaching” to build your internal system step-by-step.", href: "#pricing"};
-    return { text: "Let’s discuss automation or scaling through our Sales Plug-In Partnership.", href: "https://cal.com/brightfuturetalks/bright-future-session"};
+    return { text: "Book a Free Sales Audit Review", href: "https://cal.com/brightfuturetalks/sales-audit-review"};
   };
 
   const scoreStatus = getStatus(totalScore);
@@ -449,7 +447,7 @@ export default function SalesAuditPage() {
                 <CardTitle className="font-headline text-2xl">🧠 Your Recommended Next Step</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-lg mb-4">Based on your score of <strong className="text-primary">{totalScore}</strong>, here’s what we recommend:</p>
+                <p className="text-lg mb-4">Based on your score of <strong className="text-primary">{totalScore}</strong>, let's discuss these results in detail.</p>
                 <Button asChild size="lg">
                     <Link href={recommendation.href} target="_blank" rel="noopener noreferrer">
                         {recommendation.text}
@@ -462,5 +460,3 @@ export default function SalesAuditPage() {
     </div>
   );
 }
-
-    

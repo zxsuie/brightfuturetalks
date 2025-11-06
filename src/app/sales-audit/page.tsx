@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
-import { generateSalesAudit, type SalesAuditInput } from '@/ai/flows/sales-audit-flow';
+import { generateSalesAudit } from '@/app/actions/generate-sales-audit';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bot, Loader2 } from 'lucide-react';

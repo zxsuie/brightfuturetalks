@@ -1,11 +1,8 @@
 
-'use server';
 /**
  * @fileOverview A sales audit AI agent.
  *
- * - generateSalesAudit - A function that handles the sales audit generation process.
- * - SalesAuditInput - The input type for the generateSalesAudit function.
- * - SalesAuditOutput - The return type for the generateSalesAudit function.
+ * This file defines the core Genkit flow for generating a sales audit.
  */
 
 import { ai } from '@/ai/genkit';
@@ -28,7 +25,7 @@ export type SalesAuditInput = z.infer<typeof SalesAuditInputSchema>;
 
 export type SalesAuditOutput = string;
 
-const salesAuditFlow = ai.defineFlow(
+export const salesAuditFlow = ai.defineFlow(
   {
     name: 'salesAuditFlow',
     inputSchema: SalesAuditInputSchema,
@@ -80,7 +77,3 @@ const salesAuditFlow = ai.defineFlow(
     return text;
   }
 );
-
-export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesAuditOutput> {
-  return salesAuditFlow(input);
-}

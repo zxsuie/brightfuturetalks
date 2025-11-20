@@ -156,22 +156,41 @@ export default function SalesAuditPage() {
     const fullPhoneNumber = `${values.countryCode}${values.phone}`;
 
     try {
-      const result = await generateSalesAudit({ 
-        name: values.name || '',
-        email: values.email || '',
+      const result = await generateSalesAudit({
+        name: values.name,
+        email: values.email,
         phone: fullPhoneNumber,
-        businessName: values.businessName || '',
-        role: values.role || '',
-        industry: values.industry || '',
-        revenueBracket: values.revenueBracket || '',
-        salesChannel: finalSalesChannel || '',
-        clarityScore: clarityScore,
-        leadScore: leadScore,
-        teamScore: teamScore,
-        totalScore: totalScore,
-        challenge: values.challenge || '',
-        desiredOutcome: values.desiredOutcome || '',
-       });
+        businessName: values.businessName,
+        role: values.role,
+        industry: values.industry,
+        revenueBracket: values.revenueBracket,
+        salesChannel: finalSalesChannel,
+        
+        clarityQ1: values.clarityQ1,
+        clarityQ2: values.clarityQ2,
+        clarityQ3: values.clarityQ3,
+        clarityQ4: values.clarityQ4,
+        clarityQ5: values.clarityQ5,
+        
+        leadQ1: values.leadQ1,
+        leadQ2: values.leadQ2,
+        leadQ3: values.leadQ3,
+        leadQ4: values.leadQ4,
+        leadQ5: values.leadQ5,
+        
+        teamQ1: values.teamQ1,
+        teamQ2: values.teamQ2,
+        teamQ3: values.teamQ3,
+        teamQ4: values.teamQ4,
+        teamQ5: values.teamQ5,
+
+        clarityScore,
+        leadScore,
+        teamScore,
+        totalScore,
+        challenge: values.challenge,
+        desiredOutcome: values.desiredOutcome,
+      });
       setAuditResult(result);
       const resultElement = document.getElementById('audit-results');
       if (resultElement) {
@@ -460,3 +479,5 @@ export default function SalesAuditPage() {
     </div>
   );
 }
+
+    

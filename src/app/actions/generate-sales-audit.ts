@@ -25,6 +25,7 @@ export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesA
       headers: {
         'Content-Type': 'application/json',
       },
+      // Ensure all fields from the form and the result are sent
       body: JSON.stringify({
         ...parsedInput,
         auditResult: auditResult,

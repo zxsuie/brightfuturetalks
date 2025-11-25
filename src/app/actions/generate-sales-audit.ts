@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview Server Action for generating a sales audit.
+ * @fileOverview Server Action for generating a sales audit and requesting PDF via email.
  * This file acts as the bridge between the client-side component and the Genkit AI flow.
  * It also sends the final data to a Make.com webhook.
  */
@@ -32,6 +32,7 @@ export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesA
       // Ensure all fields from the form and the HTML result are sent
       body: JSON.stringify({
         ...parsedInput,
+        requestType: 'GENERATE_AUDIT', // Flag for the initial audit
         auditResult: auditResultHtml,
       }),
     }).catch(error => {
@@ -46,4 +47,30 @@ export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesA
   return auditResultMarkdown;
 }
 
+export async function requestPdfViaWebhook(data: SalesAuditInput & { auditResult: string }): Promise<{ success: boolean }> {
+  if (!process.env.MAKE_WEBHOOK_URL) {
+    console.warn('MAKE_WEBHOOK_URL is not set. Cannot send PDF request.');
+    return { success: false };
+  }
+
+  try {
+    const auditResultHtml = await marked.parse(data.auditResult);
+
+    await fetch(process.env.MAKE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...data,
+        requestType: 'SEND_PDF', // Specific flag for the PDF email request
+        auditResult: auditResultHtml,
+      }),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error sending PDF request to Make.com webhook:', error);
+    return { success: false };
+  }
+}
     

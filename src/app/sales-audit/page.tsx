@@ -16,14 +16,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from '@/components/ui/textarea';
-import { generateSalesAudit } from '@/app/actions/generate-sales-audit';
+import { generateSalesAudit, requestPdfViaWebhook } from '@/app/actions/generate-sales-audit';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Bot, Loader2, FileText, MoveRight, MoveLeft } from 'lucide-react';
+import { Bot, Loader2, FileText, MoveRight, MoveLeft, Download, MailCheck } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
 const salesAuditSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -101,9 +102,15 @@ const totalSteps = steps.length;
 
 export default function SalesAuditPage() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [auditResult, setAuditResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [auditResult, setAuditResult] = useState('');
+  const [auditData, setAuditData] = useState<SalesAuditFormValues | null>(null);
+
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+
+  const { toast } = useToast();
 
   const form = useForm<SalesAuditFormValues>({
     resolver: zodResolver(salesAuditSchema),
@@ -151,47 +158,25 @@ export default function SalesAuditPage() {
     setIsLoading(true);
     setIsSubmitted(true);
     setAuditResult('');
+    setAuditData(null);
 
     const finalSalesChannel = values.salesChannel === 'Others' ? values.otherSalesChannel || 'Others' : values.salesChannel;
     const fullPhoneNumber = `${values.countryCode}${values.phone}`;
 
-    try {
-      const result = await generateSalesAudit({
-        name: values.name,
-        email: values.email,
+    const submissionData = {
+        ...values,
         phone: fullPhoneNumber,
-        businessName: values.businessName,
-        role: values.role,
-        industry: values.industry,
-        revenueBracket: values.revenueBracket,
         salesChannel: finalSalesChannel,
-        
-        clarityQ1: values.clarityQ1,
-        clarityQ2: values.clarityQ2,
-        clarityQ3: values.clarityQ3,
-        clarityQ4: values.clarityQ4,
-        clarityQ5: values.clarityQ5,
-        
-        leadQ1: values.leadQ1,
-        leadQ2: values.leadQ2,
-        leadQ3: values.leadQ3,
-        leadQ4: values.leadQ4,
-        leadQ5: values.leadQ5,
-        
-        teamQ1: values.teamQ1,
-        teamQ2: values.teamQ2,
-        teamQ3: values.teamQ3,
-        teamQ4: values.teamQ4,
-        teamQ5: values.teamQ5,
-
         clarityScore,
         leadScore,
         teamScore,
         totalScore,
-        challenge: values.challenge,
-        desiredOutcome: values.desiredOutcome,
-      });
+      };
+
+    try {
+      const result = await generateSalesAudit(submissionData);
       setAuditResult(result);
+      setAuditData(submissionData); // Store all data
       const resultElement = document.getElementById('audit-results');
       if (resultElement) {
           resultElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -204,6 +189,39 @@ export default function SalesAuditPage() {
       setIsLoading(false);
     }
   }
+
+   const handleSendPdf = async () => {
+    if (!auditData || !auditResult) return;
+
+    setIsSendingEmail(true);
+    setEmailSent(false);
+
+    try {
+      const result = await requestPdfViaWebhook({
+        ...auditData,
+        auditResult: auditResult,
+      });
+
+      if (result.success) {
+        setEmailSent(true);
+        toast({
+          title: "Email on its way!",
+          description: "We've sent a copy of your PDF report to your email.",
+        });
+      } else {
+        throw new Error('Server failed to send PDF request.');
+      }
+    } catch (error) {
+      console.error('Error requesting PDF email:', error);
+      toast({
+        variant: "destructive",
+        title: "Oh no!",
+        description: "Something went wrong. Please try again in a moment.",
+      });
+    } finally {
+      setIsSendingEmail(false);
+    }
+  };
   
   const getStatus = (score: number) => {
     if (score <= 30) return { status: '🚨 Foundational Gaps', message: 'The current system shows critical gaps in its foundational structure, leading to unpredictable sales outcomes and high-effort, low-reward results.' };
@@ -463,15 +481,36 @@ export default function SalesAuditPage() {
          <AnimatedSection className="mt-16 text-center">
             <Card className="bg-accent/40">
             <CardHeader>
-                <CardTitle className="font-headline text-2xl">🧠 Your Recommended Next Step</CardTitle>
+                <CardTitle className="font-headline text-2xl">🧠 Your Recommended Next Steps</CardTitle>
             </CardHeader>
-            <CardContent>
-                <p className="text-lg mb-4">Based on your score of <strong className="text-primary">{totalScore}</strong>, let's discuss these results in detail.</p>
+            <CardContent className="flex flex-col items-center gap-4">
+                <p className="text-lg mb-2">Based on your score of <strong className="text-primary">{totalScore}</strong>, let's discuss these results in detail.</p>
                 <Button asChild size="lg">
                     <Link href={recommendation.href} target="_blank" rel="noopener noreferrer">
-                        {recommendation.text}
+                        Book a Free Sales Audit Review
                     </Link>
                 </Button>
+                
+                <div className="w-full border-t my-4"></div>
+
+                {emailSent ? (
+                    <div className="flex items-center gap-2 text-green-600 font-medium">
+                        <MailCheck className="h-5 w-5" />
+                        <span>Report sent! Check your inbox.</span>
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center gap-2">
+                        <Button onClick={handleSendPdf} disabled={isSendingEmail} variant="secondary">
+                          {isSendingEmail ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <Download className="mr-2 h-4 w-4" />
+                          )}
+                          Send PDF Report to my Email
+                        </Button>
+                        <p className="text-xs text-muted-foreground">Your report link will be available for 1 hour.</p>
+                    </div>
+                )}
             </CardContent>
             </Card>
         </AnimatedSection>

@@ -25,6 +25,8 @@ import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+
 
 const salesAuditSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -105,10 +107,11 @@ export default function SalesAuditPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [auditResult, setAuditResult] = useState('');
-  const [auditData, setAuditData] = useState<SalesAuditFormValues | null>(null);
+  const [auditData, setAuditData] = useState<SalesAuditFormValues & { sendPdf: boolean } | null>(null);
 
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const { toast } = useToast();
 
@@ -154,12 +157,14 @@ export default function SalesAuditPage() {
     setCurrentStep(prev => prev - 1);
   }
 
-  async function onSubmit(values: SalesAuditFormValues) {
+  async function handleGenerate(sendPdf: boolean) {
+    setShowConfirmation(false);
     setIsLoading(true);
     setIsSubmitted(true);
     setAuditResult('');
     setAuditData(null);
 
+    const values = form.getValues();
     const finalSalesChannel = values.salesChannel === 'Others' ? values.otherSalesChannel || 'Others' : values.salesChannel;
     const fullPhoneNumber = `${values.countryCode}${values.phone}`;
 
@@ -171,23 +176,32 @@ export default function SalesAuditPage() {
         leadScore,
         teamScore,
         totalScore,
+        sendPdf,
       };
 
     try {
       const result = await generateSalesAudit(submissionData);
       setAuditResult(result);
-      setAuditData(submissionData); // Store all data
+      setAuditData(submissionData);
       const resultElement = document.getElementById('audit-results');
       if (resultElement) {
           resultElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-
     } catch (error) {
       console.error('Error generating sales audit:', error);
-      setAuditResult('Sorry, something went wrong while generating your audit. Please try again.');
+      toast({
+        variant: "destructive",
+        title: "Oh no!",
+        description: "Something went wrong while generating your audit. Please try again.",
+      });
+      setIsSubmitted(false); // Allow user to try again
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function onFormSubmit() {
+    setShowConfirmation(true);
   }
 
    const handleSendPdf = async () => {
@@ -237,6 +251,7 @@ export default function SalesAuditPage() {
   const recommendation = getRecommendation(totalScore);
 
   return (
+    <>
     <div className="container max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-16">
       <AnimatedSection>
         <div className="text-center">
@@ -264,7 +279,7 @@ export default function SalesAuditPage() {
             </div>
           </CardHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
+              <form onSubmit={form.handleSubmit(onFormSubmit)}>
                 <CardContent className="min-h-[300px]">
                     {currentStep === 1 && (
                         <fieldset className="space-y-6">
@@ -493,13 +508,22 @@ export default function SalesAuditPage() {
                 
                 <div className="w-full border-t my-4"></div>
 
-                {emailSent ? (
-                    <div className="flex items-center gap-2 text-green-600 font-medium">
-                        <MailCheck className="h-5 w-5" />
-                        <span>Report sent! Check your inbox.</span>
-                    </div>
-                ) : (
-                    <div className="flex flex-col items-center gap-2">
+                {auditData?.sendPdf && (
+                    emailSent ? (
+                        <div className="flex items-center gap-2 text-green-600 font-medium">
+                            <MailCheck className="h-5 w-5" />
+                            <span>Report sent! Check your inbox.</span>
+                        </div>
+                    ) : (
+                       <div className="flex items-center gap-2 text-muted-foreground font-medium">
+                            <Loader2 className="h-5 w-5 animate-spin" />
+                            <span>Sending PDF to your email...</span>
+                        </div>
+                    )
+                )}
+
+                {!auditData?.sendPdf && !emailSent && (
+                     <div className="flex flex-col items-center gap-2">
                         <Button onClick={handleSendPdf} disabled={isSendingEmail} variant="secondary">
                           {isSendingEmail ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -511,14 +535,42 @@ export default function SalesAuditPage() {
                         <p className="text-xs text-muted-foreground">Your report link will be available for 1 hour.</p>
                     </div>
                 )}
+                 {auditData?.sendPdf && emailSent && (
+                     <div className="flex flex-col items-center gap-2">
+                        <Button onClick={handleSendPdf} disabled={isSendingEmail} variant="secondary">
+                          {isSendingEmail ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          ) : (
+                            <Download className="mr-2 h-4 w-4" />
+                          )}
+                          Resend PDF Report
+                        </Button>
+                    </div>
+                )}
             </CardContent>
             </Card>
         </AnimatedSection>
        )}
     </div>
+
+    <AlertDialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <AlertDialogContent>
+        <AlertDialogHeader>
+            <AlertDialogTitle>Send PDF Report to Your Email?</AlertDialogTitle>
+            <AlertDialogDescription>
+            Would you like a copy of your full, personalized AI Sales Audit report sent to your email?
+            </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => handleGenerate(false)}>
+                No, Just Generate Report
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => handleGenerate(true)}>
+                Yes, Send PDF
+            </AlertDialogAction>
+        </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 }
-
-    
-
-    

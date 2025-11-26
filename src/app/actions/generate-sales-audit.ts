@@ -12,7 +12,7 @@ import { SalesAuditInputSchema, type SalesAuditInput, type SalesAuditOutput } fr
 import { marked } from 'marked';
 
 
-export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesAuditOutput> {
+export async function generateSalesAudit(input: SalesAuditInput & { sendPdf: boolean }): Promise<SalesAuditOutput> {
   // We can add validation here if needed before calling the flow
   const parsedInput = SalesAuditInputSchema.parse(input);
   
@@ -32,7 +32,7 @@ export async function generateSalesAudit(input: SalesAuditInput): Promise<SalesA
       // Ensure all fields from the form and the HTML result are sent
       body: JSON.stringify({
         ...parsedInput,
-        requestType: 'GENERATE_AUDIT', // Flag for the initial audit
+        requestType: input.sendPdf ? 'SEND_PDF' : 'GENERATE_AUDIT_ONLY', // Flag based on user consent
         auditResult: auditResultHtml,
       }),
     }).catch(error => {

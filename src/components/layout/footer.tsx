@@ -28,11 +28,12 @@ export function Footer() {
           <Image src="/BFT TEXT HORIZONTAL RED LOGO.png" alt="Bright Future Talks Logo" width={180} height={30} className="h-7 w-auto" />
         </div>
         <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
-            <Link href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link>
-            <Link href="#process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Process</Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
-            <Link href="#testimonials" className="text-sm text-muted-foreground hover:text-primary transition-colors">Testimonials</Link>
-            <Link href="#faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link>
+            <Link href="/#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link>
+            <Link href="/#process" className="text-sm text-muted-foreground hover:text-primary transition-colors">Process</Link>
+            <Link href="/#pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
+            <Link href="/#testimonials" className="text-sm text-muted-foreground hover:text-primary transition-colors">Testimonials</Link>
+            <Link href="/#faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link>
+            <Link href="/branding" className="text-sm text-muted-foreground hover:text-primary transition-colors">Branding</Link>
         </nav>
         <div className="flex gap-2">
             <Button variant="ghost" size="icon" asChild>
